@@ -41,8 +41,8 @@ if(isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_
     $fileName = $OutletName . '.' . $fileExtension;
 
     // Reduce image size
-    $reducedFilePath = 'reduced_' . $fileName;
-    reduceImageSize($fileToUpload, $reducedFilePath, 1000, 1000,); // Resize to 800x800 pixels
+    // $reducedFilePath = 'reduced_' . $fileName;
+    // reduceImageSize($fileToUpload, $reducedFilePath, 1000, 1000,);
 
     // Azure Blob Storage connection settings
     $connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
