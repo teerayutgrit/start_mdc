@@ -1,17 +1,9 @@
 <?php
+
+//session_check
+require_once 'session_check.php';
 // การเชื่อมต่อฐานข้อมูล SQL Server
 include("dbcon.php");
-
-session_start(); // Start the session
-
-// Check if the user is logged in
-if(isset($_SESSION["User_id"]) && isset($_SESSION["User_Name"])) {
-    $user_name = $_SESSION["User_Name"];
-} else {
-    // Redirect to the login page if not logged in
-    header("Location: login.php");
-    exit();
-}
 
 // อัปโหลดไฟล์ไปยัง Azure Blob Storage
 require_once 'vendor/autoload.php'; // Include Composer's autoloader
@@ -27,7 +19,7 @@ $postingdatetime = date("Y-m-d h:i:sa");
 $postingdate = date("Y-m-d");
 $Status01 = "Register";
 // แทนค่า status
-$processwork = "30";
+$processwork = "40";
 // รับค่าจากฟอร์ม
 $lat = $_POST['lat'];
 $lng = $_POST['lng'];
@@ -50,7 +42,7 @@ if(isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_
 
     // Reduce image size
     $reducedFilePath = 'reduced_' . $fileName;
-    reduceImageSize($fileToUpload, $reducedFilePath, 1000, 1000,); // Resize to 800x800 pixels
+    reduceImageSize($fileToUpload, $reducedFilePath, 1000, 1000,);
 
     // Azure Blob Storage connection settings
     $connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
@@ -89,7 +81,7 @@ if ($stmt === false) {
 
 
 
-echo "<script> alert('Saved'); window.location='salevisit_newtest.php';</script>";
+echo "<script> alert('Saved'); window.location='salevisit_new.php';</script>";
 
 // ปิดการเชื่อมต่อฐานข้อมูล
 sqlsrv_close($conn);
@@ -113,6 +105,14 @@ function reduceImageSize($sourceFile, $destFile, $maxWidth, $maxHeight) {
     imagedestroy($dst);
 }
 ?>
+
+
+
+
+
+
+
+
 
 
 
