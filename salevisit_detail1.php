@@ -32,8 +32,15 @@ include 'dbcon.php';
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
 
+    </script>
+    <script>
+    $(document).ready(function() {
+        $('#deleteButton').on('click', function() {
+            $('#deleteConfirmationModal').modal('show');
+        });
+    });
+    </script>
     <style>
     #map {
         height: 500px;
@@ -639,8 +646,7 @@ include 'dbcon.php';
                                         </script>
                                         <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>
                                         <div class="row col-12">
-                                            <div class="d-grid gap-1 col-6 " 
-                                                style="margin:15px 10px 10px 10px; ">
+                                            <div class="d-grid gap-1 col-6 " style="margin:15px 10px 10px 10px; ">
                                                 <!-- <div class="card-body h5 " style="padding: 10px 10px 10px 10px;">
                                                     </div> -->
                                                 <form action="salevisit_edit.php" method="post">
@@ -649,25 +655,36 @@ include 'dbcon.php';
                                                     <input name="Edit" type="submit" class="btn btn-info text-white"
                                                         value="นำเสนอสินค้าและเทส" />
                                                 </form>
+                                                
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                                        onClick="location.href='re_visitmaintest.php'">Black</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                        data-target="#deleteConfirmationModal">Delete</button>
+                                               
                                             </div>
-                                            <div class="d-grid gap-1 col-6"
-                                                style="margin:15px 10px 10px 10px; ">
+                                            <div class="d-grid gap-1 col-6" style="margin:15px 10px 10px 10px; ">
                                                 <!-- <div class="card-body h5 " style="padding: 10px 10px 10px 10px;">
                                                     </div> -->
-                                                <form name="frmMain" action="actiondelete.php" method="post"
+                                                <form name="frmMain" action="actiondeletetest.php" method="post"
                                                     id="formdelete01">
-                                                    <input type="hidden" id="reason" name="reason">
-                                                    <input type="hidden" id="reqid" name="reqid"
-                                                        value="<?php echo $reqid; ?>">
-                                                    <input name="delete" type="submit" class="btn btn-danger"
-                                                        onclick="return showPrompt()" value="Delete">
+                                                    <p style="text-align:center;">
+                                                        <input type="hidden" id="reason" name="reason">
+                                                        <input type="hidden" id="reqid" name="reqid"
+                                                            value="<?php echo $reqid; ?>">
+                                                        <input name="delete" type="submit" class="btn btn-danger"
+                                                            onclick="showPrompt(event)" value="Delete">
+                                                        &nbsp;
+                                                        <input name="Cancel" type="button" class="btn btn-warning"
+                                                            value="Black"
+                                                            onClick="location.href='re_visitmaintest.php'">
+                                                    </p>
                                                 </form>
                                             </div>
-                                            <div class="d-grid gap-1 col-6 "
-                                                style="margin:15px 10px 10px 10px; ">
+                                            <div class="d-grid gap-1 col-6 " style="margin:15px 10px 10px 10px; ">
                                                 <from>
-                                                    <input name="Cancel" type="button" class="btn btn-warning text-white"
-                                                        value="Black" onClick="location.href='re_visitmain.php'" />
+                                                    <input name="Cancel" type="button"
+                                                        class="btn btn-warning text-white" value="Black"
+                                                        onClick="location.href='re_visitmain.php'" />
                                                 </from>
                                             </div>
                                         </div>
@@ -723,6 +740,39 @@ include 'dbcon.php';
             </div>
         </div>
 
+        <!-- Delete Confirmation Modal-->
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure you want to delete?</div>
+                    <div class="modal-footer">
+                        <from>
+                            <p>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <!-- <a class="btn btn-danger" id="deleteButton" href="delete.php">Delete</a> -->
+                            </p>
+                        </from>
+                        <form name="frmMain" action="actiondeletetest.php" method="post" id="formdelete01">
+                            <p style="text-align:center;">
+                                <input type="hidden" id="reason" name="reason">
+                                <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
+                                <input name="delete" type="submit" class="btn btn-danger" value="Delete">
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -740,40 +790,7 @@ include 'dbcon.php';
         <script src="js/demo/chart-area-demo.js"></script>
         <script src="js/demo/chart-pie-demo.js"></script>
 
-        <!-- <script>
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12, 
-                center: {lat: 13.744498, lng: 100.551048}
-            });
 
-        
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var locations = JSON.parse(this.responseText);
-                    locations.forEach(function(location) {
-                        var marker = new google.maps.Marker({
-                            position: {lat: parseFloat(location.Latitude), lng: parseFloat(location.Longitude)}, // ตำแหน่งของหมุด
-                            map: map,
-                            title: location.Customer_name 
-                        });
-                    });
-                }
-            };
-            xhr.open("GET", "json.php", true);
-            xhr.send();
-        }
-    </script> -->
-        <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrpXCQ89oWF2OVtp9r9lQco72BM3ps9yo&callback=initMap"></script> -->
-
-        <script>
-        function showPromptde() {
-            return confirm(
-                "Are you sure you want to delete this record and its associated image?"
-            );
-        }
-        </script>
 </body>
 
 </html>

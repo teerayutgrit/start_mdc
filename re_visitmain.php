@@ -13,7 +13,7 @@ require_once 'session_check.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mardi Craft Brewing - Revisit</title>
+    <title>Mardi Craft Brewing - Revisit & Visitlist</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 
@@ -59,7 +59,7 @@ require_once 'session_check.php';
             <li class="nav-item active">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>blank</span></a>
+                    <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->

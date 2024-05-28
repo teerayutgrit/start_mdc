@@ -13,7 +13,7 @@ require_once 'session_check.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mardi Craft Brewing - main</title>
+    <title>Mardi Craft Brewing - New Visit</title>
     
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 

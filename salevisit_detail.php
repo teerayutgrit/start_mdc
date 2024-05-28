@@ -671,7 +671,7 @@ include 'dbcon.php';
                                                         class="card-body d-flex justify-content-center align-items-center">
                                                         <img src="<?php echo $blobUrl; ?>"
                                                             alt="<?php echo $result["Customer_name"]; ?>"
-                                                            style="width: 350px; height:300px;">
+                                                            style="width: 360px; height:320px;">
                                                     </div>
                                                 </div>
                                             </div>
@@ -705,7 +705,7 @@ include 'dbcon.php';
 
                                                 // Create the map centered on the fetched coordinates
                                                 var map = new google.maps.Map(document.getElementById('map'), {
-                                                    zoom: 17,
+                                                    zoom: 18,
                                                     center: location
                                                 });
 
@@ -728,8 +728,8 @@ include 'dbcon.php';
                                             </script>
                                     </form>
                                     <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>
-                                    <div class="table-responsive-sm">
-                                        <form name="frmMain" action="actiondelete.php" method="post" id="formdelete01">
+                          
+                                        <!-- <form name="frmMain" action="actiondelete.php" method="post" id="formdelete01">
                                             <p style="text-align:center;">
                                                 <input type="hidden" id="reason" name="reason">
                                                 <input type="hidden" id="reqid" name="reqid"
@@ -740,8 +740,15 @@ include 'dbcon.php';
                                                 <input name="Cancel" type="button" class="btn btn-warning" value="Black"
                                                     onClick="location.href='re_visitmain.php'" />
                                             </p>
-                                        </form>
-                                    </div>
+                                        </form> -->
+                                        <div class="d-grid gap-2 col-4 mx-auto" style="margin:15px 10px 10px 10px; ">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                                onClick="location.href='re_visitmain.php'">Black</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                data-target="#deleteConfirmationModal">Delete</button>
+                                        </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -794,6 +801,38 @@ include 'dbcon.php';
         </div>
     </div>
 
+    <!-- Delete Confirmation Modal-->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to delete?</div>
+                <div class="modal-footer">
+                    <from>
+                        <p>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <!-- <a class="btn btn-danger" id="deleteButton" href="delete.php">Delete</a> -->
+                        </p>
+                    </from>
+                    <form name="frmMain" action="actiondeletetest.php" method="post" id="formdelete01">
+                        <p style="text-align:center;">
+                            <input type="hidden" id="reason" name="reason">
+                            <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
+                            <input name="delete" type="submit" class="btn btn-danger" value="Delete">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -838,13 +877,13 @@ include 'dbcon.php';
     </script> -->
     <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrpXCQ89oWF2OVtp9r9lQco72BM3ps9yo&callback=initMap"></script> -->
 
+    <!-- popupdelete -->
     <script>
-    function showPromptde() {
-        return confirm(
-            "Are you sure you want to delete this record and its associated image?"
-        );
-    }
+    $(document).ready(function() {
+        $('#deleteButton').on('click', function() {
+            $('#deleteConfirmationModal').modal('show');
+        });
+    });
     </script>
-</body>
-
-</html>
+    <style>
+    </body></html>
