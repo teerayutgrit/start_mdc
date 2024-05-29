@@ -2,7 +2,7 @@
 
 //session_check
 require_once 'session_check.php';
-// การเชื่อมต่อฐานข้อมูล SQL Server
+// การเชื่อมต่อฐานข้อมูล SQL Servers
 include("dbcon.php");
 
 // อัปโหลดไฟล์ไปยัง Azure Blob Storage
@@ -28,10 +28,8 @@ $Seat_total = $_POST['Seat_total'];
 $Outlet_type = $_POST['Outlet_type'];
 $RangeAge = $_POST['RangeAge'];
 $Gender = $_POST['Gender'];
-// $processwork = $_POST['processwork'];
-
-
-
+// $user_name = 'your_user_name';
+// $user_name = 'your_user_name';
 
 // ตรวจสอบว่ามีไฟล์ที่ถูกอัปโหลดหรือไม่
 if(isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {
@@ -39,10 +37,6 @@ if(isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_
     // ใช้ชื่อ OutletName เป็นชื่อไฟล์และเพิ่มนามสกุลของไฟล์เดิม
     $fileExtension = pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION);
     $fileName = $OutletName . '.' . $fileExtension;
-
-    // Reduce image size
-    $reducedFilePath = 'reduced_' . $fileName;
-    reduceImageSize($fileToUpload, $reducedFilePath, 1000, 1000,);
 
     // Azure Blob Storage connection settings
     $connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
@@ -54,70 +48,31 @@ if(isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_
 
         // Create options for the blob
         $options = new CreateBlockBlobOptions();
-        $options->setContentType(mime_content_type($reducedFilePath)); // Set content type based on the file
+        $options->setContentType(mime_content_type($fileToUpload)); // Set content type based on the file
 
         // Upload the file to Azure Blob Storage
-        $blobServiceClient->createBlockBlob($containerName, $fileName, fopen($reducedFilePath, "r"), $options);
+        $blobServiceClient->createBlockBlob($containerName, $fileName, fopen($fileToUpload, "r"), $options);
 
-        echo "File '$fileName' uploaded successfully.";
+        // echo "File '$fileName' uploaded successfully.";
     } catch (\Exception $e) {
         echo "Error uploading file: " . $e->getMessage();
     }
-
-    // Delete the reduced file after upload
-    unlink($reducedFilePath);
 } else {
     echo "No file uploaded or upload error.";
+    $fileName = null;
 }
 
 // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
-$sql = "INSERT INTO MDC_Visitor (Status,Customer_name,Posting_datetime,Posting_date,User_name,Seat_total,Outlet_type,Range_Age,Gender, Latitude, Longitude,processwork,Customer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$params = array($Status01,$OutletName,$postingdatetime,$postingdate,$user_name,$Seat_total,$Outlet_type,$RangeAge,$Gender, $lat, $lng,$processwork,$fileName);
+$sql = "INSERT INTO MDC_Visitor (Status, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+$params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $RangeAge, $Gender, $lat, $lng, $processwork, $fileName);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-
-
-echo "<script> alert('Saved'); window.location='salevisit_new.php';</script>";
+// echo "<script> alert('Saved'); window.location='salevisit_new1.php';</script>";
 
 // ปิดการเชื่อมต่อฐานข้อมูล
 sqlsrv_close($conn);
-
-// Function to reduce image size
-function reduceImageSize($sourceFile, $destFile, $maxWidth, $maxHeight) {
-    list($width, $height) = getimagesize($sourceFile);
-    $ratio = $width/$height;
-    if ($maxWidth/$maxHeight > $ratio) {
-        $newWidth = $maxHeight*$ratio;
-        $newHeight = $maxHeight;
-    } else {
-        $newHeight = $maxWidth/$ratio;
-        $newWidth = $maxWidth;
-    }
-    $src = imagecreatefromstring(file_get_contents($sourceFile));
-    $dst = imagecreatetruecolor($newWidth, $newHeight);
-    imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-    imagejpeg($dst, $destFile);
-    imagedestroy($src);
-    imagedestroy($dst);
-}
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
