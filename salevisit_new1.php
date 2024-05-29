@@ -1,16 +1,6 @@
-<?php ob_start();
-@session_start();
-date_default_timezone_set('Asia/Bangkok');
-if ($_SESSION['User_Name'] == "") {
-    echo "<script> alert('กรุณาลงชื่อเข้าใช้ระบบ'); window.location='login.html';</script>";
-    session_destroy();
-} else {
-    $userid = $_SESSION["User_id"];
-    $deptsys = $_SESSION["department"];
-    $user_name = $_SESSION["User_Name"];
-
-}
-
+<?php 
+//เช็8login
+require_once 'session_check.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +13,7 @@ if ($_SESSION['User_Name'] == "") {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mardi Craft Brewing - main</title>
+    <title>Mardi Craft Brewing - New Visit</title>
     
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 
@@ -94,7 +84,7 @@ if ($_SESSION['User_Name'] == "") {
                         <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <a class="collapse-item" href="salevisit_newtest.php">Re visit</a>
+                        <a class="collapse-item" href="re_visitmain.php">Re visit</a>
                         
                     </div>
                 </div>
@@ -671,122 +661,81 @@ if ($_SESSION['User_Name'] == "") {
                                     <h6 class="m-0 font-weight-bold text-primary">กรอกรายละเอียดร้านค้า</h6>
                                 </div>
                                 <div class="card-body">
-                                    <form action="salevisit_insertdatatest.php" method="POST" class="was-validated align-items-center" enctype="multipart/form-data">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="OutletName01" class="form-label">ชื่อร้านค้า</label>
-                                                    <input type="text" class="form-control"name="OutletName"  id="OutletName01" value="" required>
-                                                <div class="valid-feedback">
-                                                   <!-- Please enter a message.  -->
-                                                </div>
-                                            </div>
-                                            <div class=" col-md-3">
-                                                <label for="Seat_total-01" class="form-label">จำนวนโต๊ะนั่งภายในร้าน</label>
-                                                    <input type="number" step="any" name="Seat_total" class="form-control is-valid" maxlength="3" id="validationTextarea" value="" required>
-                                                    <div class="invalid-feedback">
-                                                      <!-- Please enter a message. -->
-                                                    </div>
-                                            </div>
-                                            <div class=" col-md-3">
-                                                <label for="Outlet_type-01" class="form-label">รูปแบบร้าน</label>
-                                                    <select class="form-select" name="Outlet_type" required aria-label="select example">
-                                                        <option value=""></option>
-                                                        <option value="Resturant">Resturant</option>
-                                                        <option value="Lounge">Lounge</option>
-                                                        <option value="Bar">Bar</option>
-                                                        <option value="Cafe">Cafe'</option>
-                                                        <option value="Agent">Agent</option>
-                                                        <option value="Sport Club">Sport Club</option>
-                                                        <option value="Ghost Resturant">Ghost Resturant</option>
-                                                    </select>
-                                                <div class="invalid-feedback">
-                                                      <!-- Please enter a message.  -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class=" col-md-3">
-                                                <label for="Range01Age" class="form-label">Range Age</label>
-                                                    <select class="form-select" name="RangeAge" required aria-label="select example">
-                                                        <option value=""></option>
-                                                        <option value="20-25">20-25</option>
-                                                        <option value="26-30">26-30</option>
-                                                        <option value="31-40">31-40</option>
-                                                        <option value="41-50">41-50</option>
-                                                        <option value="51-60">51-60</option>
-                                                        <option value="60">60</option>
-                                                    </select>
-                                                <div class="invalid-feedback">
-                                                      <!-- Please enter a message.  -->
-                                                </div>
-                                            </div>
-                                            <div class=" col-md-3">
-                                                <label for="Gender01" class="form-label">Gender</label>
-                                                    <select class="form-select" name="Gender" required aria-label="select example">
-                                                        <option value=""></option>
-                                                        <option value="Men">Men</option>
-                                                        <option value="Women">Women</option>
-                                                        <option value="LGBQ+">LGBQ+</option>
-                                                        <option value="All">All</option>
-                                                    </select>
-                                                <div class="invalid-feedback">
-                                                      <!-- Please enter a message.  -->
-                                                </div>
-                                            </div>
-                                            <div class=" col-md-3">
-                                                <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
-                                                <div class="">
-                                                    <button class="btn btn-info" onclick="getCurrentLocation()" type="button"><i class="fa fa-location-arrow" aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                      <!-- Please enter a message.  -->
-                                                </div>
-                                                <input type="hidden" id="lat" name="lat">
-                                                <input type="hidden" id="lng" name="lng">
-                                            </div>
-                                            <!-- <div class=" col-md-2">
-                                                <label for="processwork" class="form-label">ความสนใจของลูกค้า</label>
-                                                    <select class="form-select" name="processwork" required aria-label="select example">
-                                                        <option value=""></option>
-                                                        <option value="10">10 %</option>
-                                                        <option value="20">20 %</option>
-                                                        <option value="30">30 %</option>
-                                                        <option value="40">40 %</option>
-                                                        <option value="50">50 %</option>
-                                                        <option value="60">60 %</option>
-                                                        <option value="70">70 %</option>
-                                                        <option value="80">80 %</option>
-                                                        <option value="90">90 %</option>
-                                                        <option value="100">100 %</option>
-                                                    </select>
-                                                <div class="invalid-feedback">
-                                                      Please enter a message. 
-                                                </div>
-                                            </div> -->
-                                            <div class=" col-md-3">
-                                                <label for="fileToUpload" class="form-label">รูป</label>
-                                                <input type="file" step="any" name="fileToUpload" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
-                                                <!-- <label for="Gender01" class="form-label">Gender</label>
-                                                       <input type="file" name="fileToUpload" id="fileToUpload">
-                                                       <input type="submit" value="Upload File" name="submit"> -->
-                                                <div class="invalid-feedback">
-                                                      <!-- Please enter a message.  -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="row">
-                                        <div class="d-grid gap-2 col-4 mt-1 mx-auto">
-                                            <button class="btn btn-info" onclick="getCurrentLocation()" type="button"><i class="fa fa-location-arrow" aria-hidden="true"></i> ระบุตำแหน่ง</button>
-                                        </div>
-                                            <input type="hidden" id="lat" name="lat">
-                                            <input type="hidden" id="lng" name="lng">
-                                        </div> -->
-                                        <div id="map"></div>
-                                        <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
-                                            <button class="btn btn-success" href="salevisit_insertdata.php">Save</button>
-                                            <a class="btn btn-danger" href="index.php" role="button">Back</a>
-                                        </div>
-                                    </form>
+                                <form action="salevisit_insertdatatest.php" method="POST" class="was-validated align-items-center" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <label for="OutletName01" class="form-label">ชื่อร้านค้า</label>
+            <input type="text" class="form-control" name="OutletName" id="OutletName01" value="" required>
+            <div class="valid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Seat_total-01" class="form-label">จำนวนโต๊ะนั่งภายในร้าน</label>
+            <input type="number" step="any" name="Seat_total" class="form-control is-valid" maxlength="3" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Outlet_type-01" class="form-label">รูปแบบร้าน</label>
+            <select class="form-select" name="Outlet_type" required aria-label="select example">
+                <option value=""></option>
+                <option value="Resturant">Resturant</option>
+                <option value="Lounge">Lounge</option>
+                <option value="Bar">Bar</option>
+                <option value="Cafe">Cafe'</option>
+                <option value="Agent">Agent</option>
+                <option value="Sport Club">Sport Club</option>
+                <option value="Ghost Resturant">Ghost Resturant</option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="Range01Age" class="form-label">Range Age</label>
+            <select class="form-select" name="RangeAge" required aria-label="select example">
+                <option value=""></option>
+                <option value="20-25">20-25</option>
+                <option value="26-30">26-30</option>
+                <option value="31-40">31-40</option>
+                <option value="41-50">41-50</option>
+                <option value="51-60">51-60</option>
+                <option value="60">60</option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Gender01" class="form-label">Gender</label>
+            <select class="form-select" name="Gender" required aria-label="select example">
+                <option value=""></option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="LGBQ+">LGBQ+</option>
+                <option value="All">All</option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
+            <div class="">
+                <button class="btn btn-info" onclick="getCurrentLocation()" type="button"><i class="fa fa-location-arrow" aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
+            </div>
+            <div class="invalid-feedback"></div>
+            <input type="hidden" id="lat" name="lat">
+            <input type="hidden" id="lng" name="lng">
+        </div>
+        <div class="col-md-3">
+            <label for="fileToUpload" class="form-label">รูป</label>
+            <input type="file" name="fileToUpload" class="form-control is-valid" id="fileToUpload" required>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <div id="map"></div>
+    <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
+        <button type="button" class="btn btn-success" onclick="resizeAndUpload()">Save</button>
+        <a class="btn btn-danger" href="index.php" role="button">Back</a>
+    </div>
+</form>
+
                                 </div>
                             </div>
 
@@ -867,6 +816,7 @@ if ($_SESSION['User_Name'] == "") {
         </div>
     </div>
 
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -883,6 +833,70 @@ if ($_SESSION['User_Name'] == "") {
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+
+
+    <script>
+function resizeAndUpload() {
+    const fileInput = document.getElementById('fileToUpload');
+    const canvas = document.getElementById('canvas');
+    const max_width = 1000; // Maximum width of the resized image
+    const max_height = 1000; // Maximum height of the resized image
+
+    if (fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                let width = img.width;
+                let height = img.height;
+                const ratio = width / height;
+
+                if (width > max_width) {
+                    width = max_width;
+                    height = max_width / ratio;
+                }
+
+                if (height > max_height) {
+                    height = max_height;
+                    width = max_height * ratio;
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                canvas.toBlob(function(blob) {
+                    const formData = new FormData(document.querySelector('form'));
+                    formData.set('fileToUpload', blob, file.name);
+
+                    fetch('salevisit_insertdatatest.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(result => {
+                        alert('Saved');
+                        window.location.href = 'salevisit_new1.php';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                }, file.type, 0.85); // Adjust the quality parameter if needed
+            };
+
+            img.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        alert('No file selected.');
+    }
+}
+</script>
+
 
          <!-- ปุ่มระบุตำแหน่ง -->
          <script>
@@ -912,6 +926,7 @@ if ($_SESSION['User_Name'] == "") {
             });
         }
     </script>
+    
 
 
 </body>

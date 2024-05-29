@@ -108,6 +108,7 @@ require_once 'session_check.php';
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <a class="collapse-item" href="salevisit_new1.php">Other</a>
                     </div>
                 </div>
                 <?php endif; ?>
