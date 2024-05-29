@@ -28,7 +28,7 @@ $Seat_total = $_POST['Seat_total'];
 $Outlet_type = $_POST['Outlet_type'];
 $RangeAge = $_POST['RangeAge'];
 $Gender = $_POST['Gender'];
-$user_name = 'your_user_name'; // Add appropriate logic to fetch or define user_name
+// $user_name = 'your_user_name';
 
 // ตรวจสอบว่ามีไฟล์ที่ถูกอัปโหลดหรือไม่
 if(isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {
