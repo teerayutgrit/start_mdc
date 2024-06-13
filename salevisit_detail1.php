@@ -1,5 +1,5 @@
 <?php
-//session_check
+//เช็8login
 require_once 'session_check.php';
 
 include 'dbcon.php';
@@ -32,15 +32,8 @@ include 'dbcon.php';
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 
-    </script>
-    <script>
-    $(document).ready(function() {
-        $('#deleteButton').on('click', function() {
-            $('#deleteConfirmationModal').modal('show');
-        });
-    });
-    </script>
     <style>
     #map {
         height: 500px;
@@ -472,6 +465,92 @@ include 'dbcon.php';
                         <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
 
+                    <!-- Content Row -->
+                    <!-- <div class="row"> -->
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                รอใสข้อมูลรายละเอียด</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Earnings (Annual)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar"
+                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    <!-- Pending Requests Card Example -->
+                    <!-- <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Pending Requests</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
 
                     <!-- Content Row -->
                     <div class="row">
@@ -513,29 +592,30 @@ include 'dbcon.php';
                                         <?php echo $result["Customer_name"]; ?></h6>
                                 </div>
                                 <div class=" card-body">
-
-                                    <div class="row ">
-                                        <div class="col-6 ">
-                                            <div class="text text-dark">
-                                                <i class="fa fa-calendar text-primary "></i> วันที่
-                                                <?php echo htmlspecialchars($result["Posting_date"]); ?></p>
-                                                <i class="fa fa-check-square text-primary"></i> จำนวนโต๊ะ
-                                                <?php echo htmlspecialchars($result["Seat_total"]);  ?></p>
+                                    <form action="update_sale_re_visit.php" method="POST"
+                                        class="was-validated align-items-center" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="text text-dark">
+                                                    <i class="fa fa-calendar text-primary "></i> วันที่
+                                                    <?php echo htmlspecialchars($result["Posting_date"]); ?></p>
+                                                    <i class="fa fa-check-square text-primary"></i> จำนวนโต๊ะ
+                                                    <?php echo htmlspecialchars($result["Seat_total"]);  ?></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="text text-nowrap ">
-                                                <i class="fa fa-users text-primary"></i> ชื่อ
-                                                <?php echo htmlspecialchars($result["User_name"]); ?></p>
-                                                <i class="fa fa-venus-mars text-primary"></i> เพศ
-                                                <?php echo htmlspecialchars($result["Gender"]); ?></p>
+                                            <div class="col-6">
+                                                <div class="text text-nowrap ">
+                                                    <i class="fa fa-users text-primary"></i> ชื่อ
+                                                    <?php echo htmlspecialchars($result["User_name"]); ?></p>
+                                                    <i class="fa fa-venus-mars text-primary"></i> เพศ
+                                                    <?php echo htmlspecialchars($result["Gender"]); ?></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="text text-nowrap ">
-                                                <i class="fa fa-hourglass-start text-primary"></i> สถานะ<div
-                                                    class="progress ">
-                                                    <?php
+                                            <div class="col-12">
+                                                <div class="text text-nowrap ">
+                                                    <i class="fa fa-hourglass-start text-primary"></i> สถานะ<div
+                                                        class="progress ">
+                                                        <?php
                                                         $led02 = $result["processwork"];
                                                         $progressClass = 'bg-primary'; // Default class
                                                         $progressText = 'เข้าพบลูกค้า'; // Default text
@@ -558,239 +638,370 @@ include 'dbcon.php';
                                                                 break;
                                                         }
                                                     ?>
-                                                    <div id="myProgress1"
-                                                        class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>"
-                                                        role="progressbar"
-                                                        aria-valuenow="<?php echo htmlspecialchars($led02); ?>"
-                                                        aria-valuemin="0" aria-valuemax="100"
-                                                        style="width:<?php echo htmlspecialchars($led02); ?>%">
-                                                        <?php echo htmlspecialchars($progressText ); ?>
+                                                        <div id="myProgress1"
+                                                            class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>"
+                                                            role="progressbar"
+                                                            aria-valuenow="<?php echo htmlspecialchars($led02); ?>"
+                                                            aria-valuemin="0" aria-valuemax="100"
+                                                            style="width:<?php echo htmlspecialchars($led02); ?>%">
+                                                            <?php echo htmlspecialchars($progressText ); ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-12 card border-left-primary text-dark mb-1 me-0.5 "
+                                                    style="margin:15px 10px 10px 10px; ">
+                                                    <div class="card-header shadow "
+                                                        style="padding: 10px 10px 10px 10px; margin-right: 10px;"><i
+                                                            class="fa fa-shopping-basket text-primary"></i>ลักษณะของร้าน
+                                                    </div>
+                                                    <div class="card-body h5 " style="padding: 10px 10px 10px 10px;">
+                                                        <?php echo $result["Outlet_type"];  ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 card  border-left-primary text-dark mb-1 me-0.5 "
+                                                    style="margin:15px 10px 10px 10px; ">
+                                                    <div class="card-header shadow "
+                                                        style="padding: 10px 10px 10px 10px;"><i
+                                                            class="fa fa-file-image text-primary"></i> รูป</div>
+                                                    <div
+                                                        class="card-body d-flex justify-content-center align-items-center">
+                                                        <img src="<?php echo $blobUrl; ?>"
+                                                            alt="<?php echo $result["Customer_name"]; ?>"
+                                                            style="width: 360px; height:480px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 card  border-left-primary text-dark mb-1 me-0.5 "
+                                                    style="margin:15px 10px 10px 10px; ">
+                                                    <div class="card-header shadow "
+                                                        style="padding: 10px 10px 10px 10px;"><i
+                                                            class="fa fa-map-marker text-primary"></i> Map</div>
+                                                    <div
+                                                        class="card-body d-flex justify-content-center align-items-center">
+                                                        <div id="map"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Include the Google Maps API script -->
+                                            <script
+                                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrpXCQ89oWF2OVtp9r9lQco72BM3ps9yo&callback=initMap">
+                                            </script>
+                                            <script>
+                                            function initMap() {
+                                                // Fetch latitude and longitude from PHP
+                                                var lat = <?php echo json_encode($result['Latitude']); ?>;
+                                                var lng = <?php echo json_encode($result['Longitude']); ?>;
+                                                var customerName = <?php echo json_encode($result['Customer_name']); ?>;
+
+                                                var location = {
+                                                    lat: parseFloat(lat),
+                                                    lng: parseFloat(lng)
+                                                };
+
+                                                // Create the map centered on the fetched coordinates
+                                                var map = new google.maps.Map(document.getElementById('map'), {
+                                                    zoom: 18,
+                                                    center: location
+                                                });
+
+                                                // Place a marker on the location
+                                                var marker = new google.maps.Marker({
+                                                    position: location,
+                                                    map: map,
+                                                    title: customerName
+                                                });
+                                                // Add a click listener to the marker
+                                                google.maps.event.addListener(marker, 'click', function() {
+                                                    window.open(
+                                                        'https://www.google.com/maps/search/?api=1&query=' +
+                                                        location.lat + ',' + location.lng);
+                                                });
+                                            }
+
+                                            // Initialize the map when the window loads
+                                            window.onload = initMap;
+                                            </script>
+                                    </form>
+                                    <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>
+
+                                    <div class="row">
+
+                                        <div class="col-12 card  border-left-primary text-dark mb-1 me-0.5 "
+                                            style="margin:15px 10px 10px 10px; ">
+                                            <div class="card-header shadow "><i
+                                                    class="fa fa-file-image text-primary"></i> Product</div>
+                                            <div class="card-body">
+                                                <div class="col-6">
+                                                    <div class="text text-dark">
+                                                        <?php
+                                            // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
+                                        $sql = "SELECT DISTINCT product_series FROM Product_data order by product_series ASC";
+                                        $stmt = sqlsrv_query($conn, $sql);
+                                        if ($stmt !== false) {
+                                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                                echo "<div class='form-check '>";
+                                                    // <input class="form-check-input" type="radio" name="flexRadioDefault"id="flexRadioDefault1">
+                                                    echo "<input class='form-check-input' type='checkbox' name='product_series[]' value='" . $row['product_series'] . "' id='product_series_" . $row['product_series'] . "'>";
+                                                    // <label class="form-check-label" for="flexRadioDefault1"> Default radio</label>
+                                                    echo "<label class='form-check-label' for='product_series" . $row['product_series'] . "'>" . $row['product_series'] . "</label>";
+                                                    echo "</div>";
+                                            }
+                                            sqlsrv_free_stmt($stmt);
+                                        } else {                                    
+                                         echo "ไม่พบข้อมูล";
+                                        }
+                                        ?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-12 card border-left-primary text-dark mb-1 me-0.5 "
-                                                style="margin:15px 10px 10px 10px; ">
-                                                <div class="card-header shadow "
-                                                    style="padding: 10px 10px 10px 10px; margin-right: 10px;"><i
-                                                        class="fa fa-shopping-basket text-primary"></i>ลักษณะของร้าน
-                                                </div>
-                                                <div class="card-body h5 " style="padding: 10px 10px 10px 10px;">
-                                                    <?php echo $result["Outlet_type"];  ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 card  border-left-primary text-dark mb-1 me-0.5 "
-                                                style="margin:15px 10px 10px 10px; ">
-                                                <div class="card-header shadow " style="padding: 10px 10px 10px 10px;">
-                                                    <i class="fa fa-file-image text-primary"></i> รูป
-                                                </div>
-                                                <div class="card-body d-flex justify-content-center align-items-center">
-                                                    <img src="<?php echo $blobUrl; ?>"
-                                                        alt="<?php echo $result["Customer_name"]; ?>"
-                                                        style="width: 380px; height:auto;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 card  border-left-primary text-dark mb-1 me-0.5 "
-                                                style="margin:15px 10px 10px 10px; ">
-                                                <div class="card-header shadow " style="padding: 10px 10px 10px 10px;">
-                                                    <i class="fa fa-map-marker text-primary"></i> Map
-                                                </div>
-                                                <div class="card-body d-flex justify-content-center align-items-center">
-                                                    <div id="map"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Include the Google Maps API script -->
-                                        <script
-                                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrpXCQ89oWF2OVtp9r9lQco72BM3ps9yo&callback=initMap">
-                                        </script>
-                                        <script>
-                                        function initMap() {
-                                            // Fetch latitude and longitude from PHP
-                                            var lat = <?php echo json_encode($result['Latitude']); ?>;
-                                            var lng = <?php echo json_encode($result['Longitude']); ?>;
-                                            var customerName = <?php echo json_encode($result['Customer_name']); ?>;
+                                    </div>
+<!-- 
+                                    ฟอร์ม HTML
+                                    <form name="frmMain" action="update_sale_re_visit.php" method="post"
+                                        id="formdelete01">
+                                        ฟิลด์ input สำหรับรับค่า reqid และ OutletName
+                                        <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                                        ฟิลด์ input สำหรับรับค่า product_series_ ซึ่งจะถูกกำหนดโดย JavaScript
+                                        <input type="hidden" id="product_series_" name="product_series_">
+                                        ปุ่ม submit
+                                        <input name="update" type="submit" class="btn btn-primary" value="Update Product">
+                                    </form> -->
 
-                                            var location = {
-                                                lat: parseFloat(lat),
-                                                lng: parseFloat(lng)
-                                            };
-
-                                            // Create the map centered on the fetched coordinates
-                                            var map = new google.maps.Map(document.getElementById('map'), {
-                                                zoom: 16,
-                                                center: location
-                                            });
-
-                                            // Place a marker on the location
-                                            var marker = new google.maps.Marker({
-                                                position: location,
-                                                map: map,
-                                                title: customerName
-                                            });
-                                            // Add a click listener to the marker
-                                            google.maps.event.addListener(marker, 'click', function() {
-                                                window.open(
-                                                    'https://www.google.com/maps/search/?api=1&query=' +
-                                                    location.lat + ',' + location.lng);
-                                            });
-                                        }
-
-                                        // Initialize the map when the window loads
-                                        window.onload = initMap;
-                                        </script>
-                                        <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>
-                                        <div class="row col-12">
-                                            <div class="d-grid gap-1 col-6 " style="margin:15px 10px 10px 10px; ">
-                                                <!-- <div class="card-body h5 " style="padding: 10px 10px 10px 10px;">
-                                                    </div> -->
-                                                <form action="salevisit_edit.php" method="post">
-                                                    <input name="editId" type="hidden"
-                                                        value="<?php echo htmlspecialchars($result["id"]); ?>" />
-                                                    <input name="Edit" type="submit" class="btn btn-info text-white"
-                                                        value="นำเสนอสินค้าและเทส" />
-                                                </form>
-                                                
-                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal"
-                                                        onClick="location.href='re_visitmaintest.php'">Black</button>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#deleteConfirmationModal">Delete</button>
-                                               
-                                            </div>
-                                            <div class="d-grid gap-1 col-6" style="margin:15px 10px 10px 10px; ">
-                                                <!-- <div class="card-body h5 " style="padding: 10px 10px 10px 10px;">
-                                                    </div> -->
-                                                <form name="frmMain" action="actiondeletetest.php" method="post"
-                                                    id="formdelete01">
-                                                    <p style="text-align:center;">
-                                                        <input type="hidden" id="reason" name="reason">
-                                                        <input type="hidden" id="reqid" name="reqid"
-                                                            value="<?php echo $reqid; ?>">
-                                                        <input name="delete" type="submit" class="btn btn-danger"
-                                                            onclick="showPrompt(event)" value="Delete">
-                                                        &nbsp;
-                                                        <input name="Cancel" type="button" class="btn btn-warning"
-                                                            value="Black"
-                                                            onClick="location.href='re_visitmaintest.php'">
-                                                    </p>
-                                                </form>
-                                            </div>
-                                            <div class="d-grid gap-1 col-6 " style="margin:15px 10px 10px 10px; ">
-                                                <from>
-                                                    <input name="Cancel" type="button"
-                                                        class="btn btn-warning text-white" value="Black"
-                                                        onClick="location.href='re_visitmain.php'" />
-                                                </from>
-                                            </div>
-                                        </div>
+                                    <div class="d-grid gap-2 col-3 mx-auto" style="margin:15px 10px 10px 10px; ">
+                                         <!-- ฟอร์ม HTML -->
+                                        <form name="frmMain" action="update_sale_re_visit.php" method="post" id="formupdateproduct01">
+                                            <!-- ฟิลด์ input สำหรับรับค่า reqid และ OutletName -->
+                                            <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                                            <!-- ฟิลด์ input สำหรับรับค่า product_series_ ซึ่งจะถูกกำหนดโดย JavaScript -->
+                                            <input type="hidden" id="product_series_" name="product_series_">
+                                            <!-- ปุ่ม submit -->
+                                            <input name="update" type="submit" class="btn btn-primary" value="Update Product">
+                                          
+                                        </form>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" id="updateButton">Update product</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal" onClick="location.href='re_visitmain.php'">Black</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- /.container-fluid -->
 
                 </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2021</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
+                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Content Wrapper -->
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Page Wrapper -->
+        <!-- End of Content Wrapper -->
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+    </div>
+    <!-- End of Page Wrapper -->
 
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">เลือก "Logout" เพื่อออกจากระบบ </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="logout.php">Logout</a>
-                    </div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">เลือก "Logout" เพื่อออกจากระบบ </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Delete Confirmation Modal-->
-        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Are you sure you want to delete?</div>
-                    <div class="modal-footer">
-                        <from>
-                            <p>
+    <!-- update product Confirmation Modal-->
+    <div class="modal fade" id="updateproductConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Update</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to update product?</div>
+                <div class="modal-footer">
+                    
+                    <from>
+                        <p>
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                             <!-- <a class="btn btn-danger" id="deleteButton" href="delete.php">Delete</a> -->
-                            </p>
-                        </from>
-                        <form name="frmMain" action="actiondeletetest.php" method="post" id="formdelete01">
-                            <p style="text-align:center;">
-                                <input type="hidden" id="reason" name="reason">
-                                <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
-                                <input name="delete" type="submit" class="btn btn-danger" value="Delete">
-                            </p>
-                        </form>
-                    </div>
+                        </p>
+                    </from>
+                    <!-- <form name="frmMain" action="actiondeletetest.php" method="post" id="formdelete01">
+                        <p style="text-align:center;">
+                            <input type="hidden" id="reason" name="reason">
+                            <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
+                            <input name="delete" type="submit" class="btn btn-danger" value="Delete">
+                        </p>
+                    </form> -->
+                    <form name="frmMain" action="update_sale_re_visit.php" method="post" id="formupdateproduct01">
+                        <p>
+                           <!-- ฟิลด์ input สำหรับรับค่า reqid และ OutletName -->
+                           <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
+                           <!-- ฟิลด์ input สำหรับรับค่า product_series_ ซึ่งจะถูกกำหนดโดย JavaScript -->
+                           <input type="hidden" id="product_series_" name="product_series_">
+                           <!-- ปุ่ม submit -->
+                           <input name="update" type="submit" class="btn btn-primary" value="Update Product">
+                        </p>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Delete Confirmation Modal-->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to delete?</div>
+                <div class="modal-footer">
+                    <from>
+                        <p>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <!-- <a class="btn btn-danger" id="deleteButton" href="delete.php">Delete</a> -->
+                        </p>
+                    </from>
+                    <form name="frmMain" action="actiondeletetest.php" method="post" id="formdelete01">
+                        <p style="text-align:center;">
+                            <input type="hidden" id="reason" name="reason">
+                            <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
+                            <input name="delete" type="submit" class="btn btn-danger" value="Delete">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="vendor/chart.js/Chart.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="js/demo/chart-area-demo.js"></script>
-        <script src="js/demo/chart-pie-demo.js"></script>
+    <!-- <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12, 
+                center: {lat: 13.744498, lng: 100.551048}
+            });
 
+        
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var locations = JSON.parse(this.responseText);
+                    locations.forEach(function(location) {
+                        var marker = new google.maps.Marker({
+                            position: {lat: parseFloat(location.Latitude), lng: parseFloat(location.Longitude)}, // ตำแหน่งของหมุด
+                            map: map,
+                            title: location.Customer_name 
+                        });
+                    });
+                }
+            };
+            xhr.open("GET", "json.php", true);
+            xhr.send();
+        }
+    </script> -->
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrpXCQ89oWF2OVtp9r9lQco72BM3ps9yo&callback=initMap"></script> -->
 
-</body>
+    <!-- popupdelete -->
+    <script>
+    $(document).ready(function() {
+        $('#deleteButton').on('click', function() {
+            $('#deleteConfirmationModal').modal('show');
+        });
+    });
+    </script>
 
-</html>
+<script>
+$(document).ready(function() {
+    $('#updateButton').on('click', function() {
+        $('#updateproductConfirmationModal').modal('show');
+    });
+
+    document.getElementById('formupdateproduct01').addEventListener('submit', function(event) {
+        // Get the selected product series values
+        var selectedProductSeries = [];
+        var checkboxes = document.querySelectorAll('input[name="product_series[]"]:checked');
+        for (var i = 0; i < checkboxes.length; i++) {
+            selectedProductSeries.push(checkboxes[i].value);
+        }
+        // Set the value in the hidden input field
+        document.getElementById('product_series_').value = selectedProductSeries.join(',');
+
+        // Close the modal
+        $('#updateproductConfirmationModal').modal('hide');
+    });
+});
+</script>
+
+    <!-- <script>
+    เมื่อฟอร์มถูกส่ง
+    document.getElementById('formupdateproduct01').addEventListener('submit', function(event) {
+        รับค่าที่ถูกเลือกจากช่องทำเครื่องหมายถูกหรือผิด
+        var selectedProductSeries = [];
+        var checkboxes = document.querySelectorAll('input[name="product_series[]"]:checked');
+        for (var i = 0; i < checkboxes.length; i++) {
+            selectedProductSeries.push(checkboxes[i].value);
+        }
+        กำหนดค่าที่ได้เข้าในฟิลด์ input ชนิด hidden
+        document.getElementById('product_series_').value = selectedProductSeries.join(',');
+    });
+    </script> -->
+
+    <style>
+    </body></html>

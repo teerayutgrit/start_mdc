@@ -1,19 +1,6 @@
-<?php
-ob_start();
-@session_start();
-date_default_timezone_set('Asia/Bangkok');
-if ($_SESSION['User_Name'] == "") {
-    echo "<script> alert('กรุณาลงชื่อเข้าใช้ระบบ'); window.location='login.html';</script>";
-    session_destroy();
-} else {
-    $userid = $_SESSION["User_id"];
-    $deptsys = $_SESSION["department"];
-    $user_name = $_SESSION["User_Name"];
-
-}
-
-include_once 'dbcon.php';
-
+<?php 
+//เช็8login
+require_once 'session_check.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,20 +13,22 @@ include_once 'dbcon.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mardi Craft Brewing - Blank</title>
+    <title>Mardi Craft Brewing - New Visit</title>
+    
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-   
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+    
 
 </head>
 
@@ -53,86 +42,100 @@ include_once 'dbcon.php';
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-                <div class="sidebar-brand-icon ">
-                <img class="sidebar-card-illustration mb-2" src="img/logo-mardicraft.svg" alt="..." width="50" height="50">
-                    <!-- <i class="fas fa-laugh-wink"></i> -->
+                <div class="sidebar-brand-icon">
+                    <img class="sidebar-card-illustration mb-2" src="img/logo-mardicraft.svg" alt="..." width="50" height="50">
                 </div>
                 <div class="sidebar-brand-text mx-3">MardiCraft</div>
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <hr class="sidebar-divider bg-light">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider bg-light">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading ">
                 Sale
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSale"
+                    aria-expanded="true" aria-controls="collapseSale">
                     <!-- <i class="fas fa-fw fa-cog"></i> -->
                     <i class="fa fa-shopping-bag"></i>
-                    <span>Sale visit</span>
+                    <span>Sale</span>
                 </a>
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <?php if ($deptsys == "sale" || $deptsys == "admin"): ?>
+                <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
                         <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
+                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="salevisit_new.php">New visit</a>
-                        <a class="collapse-item" href="cards.html">Re visit</a>
+                        <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
+                        <a class="collapse-item" href="re_visitmain.php">Re visit</a>
+                        
                     </div>
                 </div>
+                <?php endif; ?>
             </li>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider bg-light">
+            <div class="sidebar-heading ">
+                Service
+            </div>
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseservice"
+                    aria-expanded="true" aria-controls="collapseservice">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <span>Service</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <?php if ($deptsys == "service" || $deptsys == "admin"): ?>
+                <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
                         <a class="collapse-item" href="utilities-color.html">Colors</a>
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
+                <?php endif; ?>
             </li>
 
+            <?php if ($deptsys == "admin"): ?>
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider bg-light">
 
             <!-- Heading -->
+            
             <div class="sidebar-heading">
-                Addons
+                Admin
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-                    aria-controls="collapsePages">
+            
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Pages</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="login.html">Login</a>
@@ -141,7 +144,7 @@ include_once 'dbcon.php';
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item active" href="blank.html">Blank Page</a>
+                        <a class="collapse-item" href="blank.html">Blank Page</a>
                     </div>
                 </div>
             </li>
@@ -159,14 +162,65 @@ include_once 'dbcon.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
+            <?php endif; ?>
+
+
+            <!-- Heading -->
+            <!-- <div class="sidebar-heading">
+                Addons
+            </div>
+
+            Nav Item - Pages Collapse Menu
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pages</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="login.html">Login</a>
+                        <a class="collapse-item" href="register.html">Register</a>
+                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="404.html">404 Page</a>
+                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                    </div>
+                </div>
+            </li>
+
+            Nav Item - Charts
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span></a>
+            </li>
+
+            Nav Item - Tables
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tables</span></a>
+            </li> -->
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <hr class="sidebar-divider d-none d-md-block bg-light">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
+        <!-- end เมนู  กำหนดสิทธิ์ -->
+
+            <!-- Sidebar Message -->
+            <!-- <div class="sidebar-card d-none d-lg-flex"> -->
+                <!-- <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..."> -->
+                <!-- <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p> -->
+                <!-- <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a> -->
+            <!-- </div> -->
 
         </ul>
         <!-- End of Sidebar -->
@@ -185,7 +239,7 @@ include_once 'dbcon.php';
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar ช่อง Search หาข้อมูลไม่ได้ไช้ -->
+                    <!-- Topbar Search -->
                     <!-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
@@ -208,7 +262,7 @@ include_once 'dbcon.php';
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a> -->
-                            <!-- Dropdown - Messages สำหรับหน้าจอเล็ก-->
+                            <!-- Dropdown - Messages -->
                             <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
@@ -223,8 +277,8 @@ include_once 'dbcon.php';
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                        </li> -->
+                            </div> -->
+                        </li>
 
                         <!-- Nav Item - Alerts -->
                         <!-- <li class="nav-item dropdown no-arrow mx-1">
@@ -274,8 +328,8 @@ include_once 'dbcon.php';
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li> -->
+                            </div> -->
+                        </li>
 
                         <!-- Nav Item - Messages -->
                         <!-- <li class="nav-item dropdown no-arrow mx-1">
@@ -359,7 +413,7 @@ include_once 'dbcon.php';
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -370,8 +424,8 @@ include_once 'dbcon.php';
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
+                                </a> -->
+                                <!-- <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -388,135 +442,343 @@ include_once 'dbcon.php';
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">New Visit test</h1>
+                    <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    </div> -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">New Visit</h1>
+                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i -->
+                                <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+                    </div>
 
-                    <div class="row" >
-    <!-- start Visit List -->    
-    <div class="container-fluid">
+                    <!-- Content Row -->
+                    <!-- <div class="row"> -->
 
-<div class="row" style= "margin-top: -2rem">
-
-    <!-- Area Chart -->
-    <div class="col-xl-12 col-lg-100">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <!-- <h1 class="h3 mb-0 text-gray-800">ใบขอดำเนินการ</h1> -->
-        </div>
-       
-
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded " style= "margin-top: -0.5rem ">
-                <h6 class="m-0 font-weight-bold text-light ">Visit List</h6>
-
-            </div>
-            <!-- Card Body -->
-
-<div class="card-body">
-    <!-- <div class="chart-area">
-        <canvas id="myAreaChart"></canvas>
-    </div> -->
-    <?php
-    date_default_timezone_set('Asia/Bangkok');
-    
-    // Prepare the statement to prevent SQL injection
-    $stmt = sqlsrv_prepare($conn, "SELECT * FROM MDC_Visitor WHERE User_name = ? ORDER BY id DESC", array(&$user_name));
-
-    if ($stmt === false) {
-        die(print_r(sqlsrv_errors(), true));
-    }
-
-    ?>
-    <div class="table-responsive-sm">
-        <table id="myTable" class="table table-sm table-hover sm-2">
-            <thead>
-                <tr>
-                    <!-- <th class="text-center text-nowrap">วันที่อนุมัติ</th> -->
-                    <th class="text-center">วันที่</th>                                                   
-                    <th class="text-center">ผู้ขอ</th>
-                    <th class="text-center">ชื่อ</th>
-                    <th class="text-center">อายุ</th>
-                    <th class="text-center">รูปแบบร้าน</th>
-                    <th class="text-center">ความคืบหน้า</th>
-                    <th class="text-center">รายละเอียด</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                if (sqlsrv_execute($stmt)) {
-                    while ($result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) { 
-                ?>
-                        <tr>
-                            <form action="salevisit_detail1.php" method="post">
-                                <!-- <td class="text-center"><?php echo htmlspecialchars($result["id"]); ?></td> -->
-                                <td class="text-center text-nowrap"><?php echo htmlspecialchars($result["Posting_date"]); ?></td>
-                                <td class="text-nowrap"><?php echo htmlspecialchars($result["User_name"]); ?></td>
-                                <td class="text-center"><?php echo htmlspecialchars($result["Customer_name"]); ?></td>
-                                <td class="text-center text-nowrap"><?php echo htmlspecialchars($result["Range_Age"]); ?></td>
-                                <td><?php echo htmlspecialchars($result["Outlet_type"]); ?></td>
-                                <td>
-                                    <div class="progress mr-4">
-                                        <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated" role="progressbar" aria-valuenow="<?php echo htmlspecialchars($result["processwork"]); ?>"
-                                            aria-valuemin="0" aria-valuemax="100" style="width:<?php echo htmlspecialchars($result["processwork"]); ?>%">
-                                            <?php echo htmlspecialchars($result["processwork"]); ?>%
+                        <!-- Earnings (Monthly) Card Example -->
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                รอใสข้อมูลรายละเอียด</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
-                                </td>
-                                <!-- <td><?php echo htmlspecialchars($result["comment"]); ?></td> -->
-                                <!-- <td class="text-center"><?php if ($result["supportname"] != "") { echo "✔️"; } ?></td> -->
-                                <!-- <td align="center"><?php if ($result["mgitname"] != "") { echo "✔️"; } ?></td> -->
-                                <td class="text-center">
-                                    <font size="+1" color="#3745B5"><strong>
-                                        <input name="reqid" type="hidden" value="<?php echo htmlspecialchars($result["id"]); ?>" />
-                                        <input name="Submit" type="submit" class="btn btn-sm btn-primary" value="Detail" />
-                                    </strong></font>
-                                </td>
-                            </form>
-                        </tr>
-                <?php 
-                    }
-                } else {
-                    echo "Error in statement execution.\n";
-                    die(print_r(sqlsrv_errors(), true));
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-</div>
+                                </div>
+                            </div>
+                        </div> -->
 
+                        <!-- Earnings (Monthly) Card Example -->
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Earnings (Annual)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar"
+                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- Pending Requests Card Example -->
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Pending Requests</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+                        <!-- <div class="col-lg-6 mb-4"> -->
+
+                            <!-- Project Card Example -->
+                            <!-- <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="small font-weight-bold">Server Migration <span
+                                            class="float-right">20%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
+                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">Sales Tracking <span
+                                            class="float-right">40%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">Customer Database <span
+                                            class="float-right">60%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar" role="progressbar" style="width: 60%"
+                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">Payout Details <span
+                                            class="float-right">80%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
+                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">Account Setup <span
+                                            class="float-right">Complete!</span></h4>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
+                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- Color System -->
+                            <!-- <div class="row">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-primary text-white shadow">
+                                        <div class="card-body">
+                                            Primary
+                                            <div class="text-white-50 small">#4e73df</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-success text-white shadow">
+                                        <div class="card-body">
+                                            Success
+                                            <div class="text-white-50 small">#1cc88a</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-info text-white shadow">
+                                        <div class="card-body">
+                                            Info
+                                            <div class="text-white-50 small">#36b9cc</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-warning text-white shadow">
+                                        <div class="card-body">
+                                            Warning
+                                            <div class="text-white-50 small">#f6c23e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-danger text-white shadow">
+                                        <div class="card-body">
+                                            Danger
+                                            <div class="text-white-50 small">#e74a3b</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                            Secondary
+                                            <div class="text-white-50 small">#858796</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-light text-black shadow">
+                                        <div class="card-body">
+                                            Light
+                                            <div class="text-black-50 small">#f8f9fc</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-dark text-white shadow">
+                                        <div class="card-body">
+                                            Dark
+                                            <div class="text-white-50 small">#5a5c69</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        <!-- </div> -->
+
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">กรอกรายละเอียดร้านค้า</h6>
+                                </div>
+                                <div class="card-body">
+                                <form action="salevisit_insertdatatest.php" method="POST" class="was-validated align-items-center" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <label for="OutletName01" class="form-label">ชื่อร้านค้า</label>
+            <input type="text" class="form-control" name="OutletName" id="OutletName01" value="" required>
+            <div class="valid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Seat_total-01" class="form-label">จำนวนโต๊ะนั่งภายในร้าน</label>
+            <input type="number" step="any" name="Seat_total" class="form-control is-valid" maxlength="3" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Outlet_type-01" class="form-label">รูปแบบร้าน</label>
+            <select class="form-select" name="Outlet_type" required aria-label="select example">
+                <option value=""></option>
+                <option value="Resturant">Resturant</option>
+                <option value="Lounge">Lounge</option>
+                <option value="Bar">Bar</option>
+                <option value="Cafe">Cafe'</option>
+                <option value="Agent">Agent</option>
+                <option value="Sport Club">Sport Club</option>
+                <option value="Ghost Resturant">Ghost Resturant</option>
+            </select>
+            <div class="invalid-feedback"></div>
         </div>
     </div>
-
-</div>
-
-<!-- Content Row -->
-<div class="row">
-
-    <!-- Content Column -->
-    <div class="col-lg-6 mb-4">
-
-
-        <div class="row">
-
+    <div class="row">
+        <div class="col-md-3">
+            <label for="Range01Age" class="form-label">Range Age</label>
+            <select class="form-select" name="RangeAge" required aria-label="select example">
+                <option value=""></option>
+                <option value="20-25">20-25</option>
+                <option value="26-30">26-30</option>
+                <option value="31-40">31-40</option>
+                <option value="41-50">41-50</option>
+                <option value="51-60">51-60</option>
+                <option value="60">60</option>
+            </select>
+            <div class="invalid-feedback"></div>
         </div>
-
+        <div class="col-md-3">
+            <label for="Gender01" class="form-label">Gender</label>
+            <select class="form-select" name="Gender" required aria-label="select example">
+                <option value=""></option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="LGBQ+">LGBQ+</option>
+                <option value="All">All</option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
+            <div class="">
+                <button class="btn btn-info" onclick="getCurrentLocation()" type="button"><i class="fa fa-location-arrow" aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
+            </div>
+            <div class="invalid-feedback"></div>
+            <input type="hidden" id="lat" name="lat">
+            <input type="hidden" id="lng" name="lng">
+        </div>
+        <div class="col-md-3">
+            <label for="fileToUpload" class="form-label">รูป</label>
+            <input type="file" name="fileToUpload" class="form-control is-valid" id="fileToUpload" required>
+            <div class="invalid-feedback"></div>
+        </div>
     </div>
-
-    <div class="col-lg-6 mb-4">
-
-
+    <canvas id="canvas" style="display: none;"></canvas>
+    <div id="map"></div>
+    <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
+        <button type="button" class="btn btn-success" onclick="resizeAndUpload()">Save</button>
+        <a class="btn btn-danger" href="index.php" role="button">Back</a>
     </div>
-</div>
+</form>
+                                </div>
+                            </div>
 
-</div>
-<!-- end Visit List --> 
-            
+                            <!-- Illustrations -->
+                            <!-- <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                            src="img/undraw_posting_photo.svg" alt="...">
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- Approach -->
+                            <!-- <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
+                                        CSS bloat and poor page performance. Custom CSS classes are used to create
+                                        custom components and custom utility classes.</p>
+                                    <p class="mb-0">Before working with this theme, you should become familiar with the
+                                        Bootstrap framework, especially the utility classes.</p>
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Your Website 2021</span>
                     </div>
                 </div>
             </footer>
@@ -544,10 +806,10 @@ include_once 'dbcon.php';
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">เลือก "Logout" เพื่อออกจากระบบ </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -560,8 +822,80 @@ include_once 'dbcon.php';
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-     <!-- ปุ่มระบุตำแหน่ง -->
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+
     <script>
+function resizeAndUpload() {
+    const fileInput = document.getElementById('fileToUpload');
+    const canvas = document.getElementById('canvas');
+    const max_width = 1000; // Maximum width of the resized image
+    const max_height = 1000; // Maximum height of the resized image
+
+    if (fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                let width = img.width;
+                let height = img.height;
+                const ratio = width / height;
+
+                if (width > max_width) {
+                    width = max_width;
+                    height = max_width / ratio;
+                }
+
+                if (height > max_height) {
+                    height = max_height;
+                    width = max_height * ratio;
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                canvas.toBlob(function(blob) {
+                    const formData = new FormData(document.querySelector('form'));
+                    formData.set('fileToUpload', blob, file.name);
+
+                    fetch('salevisit_insertdata.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(result => {
+                        alert('Saved');
+                        window.location.href = 'salevisit_new.php';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                }, file.type, 0.85); // Adjust the quality parameter if needed
+            };
+
+            img.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        alert('No file selected.');
+    }
+}
+</script>
+
+         <!-- ปุ่มระบุตำแหน่ง -->
+         <script>
         function getCurrentLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -588,6 +922,8 @@ include_once 'dbcon.php';
             });
         }
     </script>
+
+
 </body>
 
 </html>

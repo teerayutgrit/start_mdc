@@ -28,7 +28,14 @@ $Seat_total = $_POST['Seat_total'];
 $Outlet_type = $_POST['Outlet_type'];
 $RangeAge = $_POST['RangeAge'];
 $Gender = $_POST['Gender'];
-// $user_name = 'your_user_name';
+$Outlet_Zone = $_POST['Outlet_Zone'];
+$openingandclosingtimes = $_POST['openingandclosingtimes'];
+$Spendingperhead = $_POST['Spendingperhead'];
+$Delivery = $_POST['Delivery'];
+$Promotionbeer = $_POST['Promotionbeer'];
+$Event = $_POST['Event'];
+$Situation = $_POST['Situation'];
+
 // $user_name = 'your_user_name';
 
 // ตรวจสอบว่ามีไฟล์ที่ถูกอัปโหลดหรือไม่
@@ -63,8 +70,8 @@ if(isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_
 }
 
 // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
-$sql = "INSERT INTO MDC_Visitor (Status, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $RangeAge, $Gender, $lat, $lng, $processwork, $fileName);
+$sql = "INSERT INTO MDC_Visitor (Status, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone,Delivery,Promotion,Event_outlet,Situation,openingandclosingtimes,Range_Age, Gender, Latitude, Longitude, processwork, Customer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+$params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead,$Outlet_Zone,$Delivery,$Promotionbeer,$Event,$Situation,$openingandclosingtimes,$RangeAge, $Gender, $lat, $lng, $processwork, $fileName);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {
