@@ -773,18 +773,8 @@ include 'dbcon.php';
                                         <input name="update" type="submit" class="btn btn-primary" value="Update Product">
                                     </form> -->
 
-                                    <div class="d-grid gap-2 col-3 mx-auto" style="margin:15px 10px 10px 10px; ">
-                                         <!-- ฟอร์ม HTML -->
-                                        <form name="frmMain" action="update_sale_re_visit.php" method="post" id="formupdateproduct01">
-                                            <!-- ฟิลด์ input สำหรับรับค่า reqid และ OutletName -->
-                                            <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
-                                            <!-- ฟิลด์ input สำหรับรับค่า product_series_ ซึ่งจะถูกกำหนดโดย JavaScript -->
-                                            <input type="hidden" id="product_series_" name="product_series_">
-                                            <!-- ปุ่ม submit -->
-                                            <input name="update" type="submit" class="btn btn-primary" value="Update Product">
-                                          
-                                        </form>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" id="updateButton">Update product</button>
+                                    <div class="d-grid gap-2 col-2 mx-auto" style="margin:15px 10px 10px 10px; ">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateproductConfirmationModal">Product present</button>
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmationModal">Delete</button>
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal" onClick="location.href='re_visitmain.php'">Black</button>
                                     </div>
@@ -840,47 +830,28 @@ include 'dbcon.php';
         </div>
     </div>
 
-    <!-- update product Confirmation Modal-->
-    <div class="modal fade" id="updateproductConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirm Update</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Are you sure you want to update product?</div>
-                <div class="modal-footer">
-                    
-                    <from>
-                        <p>
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <!-- <a class="btn btn-danger" id="deleteButton" href="delete.php">Delete</a> -->
-                        </p>
-                    </from>
-                    <!-- <form name="frmMain" action="actiondeletetest.php" method="post" id="formdelete01">
-                        <p style="text-align:center;">
-                            <input type="hidden" id="reason" name="reason">
-                            <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
-                            <input name="delete" type="submit" class="btn btn-danger" value="Delete">
-                        </p>
-                    </form> -->
-                    <form name="frmMain" action="update_sale_re_visit.php" method="post" id="formupdateproduct01">
-                        <p>
-                           <!-- ฟิลด์ input สำหรับรับค่า reqid และ OutletName -->
-                           <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
-                           <!-- ฟิลด์ input สำหรับรับค่า product_series_ ซึ่งจะถูกกำหนดโดย JavaScript -->
-                           <input type="hidden" id="product_series_" name="product_series_">
-                           <!-- ปุ่ม submit -->
-                           <input name="update" type="submit" class="btn btn-primary" value="Update Product">
-                        </p>
-                    </form>
-                </div>
+<!-- update product Confirmation Modal-->
+<div class="modal fade" id="updateproductConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Update</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Are you sure you want to update product?</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <form name="frmMain" action="update_sale_re_visit.php" method="post" id="formupdateproduct01" onsubmit="setProductSeries()">
+                    <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                    <input type="hidden" id="product_series_" name="product_series_">
+                    <input name="update" type="submit" class="btn btn-primary" value="Update Product">
+                </form>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Delete Confirmation Modal-->
     <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -968,6 +939,14 @@ include 'dbcon.php';
     </script>
 
 <script>
+function setProductSeries() {
+    const checkboxes = document.querySelectorAll('input[name="product_series[]"]:checked');
+    const selectedValues = Array.from(checkboxes).map(cb => cb.value);
+    document.getElementById('product_series_').value = selectedValues.join(',');
+}
+</script>
+
+<!-- <script>
 $(document).ready(function() {
     $('#updateButton').on('click', function() {
         $('#updateproductConfirmationModal').modal('show');
@@ -987,7 +966,7 @@ $(document).ready(function() {
         $('#updateproductConfirmationModal').modal('hide');
     });
 });
-</script>
+</script> -->
 
     <!-- <script>
     เมื่อฟอร์มถูกส่ง

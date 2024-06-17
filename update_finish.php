@@ -10,22 +10,20 @@ include("dbcon.php");
 date_default_timezone_set('Asia/Bangkok');
 
 // แทนค่า status
-$processwork = "80";
+$processwork = "100";
 // รับค่าจากฟอร์ม
 $reqid = $_POST['reqid'];
 // $OutletName = $_POST['OutletName'];
-$update_datetime = date("Y-m-d h:i:sa");
-$product_series_ = $_POST['product_series_'];
+$update_datetime_finish = date("Y-m-d h:i:sa");
 
 
 // เตรียมคำสั่ง SQL สำหรับการอัปเดตข้อมูล
 $sql = "UPDATE MDC_Visitor SET  
     processwork = ?,
-    update_datetime = ?,
-    Present_pd = ?
+    update_datetime_finish = ?
     WHERE id = ?";
 
-$params = array($processwork, $update_datetime, $product_series_, $reqid);
+$params = array($processwork, $update_datetime_finish, $reqid);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {

@@ -25,6 +25,8 @@ include 'dbcon.php';
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+        
+
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
@@ -592,28 +594,46 @@ include 'dbcon.php';
                                         <?php echo $result["Customer_name"]; ?></h6>
                                 </div>
                                 <div class=" card-body">
-                                    <form action="#" method="POST" class="was-validated align-items-center"
-                                        enctype="multipart/form-data">
+                                    <form action="update_sale_re_visit.php" method="POST"
+                                        class="was-validated align-items-center" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="text text-dark">
-                                                    <i class="fa fa-calendar text-primary "></i> วันที่
+                                                    <i class="fa fa-calendar text-primary "></i> Date:
                                                     <?php echo htmlspecialchars($result["Posting_date"]); ?></p>
-                                                    <i class="fa fa-check-square text-primary"></i> จำนวนโต๊ะ
+                                                    <i class="fa fa-check-square text-primary"></i> Seat:
                                                     <?php echo htmlspecialchars($result["Seat_total"]);  ?></p>
+                                                    <i class="fa fa-map-marker text-primary"></i> Zone:
+                                                    <?php echo htmlspecialchars($result["Outlet_Zone"]);  ?></p>
+                                                    <i class="fa fa-handshake text-primary"></i> Spending per head:
+                                                    <?php echo htmlspecialchars($result["Spendingperhead"]);  ?></p>
+                                                    <i class="fa fa-bolt text-primary"></i> Promotion:
+                                                    <?php echo htmlspecialchars($result["Promotion"]);  ?></p>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="text text-nowrap ">
-                                                    <i class="fa fa-users text-primary"></i> ชื่อ
-                                                    <?php echo htmlspecialchars($result["User_name"]); ?></p>
-                                                    <i class="fa fa-venus-mars text-primary"></i> เพศ
+                                                    <i class="fa fa-shopping-basket text-primary"></i> Category:
+                                                    <?php echo htmlspecialchars($result["Outlet_type"]); ?></p>
+                                                    <i class="fa fa-venus-mars text-primary"></i> Target:
                                                     <?php echo htmlspecialchars($result["Gender"]); ?></p>
+                                                    <i class="fa fa-clock text-primary"></i> Times:
+                                                    <?php echo htmlspecialchars($result["openingandclosingtimes"]); ?></p>
+                                                    <i class="fa fa-truck text-primary"></i> Delivery:
+                                                    <?php echo htmlspecialchars($result["Delivery"]); ?></p>
+                                                    <i class="fa fa-info text-primary"></i> Event:
+                                                    <?php echo htmlspecialchars($result["Event_outlet"]); ?></p>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="text text-nowrap ">
-                                                    <i class="fa fa-hourglass-start text-primary"></i> สถานะ<div
+                                                    <i class="fa fa-share-alt text-primary text-sm"></i> Product Present:
+                                                    <?php echo htmlspecialchars($result["Present_pd"]); ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="text text-nowrap ">
+                                                    <i class="fa fa-hourglass-start text-primary"></i> สถานะ <div
                                                         class="progress ">
                                                         <?php
                                                         $led02 = $result["processwork"];
@@ -649,21 +669,21 @@ include 'dbcon.php';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <br>
                                             <div class="row">
                                                 <div class="col-12 card border-left-primary text-dark mb-1 me-0.5 "
-                                                    style="margin:15px 10px 10px 10px; ">
+                                                    style="margin:10px 10px 10px 10px; ">
                                                     <div class="card-header shadow "
-                                                        style="padding: 10px 10px 10px 10px; margin-right: 10px;"><i
-                                                            class="fa fa-shopping-basket text-primary"></i>ลักษณะของร้าน
+                                                        style="padding: 10px 10px 10px 10px;"><i
+                                                            class="fa fa-comments text-primary"></i> Situation
                                                     </div>
-                                                    <div class="card-body h5 " style="padding: 10px 10px 10px 10px;">
-                                                        <?php echo $result["Outlet_type"];  ?></div>
+                                                    <div class="card-body h6" style="padding: 10px 10px 10px 10px;">
+                                                        <?php echo $result["Situation"];  ?></div>
                                                 </div>
                                             </div>
+                                            <br>
                                             <div class="row">
                                                 <div class="col-12 card  border-left-primary text-dark mb-1 me-0.5 "
-                                                    style="margin:15px 10px 10px 10px; ">
+                                                    style="margin:10px 10px 10px 10px; ">
                                                     <div class="card-header shadow "
                                                         style="padding: 10px 10px 10px 10px;"><i
                                                             class="fa fa-file-image text-primary"></i> รูป</div>
@@ -671,7 +691,7 @@ include 'dbcon.php';
                                                         class="card-body d-flex justify-content-center align-items-center">
                                                         <img src="<?php echo $blobUrl; ?>"
                                                             alt="<?php echo $result["Customer_name"]; ?>"
-                                                            style="width: 360px; height:320px;">
+                                                            style="width: 360px; height:480px;">
                                                     </div>
                                                 </div>
                                             </div>
@@ -728,27 +748,57 @@ include 'dbcon.php';
                                             </script>
                                     </form>
                                     <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>
-                          
-                                        <!-- <form name="frmMain" action="actiondelete.php" method="post" id="formdelete01">
-                                            <p style="text-align:center;">
-                                                <input type="hidden" id="reason" name="reason">
-                                                <input type="hidden" id="reqid" name="reqid"
-                                                    value="<?php echo $reqid; ?>">
-                                                <input name="delete" type="submit" class="btn btn-danger"
-                                                    onclick="return showPrompt()" value="Delete">
-                                                &nbsp;
-                                                <input name="Cancel" type="button" class="btn btn-warning" value="Black"
-                                                    onClick="location.href='re_visitmain.php'" />
-                                            </p>
-                                        </form> -->
-                                        <div class="d-grid gap-2 col-4 mx-auto" style="margin:15px 10px 10px 10px; ">
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
-                                                onClick="location.href='re_visitmain.php'">Black</button>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                data-target="#deleteConfirmationModal">Delete</button>
+
+                                    <div class="row">
+
+                                        <div class="col-12 card  border-left-primary text-dark mb-1 me-0.5 "
+                                            style="margin:15px 10px 10px 10px; ">
+                                            <div class="card-header shadow "><i
+                                                    class="fa fa-file-image text-primary"></i> Product</div>
+                                            <div class="card-body">
+                                                <div class="col-6">
+                                                    <div class="text text-dark">
+                                                        <?php
+                                            // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
+                                        $sql = "SELECT DISTINCT product_series FROM Product_data order by product_series ASC";
+                                        $stmt = sqlsrv_query($conn, $sql);
+                                        if ($stmt !== false) {
+                                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                                echo "<div class='form-check '>";
+                                                    // <input class="form-check-input" type="radio" name="flexRadioDefault"id="flexRadioDefault1">
+                                                    echo "<input class='form-check-input' type='checkbox' name='product_series[]' value='" . $row['product_series'] . "' id='product_series_" . $row['product_series'] . "'>";
+                                                    // <label class="form-check-label" for="flexRadioDefault1"> Default radio</label>
+                                                    echo "<label class='form-check-label' for='product_series" . $row['product_series'] . "'>" . $row['product_series'] . "</label>";
+                                                    echo "</div>";
+                                            }
+                                            sqlsrv_free_stmt($stmt);
+                                        } else {                                    
+                                         echo "ไม่พบข้อมูล";
+                                        }
+                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div>
+<!-- 
+                                    ฟอร์ม HTML
+                                    <form name="frmMain" action="update_sale_re_visit.php" method="post"
+                                        id="formdelete01">
+                                        ฟิลด์ input สำหรับรับค่า reqid และ OutletName
+                                        <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                                        ฟิลด์ input สำหรับรับค่า product_series_ ซึ่งจะถูกกำหนดโดย JavaScript
+                                        <input type="hidden" id="product_series_" name="product_series_">
+                                        ปุ่ม submit
+                                        <input name="update" type="submit" class="btn btn-primary" value="Update Product">
+                                    </form> -->
 
-
+                                    <div class="d-grid gap-1 col-4 mx-auto" style="margin:15px 10px 10px 10px; ">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateproductConfirmationModal"><i class="fas fa-cubes"></i> Product Present</button>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#FinishConfirmationModal"><i class="fas fa-paper-plane"></i> Finish</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmationModal"><i class="fas fa-trash-alt"></i> Delete</button>
+                                        <button class="btn btn-secondary" type="button"  onClick="location.href='salevisit_new.php'"><i class="fas fa-reply"></i> Black</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -801,6 +851,58 @@ include 'dbcon.php';
         </div>
     </div>
 
+<!-- update product Confirmation Modal-->
+<div class="modal fade" id="updateproductConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Update</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Are you sure you want to update product?</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <form name="frmMain" action="update_sale_re_visit.php" method="post" id="formupdateproduct01" onsubmit="setProductSeries()">
+                    <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                    <input type="hidden" id="product_series_" name="product_series_">
+                    <input name="update" type="submit" class="btn btn-primary" value="Update Product">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Finish Confirmation Modal-->
+    <div class="modal fade" id="FinishConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Finish</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to Finish?</div>
+                <div class="modal-footer">
+                    <from>
+                        <p>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <!-- <a class="btn btn-danger" id="deleteButton" href="delete.php">Delete</a> -->
+                        </p>
+                    </from>
+                    <form name="frmMain" action="update_finish.php" method="post" id="formFinish01">
+                        <p style="text-align:center;">
+                            <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
+                            <input name="delete" type="submit" class="btn btn-success" value="Finish">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Delete Confirmation Modal-->
     <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -820,7 +922,7 @@ include 'dbcon.php';
                             <!-- <a class="btn btn-danger" id="deleteButton" href="delete.php">Delete</a> -->
                         </p>
                     </from>
-                    <form name="frmMain" action="actiondeletetest.php" method="post" id="formdelete01">
+                    <form name="frmMain" action="actiondelete.php" method="post" id="formdelete01">
                         <p style="text-align:center;">
                             <input type="hidden" id="reason" name="reason">
                             <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
@@ -885,5 +987,60 @@ include 'dbcon.php';
         });
     });
     </script>
+
+    <!-- popupFinish -->
+    <script>
+    $(document).ready(function() {
+        $('#FinishButton').on('click', function() {
+            $('#FinishConfirmationModal').modal('show');
+        });
+    });
+    </script>
+
+   <!-- popupupdatepd-->
+<script>
+function setProductSeries() {
+    const checkboxes = document.querySelectorAll('input[name="product_series[]"]:checked');
+    const selectedValues = Array.from(checkboxes).map(cb => cb.value);
+    document.getElementById('product_series_').value = selectedValues.join(',');
+}
+</script>
+
+<!-- <script>
+$(document).ready(function() {
+    $('#updateButton').on('click', function() {
+        $('#updateproductConfirmationModal').modal('show');
+    });
+
+    document.getElementById('formupdateproduct01').addEventListener('submit', function(event) {
+        // Get the selected product series values
+        var selectedProductSeries = [];
+        var checkboxes = document.querySelectorAll('input[name="product_series[]"]:checked');
+        for (var i = 0; i < checkboxes.length; i++) {
+            selectedProductSeries.push(checkboxes[i].value);
+        }
+        // Set the value in the hidden input field
+        document.getElementById('product_series_').value = selectedProductSeries.join(',');
+
+        // Close the modal
+        $('#updateproductConfirmationModal').modal('hide');
+    });
+});
+</script> -->
+
+    <!-- <script>
+    เมื่อฟอร์มถูกส่ง
+    document.getElementById('formupdateproduct01').addEventListener('submit', function(event) {
+        รับค่าที่ถูกเลือกจากช่องทำเครื่องหมายถูกหรือผิด
+        var selectedProductSeries = [];
+        var checkboxes = document.querySelectorAll('input[name="product_series[]"]:checked');
+        for (var i = 0; i < checkboxes.length; i++) {
+            selectedProductSeries.push(checkboxes[i].value);
+        }
+        กำหนดค่าที่ได้เข้าในฟิลด์ input ชนิด hidden
+        document.getElementById('product_series_').value = selectedProductSeries.join(',');
+    });
+    </script> -->
+
     <style>
     </body></html>

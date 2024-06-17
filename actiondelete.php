@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
                 sqlsrv_commit($conn);
                 // Redirect to re_visitmain.php after successful deletion
                 // header("Location: re_visitmain.php");
-                echo "<script> alert('Delete'); window.location='re_visitmain.php';</script>";
+                echo "<script> alert('Delete successfully'); window.location='salevisit_new.php';</script>";
                 exit();
             } catch (ServiceException $e) {
                 // Rollback transaction if blob deletion fails
