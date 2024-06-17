@@ -90,7 +90,7 @@ require_once 'session_check.php';
                         <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <a class="collapse-item" href="re_visitmain.php">Re visit</a>
+                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
 
                     </div>
                 </div>
@@ -876,7 +876,7 @@ require_once 'session_check.php';
                                                     break;
                                                 case 100:
                                                     $progressClass = 'bg-success';
-                                                    $progressText = 'ลูกค้าสั่งของ';
+                                                    $progressText = 'จบการนำเสนอ';
                                                     break;
                                                 default:
                                                     // Default case handled by setting $led01 to $result["processwork"]
@@ -1006,8 +1006,8 @@ require_once 'session_check.php';
     function resizeAndUpload() {
         const fileInput = document.getElementById('fileToUpload');
         const canvas = document.getElementById('canvas');
-        const max_width = 1000; // Maximum width of the resized image
-        const max_height = 1000; // Maximum height of the resized image
+        const max_width = 1920; // Maximum width of the resized image
+        const max_height = 1080; // Maximum height of the resized image
 
         if (fileInput.files && fileInput.files[0]) {
             const file = fileInput.files[0];

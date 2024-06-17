@@ -32,7 +32,7 @@ if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-echo "<script> alert('Saved successfully'); window.location='re_visitmain.php';</script>";
+echo "<script> alert('Saved successfully'); window.location='salevisit_new.php';</script>";
 
 // ปิดการเชื่อมต่อฐานข้อมูล
 sqlsrv_close($conn);
