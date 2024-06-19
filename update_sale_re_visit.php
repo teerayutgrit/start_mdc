@@ -15,6 +15,7 @@ $processwork = "80";
 $reqid = $_POST['reqid'];
 // $OutletName = $_POST['OutletName'];
 $update_datetime = date("Y-m-d h:i:sa");
+$update_date = date("Y-m-d");
 $product_series_ = $_POST['product_series_'];
 
 
@@ -22,10 +23,11 @@ $product_series_ = $_POST['product_series_'];
 $sql = "UPDATE MDC_Visitor SET  
     processwork = ?,
     update_datetime = ?,
+    update_date = ?,
     Present_pd = ?
     WHERE id = ?";
 
-$params = array($processwork, $update_datetime, $product_series_, $reqid);
+$params = array($processwork, $update_datetime, $update_date,$product_series_, $reqid);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {

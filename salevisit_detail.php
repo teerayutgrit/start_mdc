@@ -63,7 +63,7 @@ include 'dbcon.php';
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider bg-light">
+            <hr class="sidebar-divider ">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -73,7 +73,7 @@ include 'dbcon.php';
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider bg-light">
+            <hr class="sidebar-divider ">
 
             <!-- Heading -->
             <div class="sidebar-heading ">
@@ -98,7 +98,7 @@ include 'dbcon.php';
                         <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <a class="collapse-item" href="re_visitmain.php">Re visit</a>
+                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
 
                     </div>
                 </div>
@@ -106,7 +106,7 @@ include 'dbcon.php';
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider bg-light">
+            <hr class="sidebar-divider">
             <div class="sidebar-heading ">
                 Service
             </div>
@@ -133,7 +133,7 @@ include 'dbcon.php';
 
             <?php if ($deptsys == "admin"): ?>
             <!-- Divider -->
-            <hr class="sidebar-divider bg-light">
+            <hr class="sidebar-divider ">
 
             <!-- Heading -->
 
@@ -220,7 +220,7 @@ include 'dbcon.php';
             </li> -->
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block bg-light">
+            <hr class="sidebar-divider d-none d-md-block ">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -690,10 +690,8 @@ include 'dbcon.php';
                                                     <div class="card-body h6" style="padding: 10px 10px 10px 10px;">
                                                         <?php echo $result["Situation"];  ?></div>
                                                 </div>
-                                                <div class="col-12 card  "
-                                                    style="margin:10px 0px 0px 0px; ">
-                                                    <div class="card-header shadow "
-                                                        style="padding:1px 1px 1px 1px;"><i
+                                                <div class="col-12 card  " style="margin:10px 0px 0px 0px; ">
+                                                    <div class="card-header shadow " style="padding:1px 1px 1px 1px;"><i
                                                             class="fa fa-file-image text-primary"></i> รูป</div>
                                                     <div
                                                         class="card-body d-flex justify-content-center align-items-center">
@@ -754,11 +752,13 @@ include 'dbcon.php';
                                     </form>
                                     <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>
 
-                                    <div class="col-12 card  border-left-primary shadow text-dark mb-1 me-0.5 " style="margin:10px 0px 0px 0px; ">
-                                        <div class="card-header shadow "><i class="fa fa-file-image text-primary"></i> Product</div>
+                                    <div class="col-12 card  border-left-primary shadow text-dark mb-1 me-0.5 "
+                                        style="margin:10px 0px 0px 0px; ">
+                                        <div class="card-header shadow "><i class="fa fa-file-image text-primary"></i>
+                                            Product</div>
                                         <div class="card-body">
                                             <div class="col-12">
-                                        <?php
+                                                <?php
                                             // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
                                         $sql = "SELECT DISTINCT product_series FROM Product_data order by product_series ASC";
                                         $stmt = sqlsrv_query($conn, $sql);
@@ -881,35 +881,38 @@ include 'dbcon.php';
         </div>
     </div>
 
-    <!-- Finish Confirmation Modal-->
-    <div class="modal fade" id="FinishConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirm Finish</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Are you sure you want to Finish?</div>
-                <div class="modal-footer">
-                    <from>
-                        <p>
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <!-- <a class="btn btn-danger" id="deleteButton" href="delete.php">Delete</a> -->
-                        </p>
-                    </from>
-                    <form name="frmMain" action="update_finish.php" method="post" id="formFinish01">
-                        <p style="text-align:center;">
-                            <input type="hidden" id="reqid" name="reqid" value="<?php echo $reqid; ?>">
-                            <input name="delete" type="submit" class="btn btn-success" value="Finish">
-                        </p>
-                    </form>
-                </div>
+<!-- Finish Confirmation Modal-->
+<div class="modal fade" id="FinishConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Finish</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
+            <form name="frmMain" action="update_finish.php" method="post" id="formFinish01">
+                <div class="modal-body"> Are you sure you want to Finish?
+                    <!-- <div class="col-md-3"> -->
+                        <!-- <label for="status_finish" class="form-label">Status Finish</label> -->
+                        <select class="form-select" name="status_finish" required aria-label="select example">
+                            <option value="">Status Finish</option>
+                            <option value="รอเข้า visit อีกรอบ">รอเข้า visit อีกรอบ</option>
+                            <option value="ปิดการขาย">ปิดการขาย</option>
+                        </select>
+                    <!-- </div> -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                    <input name="Finish" type="submit" class="btn btn-success" value="Finish">
+                </div>
+            </form>
         </div>
     </div>
+</div>
+
+
     <!-- Delete Confirmation Modal-->
     <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
