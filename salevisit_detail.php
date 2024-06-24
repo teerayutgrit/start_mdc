@@ -29,11 +29,14 @@ include 'dbcon.php';
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link rel="stylesheet" href="test123a.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script> -->
 
     <style>
     #map {
@@ -583,7 +586,8 @@ include 'dbcon.php';
                                 if (sqlsrv_execute($stmt)) {
                                     while ($result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                     // Generate SAS URL for the image
-                                    $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($result["Customer_image"]) . ".?" . $sasToken; // Adjust the file extension if necessary
+                                    // $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($result["Customer_image"]) . ".?" . $sasToken;
+                                    $images = explode(',', $result['Customer_image']); // แยกข้อมูลรูปภาพจากฐานข้อมูล
                                     // echo $blobUrl;
                             ?>
                             <div class="card shadow mb-4">
@@ -695,9 +699,18 @@ include 'dbcon.php';
                                                             class="fa fa-file-image text-primary"></i> รูป</div>
                                                     <div
                                                         class="card-body d-flex justify-content-center align-items-center">
-                                                        <img src="<?php echo $blobUrl; ?>"
-                                                            alt="<?php echo $result["Customer_name"]; ?>"
-                                                            style="width: 370px; height:auto;">
+                                                        <!-- <img src="<?php echo $blobUrl; ?>"alt="<?php echo $result["Customer_name"]; ?>" style="width: 370px; height:auto;"> -->
+                                                        <!-- <img src="<?php echo $blobUrl; ?>" alt="Customer Image" style="width: 370px; height: auto;"> -->
+                                                        <div class="row photos">
+                                                        <?php
+                                                foreach ($images as $image) {
+                                                    $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($image) . "?" . $sasToken;
+                                                    ?>
+                                                    <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="<?php echo $blobUrl; ?>" data-lightbox="photos"><img class="img-fluid" src="<?php echo $blobUrl; ?>"></a></div>
+                                                    <?php
+                                                     }
+                                                ?>
+                                                    </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 card  border-left-primary shadow text-dark mb-1 me-0.5 "
@@ -790,6 +803,11 @@ include 'dbcon.php';
                                                     data-target="#FinishConfirmationModal"><i
                                                         class="fas fa-paper-plane"></i>
                                                     Finish</button>
+                                                <button type="button" class="btn btn-warning"
+                                                    style="margin:0px 0px 10px 0px;  width: 165px; " data-toggle="modal"
+                                                    data-target="#editproductConfirmationModal"><i
+                                                        class="fas fa-fw fa-wrench"></i>
+                                                    Edit</button>
                                                 <button type="button" class="btn btn-danger "
                                                     style="margin:0px 0px 10px 0px; width: 165px;" data-toggle="modal"
                                                     data-target="#deleteConfirmationModal"><i
@@ -881,36 +899,60 @@ include 'dbcon.php';
         </div>
     </div>
 
-<!-- Finish Confirmation Modal-->
-<div class="modal fade" id="FinishConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirm Finish</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+    <!-- Edit product Confirmation Modal-->
+    <div class="modal fade" id="editproductConfirmationModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Go to Edit</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to Edit product?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form name="frmMain" action="salevisit_edit.php" method="post" id="formeditproduct01" onsubmit="setProductSeries()">
+                        <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                        <input name="edit" type="submit" class="btn btn-warning" value="Edit">
+                    </form>
+                </div>
             </div>
-            <form name="frmMain" action="update_finish.php" method="post" id="formFinish01">
-                <div class="modal-body"> Are you sure you want to Finish?
-                    <!-- <div class="col-md-3"> -->
+        </div>
+    </div>
+
+    <!-- Finish Confirmation Modal-->
+    <div class="modal fade" id="FinishConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Finish</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form name="frmMain" action="update_finish.php" method="post" id="formFinish01">
+                    <div class="modal-body"> Are you sure you want to Finish?
+                        <!-- <div class="col-md-3"> -->
                         <!-- <label for="status_finish" class="form-label">Status Finish</label> -->
                         <select class="form-select" name="status_finish" required aria-label="select example">
                             <option value="">Status Finish</option>
                             <option value="รอเข้า visit อีกรอบ">รอเข้า visit อีกรอบ</option>
                             <option value="ปิดการขาย">ปิดการขาย</option>
                         </select>
-                    <!-- </div> -->
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
-                    <input name="Finish" type="submit" class="btn btn-success" value="Finish">
-                </div>
-            </form>
+                        <!-- </div> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                        <input name="Finish" type="submit" class="btn btn-success" value="Finish">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
     <!-- Delete Confirmation Modal-->
@@ -962,6 +1004,12 @@ include 'dbcon.php';
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
     <!-- <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -994,6 +1042,15 @@ include 'dbcon.php';
     $(document).ready(function() {
         $('#deleteButton').on('click', function() {
             $('#deleteConfirmationModal').modal('show');
+        });
+    });
+    </script>
+
+    <!-- popupedit -->
+    <script>
+    $(document).ready(function() {
+        $('#editButton').on('click', function() {
+            $('#editproductConfirmationModal').modal('show');
         });
     });
     </script>

@@ -1,6 +1,8 @@
 <?php 
 //เช็8login
 require_once 'session_check.php';
+
+include 'dbcon.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +15,7 @@ require_once 'session_check.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mardi Craft Brewing - main</title>
+    <title>Mardi Craft Brewing - New Visit</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 
@@ -90,7 +92,7 @@ require_once 'session_check.php';
                         <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <a class="collapse-item" href="re_visitmain.php">Re visit</a>
+                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
 
                     </div>
                 </div>
@@ -245,164 +247,11 @@ require_once 'session_check.php';
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
-                    <!-- <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form> -->
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <!-- <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a> -->
-                        <!-- Dropdown - Messages -->
-                        <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div> -->
                         </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <!-- <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i> -->
-                        <!-- Counter - Alerts -->
-                        <!-- <span class="badge badge-danger badge-counter">3+</span>
-                            </a> -->
-                        <!-- Dropdown - Alerts -->
-                        <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div> -->
                         </li>
-
-                        <!-- Nav Item - Messages -->
-                        <!-- <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i> -->
-                        <!-- Counter - Messages -->
-                        <!-- <span class="badge badge-danger badge-counter">7</span>
-                            </a> -->
-                        <!-- Dropdown - Messages -->
-                        <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div> -->
                         </li>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -453,273 +302,79 @@ require_once 'session_check.php';
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div> -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">New Visit</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Edit</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i -->
                         <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
 
                     <!-- Content Row -->
-                    <!-- <div class="row"> -->
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                รอใสข้อมูลรายละเอียด</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- Pending Requests Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- Content Row -->
                     <div class="row">
-
-                        <!-- Content Column -->
-                        <!-- <div class="col-lg-6 mb-4"> -->
-
-                        <!-- Project Card Example -->
-                        <!-- <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                        <!-- Color System -->
-                        <!-- <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            Primary
-                                            <div class="text-white-50 small">#4e73df</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                        <!-- </div> -->
-                        <?php
-
-// Check if reqid is set in POST request
-if (!isset($_POST['reqid'])) {
-    // Handle the case where reqid is not provided
-    echo "Request ID is not set.";
-    exit();
-}
-
-$reqid = $_POST['reqid'];
-
-    // Prepare the statement to prevent SQL injection
-    $stmt = sqlsrv_prepare($conn, "SELECT * FROM MDC_Visitor WHERE id = ? ORDER BY id DESC", array(&$reqid));
-
-    if ($stmt === false) {
-        die(print_r(sqlsrv_errors(), true));
-    }
-
-    // Generate SAS token (this should be done in a secure way, possibly with a server-side function or script)
-      $sasToken = "si=readonly&sv=2022-11-02&sr=c&sig=GuZdU2IHmFOrcpcx3ka7yuM0T0%2Fay6EraGqIT6IYl54%3D"; // Replace with your actual SAS token   
-     
-      if (sqlsrv_execute($stmt)) {
-          while ($result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-          // Generate SAS URL for the image
-          $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($result["Customer_image"]) . ".?" . $sasToken; // Adjust the file extension if necessary
-          // echo $blobUrl;
- 
-?>
-
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">กรอกรายละเอียดร้านค้า</h6>
+                                <div
+                                    class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded">
+                                    <h6 class="m-0 font-weight-bold text-light">รายละเอียดร้านค้า</h6>
                                 </div>
+                                <?php
+                                // Check if reqid is set in POST request
+                                if (!isset($_POST['reqid'])) {
+                                    // Handle the case where reqid is not provided
+                                    echo "Request ID is not set.";
+                                    exit();
+                                }
+                                
+                                $reqid = $_POST['reqid'];
+                                
+                                    // Prepare the statement to prevent SQL injection
+                                    $stmt = sqlsrv_prepare($conn, "SELECT * FROM MDC_Visitor WHERE id = ? ORDER BY id DESC", array(&$reqid));
+                                
+                                    if ($stmt === false) {
+                                        die(print_r(sqlsrv_errors(), true));
+                                    }
+                                
+                                    // Generate SAS token (this should be done in a secure way, possibly with a server-side function or script)
+                                      $sasToken = "si=readonly&sv=2022-11-02&sr=c&sig=GuZdU2IHmFOrcpcx3ka7yuM0T0%2Fay6EraGqIT6IYl54%3D"; // Replace with your actual SAS token     
+                                ?>
                                 <div class="card-body">
-                                    <form action="salevisit_insertdata.php" method="POST"
+                                <?php
+                                if (sqlsrv_execute($stmt)) {
+                                    while ($result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                    // Generate SAS URL for the image
+                                    $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($result["Customer_image"]) . ".?" . $sasToken; // Adjust the file extension if necessary
+                                    // echo $blobUrl;
+                            ?>
+                                    <form action="edit_sale_visit.php" method="POST"
                                         class="was-validated align-items-center" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="OutletName01" class="form-label">ชื่อร้านค้า</label>
+                                                <label for="OutletName01" class="form-label">Outlet</label>
                                                 <input type="text" class="form-control" name="OutletName"
-                                                    id="OutletName01" value="" required>
-                                                <div class="valid-feedback">
-                                                    <!-- Please enter a message.  -->
-                                                </div>
+                                                    id="OutletName01" value="<?php echo htmlspecialchars($result["Customer_name"]); ?>" required>
+                                                <div class="valid-feedback"></div>
                                             </div>
-                                            <div class=" col-md-3">
-                                                <label for="Seat_total-01"
-                                                    class="form-label">จำนวนโต๊ะนั่งภายในร้าน</label>
-                                                <input type="number" step="any" name="Seat_total"
-                                                    class="form-control is-valid" maxlength="3" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback">
-                                                    <!-- Please enter a message. -->
-                                                </div>
+                                            <div class="col-md-3">
+                                                <label for="Outlet_Zone" class="form-label">Zone</label>
+                                                <input type="text" step="any" name="Outlet_Zone"
+                                                    class="form-control is-valid" id="validationTextarea" value="<?php echo htmlspecialchars($result["Outlet_Zone"]); ?>"
+                                                    required>
+                                                <div class="invalid-feedback"></div>
                                             </div>
-                                            <div class=" col-md-3">
-                                                <label for="Outlet_type-01" class="form-label">รูปแบบร้าน</label>
+                                            <div class="col-md-3">
+                                                <label for="openingandclosingtimes" class="form-label">opening and
+                                                    closing times</label>
+                                                <input type="text" step="any" name="openingandclosingtimes"
+                                                    class="form-control is-valid" id="validationTextarea" value="<?php echo htmlspecialchars($result["openingandclosingtimes"]); ?>"
+                                                    required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="Outlet_type-01" class="form-label">Cetegory</label>
                                                 <select class="form-select" name="Outlet_type" required
                                                     aria-label="select example">
-                                                    <option value=""></option>
+                                                    <option value="<?php echo htmlspecialchars($result["Outlet_type"]); ?>"><?php echo htmlspecialchars($result["Outlet_type"]); ?></option>
                                                     <option value="Resturant">Resturant</option>
                                                     <option value="Lounge">Lounge</option>
                                                     <option value="Bar">Bar</option>
@@ -728,17 +383,37 @@ $reqid = $_POST['reqid'];
                                                     <option value="Sport Club">Sport Club</option>
                                                     <option value="Ghost Resturant">Ghost Resturant</option>
                                                 </select>
-                                                <div class="invalid-feedback">
-                                                    <!-- Please enter a message.  -->
-                                                </div>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Seat_total-01" class="form-label">Seat</label>
+                                                <input type="number" step="any" name="Seat_total"
+                                                    class="form-control is-valid" maxlength="3" id="validationTextarea"
+                                                    value="<?php echo htmlspecialchars($result["Seat_total"]); ?>" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Spendingperhead" class="form-label">Spending per
+                                                    head</label>
+                                                <input type="text" step="any" name="Spendingperhead"
+                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
+                                                    value="<?php echo htmlspecialchars($result["Spendingperhead"]); ?>" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Delivery" class="form-label">Delivery</label>
+                                                <input type="text" step="any" name="Delivery"
+                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
+                                                    value="<?php echo htmlspecialchars($result["Delivery"]); ?>" required>
+                                                <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class=" col-md-3">
-                                                <label for="Range01Age" class="form-label">Range Age</label>
+                                            <div class="col-md-3">
+                                                <label for="Range01Age" class="form-label">Taget Age</label>
                                                 <select class="form-select" name="RangeAge" required
                                                     aria-label="select example">
-                                                    <option value=""></option>
+                                                    <option value="<?php echo htmlspecialchars($result["Range_Age"]); ?>"><?php echo htmlspecialchars($result["Range_Age"]); ?></option>
                                                     <option value="20-25">20-25</option>
                                                     <option value="26-30">26-30</option>
                                                     <option value="31-40">31-40</option>
@@ -746,117 +421,78 @@ $reqid = $_POST['reqid'];
                                                     <option value="51-60">51-60</option>
                                                     <option value="60">60</option>
                                                 </select>
-                                                <div class="invalid-feedback">
-                                                    <!-- Please enter a message.  -->
-                                                </div>
+                                                <div class="invalid-feedback"></div>
                                             </div>
-                                            <div class=" col-md-3">
-                                                <label for="Gender01" class="form-label">Gender</label>
+                                            <div class="col-md-3">
+                                                <label for="Gender01" class="form-label">Taget Gender</label>
                                                 <select class="form-select" name="Gender" required
                                                     aria-label="select example">
-                                                    <option value=""></option>
+                                                    <option value="<?php echo htmlspecialchars($result["Gender"]); ?>"><?php echo htmlspecialchars($result["Gender"]); ?>"</option>
                                                     <option value="Men">Men</option>
                                                     <option value="Women">Women</option>
                                                     <option value="LGBQ+">LGBQ+</option>
                                                     <option value="All">All</option>
                                                 </select>
-                                                <div class="invalid-feedback">
-                                                    <!-- Please enter a message.  -->
-                                                </div>
+                                                <div class="invalid-feedback"></div>
                                             </div>
-                                            <div class=" col-md-3">
+                                            <div class="col-md-3">
+                                                <label for="Promotionbeer" class="form-label">Promotion beer</label>
+                                                <input type="text" step="any" name="Promotionbeer"
+                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
+                                                    value="<?php echo htmlspecialchars($result["Promotion"]); ?>" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Event" class="form-label">Event</label>
+                                                <input type="text" step="any" name="Event" class="form-control is-valid"
+                                                    maxlength="" id="validationTextarea" value="<?php echo htmlspecialchars($result["Event_outlet"]); ?>" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="Situation" class="form-label">Situation</label>
+                                                <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
+                                                <textarea class="form-control" name="Situation" id="Situation" 
+                                                    rows="2"><?php echo htmlspecialchars($result["Situation"]); ?></textarea>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
                                                 <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
                                                 <div class="">
                                                     <button class="btn btn-info" onclick="getCurrentLocation()"
                                                         type="button"><i class="fa fa-location-arrow"
                                                             aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
                                                 </div>
-                                                <div class="invalid-feedback">
-                                                    <!-- Please enter a message.  -->
-                                                </div>
+                                                <div class="invalid-feedback"></div>
                                                 <input type="hidden" id="lat" name="lat">
                                                 <input type="hidden" id="lng" name="lng">
                                             </div>
-                                            <!-- <div class=" col-md-2">
-                                                <label for="processwork" class="form-label">ความสนใจของลูกค้า</label>
-                                                    <select class="form-select" name="processwork" required aria-label="select example">
-                                                        <option value=""></option>
-                                                        <option value="10">10 %</option>
-                                                        <option value="20">20 %</option>
-                                                        <option value="30">30 %</option>
-                                                        <option value="40">40 %</option>
-                                                        <option value="50">50 %</option>
-                                                        <option value="60">60 %</option>
-                                                        <option value="70">70 %</option>
-                                                        <option value="80">80 %</option>
-                                                        <option value="90">90 %</option>
-                                                        <option value="100">100 %</option>
-                                                    </select>
-                                                <div class="invalid-feedback">
-                                                      Please enter a message. 
-                                                </div>
-                                            </div> -->
-                                            <div class=" col-md-3">
+                                            <!-- <div class="col-md-3">
                                                 <label for="fileToUpload" class="form-label">รูป</label>
-                                                <input type="file" step="any" name="fileToUpload"
-                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="" required>
-                                                <!-- <label for="Gender01" class="form-label">Gender</label>
-                                                       <input type="file" name="fileToUpload" id="fileToUpload">
-                                                       <input type="submit" value="Upload File" name="submit"> -->
-                                                <div class="invalid-feedback">
-                                                    <!-- Please enter a message.  -->
-                                                </div>
-                                            </div>
+                                                <input type="file" name="fileToUpload" class="form-control is-valid"
+                                                    id="fileToUpload" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div> -->
                                         </div>
-                                        <!-- <div class="row">
-                                        <div class="d-grid gap-2 col-4 mt-1 mx-auto">
-                                            <button class="btn btn-info" onclick="getCurrentLocation()" type="button"><i class="fa fa-location-arrow" aria-hidden="true"></i> ระบุตำแหน่ง</button>
-                                        </div>
-                                            <input type="hidden" id="lat" name="lat">
-                                            <input type="hidden" id="lng" name="lng">
-                                        </div> -->
-                                        <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>
+                                        <canvas id="canvas" style="display: none;"></canvas>
                                         <div id="map"></div>
                                         <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
-                                            <button class="btn btn-success"
-                                                href="salevisit_insertdata.php">Save</button>
-                                            <a class="btn btn-danger" href="index.php" role="button">Back</a>
+                                            <!-- <button type="button" class="btn btn-success"  type="submit" >Save</button> -->
+                                            <button class="btn btn-success" type="submit">Save</button>
+                                            <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                                            
+                                            <a class="btn btn-danger" href="salevisit_detail.php" role="button">Back</a>
                                         </div>
                                     </form>
+                                    <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>
                                 </div>
                             </div>
-
-                            <!-- Illustrations -->
-                            <!-- <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="img/undraw_posting_photo.svg" alt="...">
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- Approach -->
-                            <!-- <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                        CSS bloat and poor page performance. Custom CSS classes are used to create
-                                        custom components and custom utility classes.</p>
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p>
-                                </div>
-                            </div> -->
-
                         </div>
                     </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -882,7 +518,29 @@ $reqid = $_POST['reqid'];
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
+
     </a>
+
+    <!-- บันทึกสำเร็จ modal HTML -->
+    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Saved</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">successfully saved.</div>
+                <div class="modal-footer">
+                    <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
+                    <a class="btn btn-primary" href="salevisit_new.php">Go to New Sale Visit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -921,6 +579,69 @@ $reqid = $_POST['reqid'];
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
+    <script>
+    function resizeAndUpload() {
+        const fileInput = document.getElementById('fileToUpload');
+        const canvas = document.getElementById('canvas');
+        const max_width = 1920; // Maximum width of the resized image
+        const max_height = 1080; // Maximum height of the resized image
+
+        if (fileInput.files && fileInput.files[0]) {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    let width = img.width;
+                    let height = img.height;
+                    const ratio = width / height;
+
+                    if (width > max_width) {
+                        width = max_width;
+                        height = max_width / ratio;
+                    }
+
+                    if (height > max_height) {
+                        height = max_height;
+                        width = max_height * ratio;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob(function(blob) {
+                        const formData = new FormData(document.querySelector('form'));
+                        formData.set('fileToUpload', blob, file.name);
+
+                        fetch('salevisit_insertdata.php', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.text())
+                            .then(result => {
+                                // alert('Saved');
+                                // window.location.href = 'salevisit_new.php';
+                                $('#saveModal').modal('show'); // Show the modal
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                    }, file.type, 0.85); // Adjust the quality parameter if needed
+                };
+
+                img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            alert('No file selected.');
+        }
+    }
+    </script>
+
     <!-- ปุ่มระบุตำแหน่ง -->
     <script>
     function getCurrentLocation() {
@@ -954,6 +675,7 @@ $reqid = $_POST['reqid'];
         });
     }
     </script>
+
 
 
 </body>

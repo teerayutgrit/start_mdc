@@ -14,21 +14,26 @@ require_once 'session_check.php';
     <meta name="author" content="">
 
     <title>Mardi Craft Brewing - New Visit</title>
-    
+
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 
 
-    
+
 
 </head>
 
@@ -43,7 +48,8 @@ require_once 'session_check.php';
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon">
-                    <img class="sidebar-card-illustration mb-2" src="img/logo-mardicraft.svg" alt="..." width="50" height="50">
+                    <img class="sidebar-card-illustration mb-2" src="img/logo-mardicraft.svg" alt="..." width="50"
+                        height="50">
                 </div>
                 <div class="sidebar-brand-text mx-3">MardiCraft</div>
             </a>
@@ -77,15 +83,15 @@ require_once 'session_check.php';
                 <?php if ($deptsys == "sale" || $deptsys == "admin"): ?>
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        
+
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
                         <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
                         <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <a class="collapse-item" href="re_visitmain.php">Re visit</a>
-                        
+                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
+
                     </div>
                 </div>
                 <?php endif; ?>
@@ -122,13 +128,13 @@ require_once 'session_check.php';
             <hr class="sidebar-divider bg-light">
 
             <!-- Heading -->
-            
+
             <div class="sidebar-heading">
                 Admin
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
@@ -213,13 +219,13 @@ require_once 'session_check.php';
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-        <!-- end เมนู  กำหนดสิทธิ์ -->
+            <!-- end เมนู  กำหนดสิทธิ์ -->
 
             <!-- Sidebar Message -->
             <!-- <div class="sidebar-card d-none d-lg-flex"> -->
-                <!-- <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..."> -->
-                <!-- <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p> -->
-                <!-- <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a> -->
+            <!-- <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..."> -->
+            <!-- <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p> -->
+            <!-- <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a> -->
             <!-- </div> -->
 
         </ul>
@@ -262,8 +268,8 @@ require_once 'session_check.php';
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a> -->
-                            <!-- Dropdown - Messages -->
-                            <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                        <!-- Dropdown - Messages -->
+                        <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
@@ -285,11 +291,11 @@ require_once 'session_check.php';
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i> -->
-                                <!-- Counter - Alerts -->
-                                <!-- <span class="badge badge-danger badge-counter">3+</span>
+                        <!-- Counter - Alerts -->
+                        <!-- <span class="badge badge-danger badge-counter">3+</span>
                             </a> -->
-                            <!-- Dropdown - Alerts -->
-                            <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        <!-- Dropdown - Alerts -->
+                        <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alerts Center
@@ -336,11 +342,11 @@ require_once 'session_check.php';
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i> -->
-                                <!-- Counter - Messages -->
-                                <!-- <span class="badge badge-danger badge-counter">7</span>
+                        <!-- Counter - Messages -->
+                        <!-- <span class="badge badge-danger badge-counter">7</span>
                             </a> -->
-                            <!-- Dropdown - Messages -->
-                            <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        <!-- Dropdown - Messages -->
+                        <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
                                     Message Center
@@ -405,10 +411,9 @@ require_once 'session_check.php';
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                <?php echo isset($user_name) ? $user_name : 'Default Name'; ?>
+                                    <?php echo isset($user_name) ? $user_name : 'Default Name'; ?>
                                 </span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -448,16 +453,16 @@ require_once 'session_check.php';
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div> -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">New Visit</h1>
+                        <h1 class="h3 mb-0 text-gray-800">New Visit & Visit List</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i -->
-                                <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+                        <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
 
                     <!-- Content Row -->
                     <!-- <div class="row"> -->
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -474,8 +479,8 @@ require_once 'session_check.php';
                             </div>
                         </div> -->
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -492,8 +497,8 @@ require_once 'session_check.php';
                             </div>
                         </div> -->
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -521,8 +526,8 @@ require_once 'session_check.php';
                             </div>
                         </div> -->
 
-                        <!-- Pending Requests Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+                    <!-- Pending Requests Card Example -->
+                    <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -539,15 +544,15 @@ require_once 'session_check.php';
                             </div>
                         </div>
                     </div> -->
-                    
+
                     <!-- Content Row -->
                     <div class="row">
 
                         <!-- Content Column -->
                         <!-- <div class="col-lg-6 mb-4"> -->
 
-                            <!-- Project Card Example -->
-                            <!-- <div class="card shadow mb-4">
+                        <!-- Project Card Example -->
+                        <!-- <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
                                 </div>
@@ -585,8 +590,8 @@ require_once 'session_check.php';
                                 </div>
                             </div> -->
 
-                            <!-- Color System -->
-                            <!-- <div class="row">
+                        <!-- Color System -->
+                        <!-- <div class="row">
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-primary text-white shadow">
                                         <div class="card-body">
@@ -657,117 +662,263 @@ require_once 'session_check.php';
 
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">กรอกรายละเอียดร้านค้า</h6>
+                                <div
+                                    class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded">
+                                    <h6 class="m-0 font-weight-bold text-light">รายละเอียดร้านค้า</h6>
                                 </div>
                                 <div class="card-body">
-                                <form action="salevisit_insertdatatest.php" method="POST" class="was-validated align-items-center" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-md-6">
-            <label for="OutletName01" class="form-label">ชื่อร้านค้า</label>
-            <input type="text" class="form-control" name="OutletName" id="OutletName01" value="" required>
-            <div class="valid-feedback"></div>
-        </div>
-        <div class="col-md-3">
-            <label for="Seat_total-01" class="form-label">จำนวนโต๊ะนั่งภายในร้าน</label>
-            <input type="number" step="any" name="Seat_total" class="form-control is-valid" maxlength="3" id="validationTextarea" value="" required>
-            <div class="invalid-feedback"></div>
-        </div>
-        <div class="col-md-3">
-            <label for="Outlet_type-01" class="form-label">รูปแบบร้าน</label>
-            <select class="form-select" name="Outlet_type" required aria-label="select example">
-                <option value=""></option>
-                <option value="Resturant">Resturant</option>
-                <option value="Lounge">Lounge</option>
-                <option value="Bar">Bar</option>
-                <option value="Cafe">Cafe'</option>
-                <option value="Agent">Agent</option>
-                <option value="Sport Club">Sport Club</option>
-                <option value="Ghost Resturant">Ghost Resturant</option>
-            </select>
-            <div class="invalid-feedback"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label for="Range01Age" class="form-label">Range Age</label>
-            <select class="form-select" name="RangeAge" required aria-label="select example">
-                <option value=""></option>
-                <option value="20-25">20-25</option>
-                <option value="26-30">26-30</option>
-                <option value="31-40">31-40</option>
-                <option value="41-50">41-50</option>
-                <option value="51-60">51-60</option>
-                <option value="60">60</option>
-            </select>
-            <div class="invalid-feedback"></div>
-        </div>
-        <div class="col-md-3">
-            <label for="Gender01" class="form-label">Gender</label>
-            <select class="form-select" name="Gender" required aria-label="select example">
-                <option value=""></option>
-                <option value="Men">Men</option>
-                <option value="Women">Women</option>
-                <option value="LGBQ+">LGBQ+</option>
-                <option value="All">All</option>
-            </select>
-            <div class="invalid-feedback"></div>
-        </div>
-        <div class="col-md-3">
-            <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
-            <div class="">
-                <button class="btn btn-info" onclick="getCurrentLocation()" type="button"><i class="fa fa-location-arrow" aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
-            </div>
-            <div class="invalid-feedback"></div>
-            <input type="hidden" id="lat" name="lat">
-            <input type="hidden" id="lng" name="lng">
-        </div>
-        <div class="col-md-3">
-            <label for="fileToUpload" class="form-label">รูป</label>
-            <input type="file" name="fileToUpload" class="form-control is-valid" id="fileToUpload" required>
-            <div class="invalid-feedback"></div>
-        </div>
-    </div>
-    <canvas id="canvas" style="display: none;"></canvas>
-    <div id="map"></div>
-    <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
-        <button type="button" class="btn btn-success" onclick="resizeAndUpload()">Save</button>
-        <a class="btn btn-danger" href="index.php" role="button">Back</a>
-    </div>
-</form>
+                                    <form id="uploadForm" action="salevisit_insertdatatest.php" method="POST"
+                                        class="was-validated align-items-center" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="OutletName01" class="form-label">Outlet</label>
+                                                <input type="text" class="form-control" name="OutletName"
+                                                    id="OutletName01" value="" required>
+                                                <div class="valid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Outlet_Zone" class="form-label">Zone</label>
+                                                <input type="text" step="any" name="Outlet_Zone"
+                                                    class="form-control is-valid" id="validationTextarea" value=""
+                                                    required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="openingandclosingtimes" class="form-label">opening and closing times</label>
+                                                <input type="text" step="any" name="openingandclosingtimes"
+                                                    class="form-control is-valid" id="validationTextarea" value=""
+                                                    required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="Outlet_type-01" class="form-label">Cetegory</label>
+                                                <select class="form-select" name="Outlet_type" required
+                                                    aria-label="select example">
+                                                    <option value=""></option>
+                                                    <option value="Resturant">Resturant</option>
+                                                    <option value="Lounge">Lounge</option>
+                                                    <option value="Bar">Bar</option>
+                                                    <option value="Cafe">Cafe'</option>
+                                                    <option value="Agent">Agent</option>
+                                                    <option value="Sport Club">Sport Club</option>
+                                                    <option value="Ghost Resturant">Ghost Resturant</option>
+                                                </select>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Seat_total-01" class="form-label">Seat</label>
+                                                <input type="number" step="any" name="Seat_total"
+                                                    class="form-control is-valid" maxlength="3" id="validationTextarea"
+                                                    value="" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Spendingperhead" class="form-label">Spending per head</label>
+                                                <input type="text" step="any" name="Spendingperhead"
+                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
+                                                    value="" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Delivery" class="form-label">Delivery</label>
+                                                <input type="text" step="any" name="Delivery"
+                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
+                                                    value="" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="Range01Age" class="form-label">Taget Age</label>
+                                                <select class="form-select" name="RangeAge" required
+                                                    aria-label="select example">
+                                                    <option value=""></option>
+                                                    <option value="20-25">20-25</option>
+                                                    <option value="26-30">26-30</option>
+                                                    <option value="31-40">31-40</option>
+                                                    <option value="41-50">41-50</option>
+                                                    <option value="51-60">51-60</option>
+                                                    <option value="60">60</option>
+                                                </select>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Gender01" class="form-label">Taget Gender</label>
+                                                <select class="form-select" name="Gender" required
+                                                    aria-label="select example">
+                                                    <option value=""></option>
+                                                    <option value="Men">Men</option>
+                                                    <option value="Women">Women</option>
+                                                    <option value="LGBQ+">LGBQ+</option>
+                                                    <option value="All">All</option>
+                                                </select>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Promotionbeer" class="form-label">Promotion beer</label>
+                                                <input type="text" step="any" name="Promotionbeer"
+                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
+                                                    value="" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Event" class="form-label">Event</label>
+                                                <input type="text" step="any" name="Event" class="form-control is-valid"
+                                                    maxlength="" id="validationTextarea" value="" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="Situation" class="form-label">Situation</label>
+                                                <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
+                                                <textarea class="form-control" name="Situation" id="Situation"
+                                                    rows="2"></textarea>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
+                                                <div class="">
+                                                    <button class="btn btn-info" onclick="getCurrentLocation()"
+                                                        type="button"><i class="fa fa-location-arrow"
+                                                            aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
+                                                </div>
+                                                <div class="invalid-feedback"></div>
+                                                <input type="hidden" id="lat" name="lat">
+                                                <input type="hidden" id="lng" name="lng">
+                                            </div>
+                                            <!-- <div class="col-md-3">
+                                                <label for="fileToUpload" class="form-label">รูป</label>
+                                                <input type="file" name="filesToUpload[]" class="form-control is-valid" id="fileToUpload" multiple required>
+                                                <div class="invalid-feedback"></div>
+                                            </div> -->
+                                            <div class="col-md-3">
+                                                <label for="fileToUpload" class="form-label">รูป</label>
+                                                <input type="file" name="filesToUpload[]" class="form-control is-valid" id="fileToUpload" multiple required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="canvas" style="display: none;"></canvas>
+                                        <div id="map"></div>
+                                        <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
+                                            <button type="button" class="btn btn-success" onclick="resizeAndUpload()">Save</button>
+                                            <a class="btn btn-danger" href="index.php" role="button">Back</a>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-
-                            <!-- Illustrations -->
-                            <!-- <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="img/undraw_posting_photo.svg" alt="...">
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- Approach -->
-                            <!-- <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                        CSS bloat and poor page performance. Custom CSS classes are used to create
-                                        custom components and custom utility classes.</p>
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p>
-                                </div>
-                            </div> -->
-
                         </div>
                     </div>
-
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Content Column -->
+                        <div class="col-xl-12 col-lg-100">
+                            <!-- Project Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded "
+                                    style="margin-top: -0.5rem ">
+                                    <h6 class="m-0 font-weight-bold text-light">Visit List</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <?php
+                                   // Include query_visitmain_api.php to retrieve data
+                                     require_once 'query_visitmain_api.php';
+                                 ?>
+                                    <div class="table-responsive-sm">
+                                        <table id="myTable" class="table table-sm table-hover sm-2">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th class="text-center text-nowrap">วันที่อนุมัติ</th> -->
+                                                    <th class="text-center">วันที่</th>
+                                                    <!-- <th class="text-center">ชื่อ</th> -->
+                                                    <th class="text-center">ชื่อร้านค้า</th>
+                                                    <!-- <th class="text-center">อายุ</th> -->
+                                                    <!-- <th class="text-center">รูปแบบร้าน</th> -->
+                                                    <th class="text-center">ความคืบหน้า</th>
+                                                    <th class="text-center">รายละเอียด</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
+                                                 // Loop through the results obtained from query_visitmain_api.php
+                                                 foreach ($results as $result) {
+                                                 ?>
+                                                <tr>
+                                                    <form action="salevisit_detail.php" method="post">
+                                                        <!-- <td class="text-center"><?php echo htmlspecialchars($result["id"]); ?></td> -->
+                                                        <td class="text-nowrap">
+                                                            <?php echo htmlspecialchars($result["Posting_date"]); ?>
+                                                        </td>
+                                                        <!-- <td class="text-nowrap"><?php echo htmlspecialchars($result["User_name"]); ?></td> -->
+                                                        <td><?php echo htmlspecialchars($result["Customer_name"]); ?>
+                                                        </td>
+                                                        <!-- <td class="text-center text-nowrap"><?php echo htmlspecialchars($result["Range_Age"]); ?></td> -->
+                                                        <!-- <td><?php echo htmlspecialchars($result["Outlet_type"]); ?></td> -->
+                                                        <td>
+                                                            <div class="progress mr-4">
+                                                                <?php
+                                            $led01 = $result["processwork"];
+                                            $progressClass = 'bg-primary'; // Default class
+                                            $progressText = 'เข้าพบลูกค้า'; // Default text
+                                
+                                            switch ($result["processwork"]) {
+                                                case 40:
+                                                    $progressClass = 'bg-info';
+                                                    $progressText = 'เข้าพบลูกค้า';
+                                                    break;
+                                                case 80:
+                                                    $progressClass = 'bg-warning';
+                                                    $progressText = 'ลูกค้าเทสสินค้า';
+                                                    break;
+                                                case 100:
+                                                    $progressClass = 'bg-success';
+                                                    $progressText = 'จบการนำเสนอ';
+                                                    break;
+                                                default:
+                                                    // Default case handled by setting $led01 to $result["processwork"]
+                                                    break;
+                                            }
+                                        ?>
+                                                                <div id="myProgress1"
+                                                                    class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>"
+                                                                    role="progressbar"
+                                                                    aria-valuenow="<?php echo htmlspecialchars($led01); ?>"
+                                                                    aria-valuemin="0" aria-valuemax="100"
+                                                                    style="width:<?php echo htmlspecialchars($led01); ?>%">
+                                                                    <?php echo htmlspecialchars($progressText ); ?>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <!-- <td><?php echo htmlspecialchars($result["comment"]); ?></td> -->
+                                                        <!-- <td class="text-center"><?php if ($result["supportname"] != "") { echo "✔️"; } ?></td> -->
+                                                        <!-- <td align="center"><?php if ($result["mgitname"] != "") { echo "✔️"; } ?></td> -->
+                                                        <td class="text-center">
+                                                            <font size="+1" color="#3745B5"><strong>
+                                                                    <input name="reqid" type="hidden"
+                                                                        value="<?php echo htmlspecialchars($result["id"]); ?>" />
+                                                                    <input name="Submit" type="submit"
+                                                                        class="btn btn-sm btn-primary" value="Detail" />
+                                                                </strong></font>
+                                                        </td>
+                                                    </form>
+                                                </tr>
+                                                <?php 
+                                               }
+                                               ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -793,7 +944,29 @@ require_once 'session_check.php';
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
+
     </a>
+
+<!-- บันทึกสำเร็จ modal HTML -->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Saved</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">successfully saved.</div>
+            <div class="modal-footer">
+                <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
+                <a class="btn btn-primary" href="salevisit_newtest.php">Go to New Sale Visit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -833,95 +1006,277 @@ require_once 'session_check.php';
     <script src="js/demo/chart-pie-demo.js"></script>
 
     <script>
-function resizeAndUpload() {
-    const fileInput = document.getElementById('fileToUpload');
-    const canvas = document.getElementById('canvas');
-    const max_width = 1000; // Maximum width of the resized image
-    const max_height = 1000; // Maximum height of the resized image
+    function resizeAndUpload() {
+        const fileInput = document.getElementById('fileToUpload');
+        const canvas = document.getElementById('canvas');
+        const max_width = 1920;
+        const max_height = 1080;
 
-    if (fileInput.files && fileInput.files[0]) {
-        const file = fileInput.files[0];
-        const reader = new FileReader();
+        if (fileInput.files.length > 0) {
+            const files = Array.from(fileInput.files);
+            const formData = new FormData();
 
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                let width = img.width;
-                let height = img.height;
-                const ratio = width / height;
+            let fileCounter = 0;
 
-                if (width > max_width) {
-                    width = max_width;
-                    height = max_width / ratio;
-                }
+            files.forEach(file => {
+                const reader = new FileReader();
 
-                if (height > max_height) {
-                    height = max_height;
-                    width = max_height * ratio;
-                }
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        let width = img.width;
+                        let height = img.height;
+                        const ratio = width / height;
 
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
+                        if (width > max_width) {
+                            width = max_width;
+                            height = max_width / ratio;
+                        }
 
-                canvas.toBlob(function(blob) {
-                    const formData = new FormData(document.querySelector('form'));
-                    formData.set('fileToUpload', blob, file.name);
+                        if (height > max_height) {
+                            height = max_height;
+                            width = max_height * ratio;
+                        }
 
-                    fetch('salevisit_insertdata.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.text())
-                    .then(result => {
-                        alert('Saved');
-                        window.location.href = 'salevisit_new.php';
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                }, file.type, 0.85); // Adjust the quality parameter if needed
-            };
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
 
-            img.src = e.target.result;
-        };
+                        canvas.toBlob(function(blob) {
+                            formData.append('filesToUpload[]', blob, file.name);
 
-        reader.readAsDataURL(file);
-    } else {
-        alert('No file selected.');
+                            fileCounter++;
+                            if (fileCounter === files.length) {
+                                uploadFiles(formData);
+                            }
+                        }, file.type, 0.85);
+                    };
+
+                    img.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            });
+        } else {
+            alert('No file selected.');
+        }
     }
-}
-</script>
 
-         <!-- ปุ่มระบุตำแหน่ง -->
-         <script>
-        function getCurrentLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                alert("Geolocation is not supported by this browser.");
+    function uploadFiles(formData) {
+        const form = document.querySelector('form');
+        const formElements = form.elements;
+
+        // Append all form data
+        for (let i = 0; i < formElements.length; i++) {
+            if (formElements[i].type !== 'file') {
+                formData.append(formElements[i].name, formElements[i].value);
             }
         }
 
-        function showPosition(position) {
-            document.getElementById("lat").value = position.coords.latitude;
-            document.getElementById("lng").value = position.coords.longitude;
-            var geocoder = new google.maps.Geocoder();
-            var latlng = {lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude)};
-            geocoder.geocode({'location': latlng}, function(results, status) {
-                if (status === 'OK') {
-                    if (results[0]) {
-                        document.getElementById("location").value = results[0].formatted_address;
-                    } else {
-                        window.alert('ไม่พบสถานที่');
+        fetch('salevisit_insertdatatest.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Success:', result);
+            $('#saveModal').modal('show');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+
+    <!-- <script>
+    document.getElementById('fileToUpload').addEventListener('change', handleFileSelect);
+
+    function handleFileSelect(event) {
+        const fileInput = event.target;
+        const files = Array.from(fileInput.files);
+        const resizedImages = [];
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const max_width = 1920;
+        const max_height = 1080;
+
+        files.forEach((file, index) => {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    let width = img.width;
+                    let height = img.height;
+                    const ratio = width / height;
+
+                    if (width > max_width) {
+                        width = max_width;
+                        height = max_width / ratio;
                     }
-                } else {
-                    window.alert('การร้องขอสถานที่ล้มเหลว เนื่องจาก ' + status);
-                }
-            });
+
+                    if (height > max_height) {
+                        height = max_height;
+                        width = max_height * ratio;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob(function(blob) {
+                        const resizedFile = new File([blob], `${file.name}_${index}_${Date.now()}`, {
+                            type: file.type,
+                            lastModified: Date.now()
+                        });
+
+                        resizedImages.push(resizedFile);
+
+                        if (resizedImages.length === files.length) {
+                            // All images have been resized, now trigger the upload
+                            uploadResizedImages(resizedImages);
+                        }
+                    }, file.type, 0.85);
+                };
+
+                img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function uploadResizedImages(files) {
+        const formData = new FormData();
+        files.forEach(file => {
+            formData.append('filesToUpload[]', file);
+        });
+
+        fetch('salevisit_insertdatatest.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Success:', result);
+            $('#saveModal').modal('show');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script> -->
+
+    <!-- <script>
+        function resizeAndUpload() {
+            const fileInput = document.getElementById('fileToUpload');
+            const canvas = document.getElementById('canvas');
+            const max_width = 1920; // Maximum width of the resized image
+            const max_height = 1080; // Maximum height of the resized image
+
+            if (fileInput.files.length > 0) {
+                const files = Array.from(fileInput.files);
+                const formData = new FormData(document.getElementById('uploadForm'));
+
+                let fileCounter = 0;
+
+                files.forEach(file => {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            let width = img.width;
+                            let height = img.height;
+                            const ratio = width / height;
+
+                            if (width > max_width) {
+                                width = max_width;
+                                height = max_width / ratio;
+                            }
+
+                            if (height > max_height) {
+                                height = max_height;
+                                width = max_height * ratio;
+                            }
+
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, width, height);
+
+                            canvas.toBlob(function(blob) {
+                                formData.append('filesToUpload[]', blob, file.name);
+
+                                fileCounter++;
+                                if (fileCounter === files.length) {
+                                    fetch('salevisit_insertdatatest.php', {
+                                        method: 'POST',
+                                        body: formData
+                                    })
+                                    .then(response => response.text())
+                                    .then(result => {
+                                        console.log('Success:', result);
+                                        $('#saveModal').modal('show'); // Show the modal
+                                        // alert('Upload successful');
+                                        // window.location.href = 'salevisit_new.php'; // Redirect if needed
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                    });
+                                }
+                            }, file.type, 0.85); // Adjust the quality parameter if needed
+                        };
+
+                        img.src = e.target.result;
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                alert('No file selected.');
+            }
         }
+    </script> -->
+
+    <!-- ปุ่มระบุตำแหน่ง -->
+    <script>
+    function getCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        document.getElementById("lat").value = position.coords.latitude;
+        document.getElementById("lng").value = position.coords.longitude;
+        var geocoder = new google.maps.Geocoder();
+        var latlng = {
+            lat: parseFloat(position.coords.latitude),
+            lng: parseFloat(position.coords.longitude)
+        };
+        geocoder.geocode({
+            'location': latlng
+        }, function(results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    document.getElementById("location").value = results[0].formatted_address;
+                } else {
+                    window.alert('ไม่พบสถานที่');
+                }
+            } else {
+                window.alert('การร้องขอสถานที่ล้มเหลว เนื่องจาก ' + status);
+            }
+        });
+    }
     </script>
+
 
 
 </body>

@@ -1,6 +1,6 @@
 <?php
 
-//session_check
+// session_check
 require_once 'session_check.php';
 // การเชื่อมต่อฐานข้อมูล SQL Servers
 include("dbcon.php");
@@ -21,6 +21,7 @@ $Status01 = "Register";
 // แทนค่า status
 $processwork = "40";
 // รับค่าจากฟอร์ม
+
 $lat = $_POST['lat'];
 $lng = $_POST['lng'];
 $OutletName = $_POST['OutletName'];
@@ -36,42 +37,57 @@ $Promotionbeer = $_POST['Promotionbeer'];
 $Event = $_POST['Event'];
 $Situation = $_POST['Situation'];
 
-// $user_name = 'your_user_name';
+
+// Azure Blob Storage connection settings
+$connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
+$containerName = 'mdcimg';
 
 // ตรวจสอบว่ามีไฟล์ที่ถูกอัปโหลดหรือไม่
-if(isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {
-    $fileToUpload = $_FILES["fileToUpload"]["tmp_name"];
-    // ใช้ชื่อ OutletName เป็นชื่อไฟล์และเพิ่มนามสกุลของไฟล์เดิม
-    $fileExtension = pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION);
-    $fileName = $OutletName . '.' . $fileExtension;
+if (isset($_FILES["filesToUpload"])) {
+    $fileNames = [];
+    $folderName = $OutletName;
 
-    // Azure Blob Storage connection settings
-    $connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
-    $containerName = 'mdcimg';
+    foreach ($_FILES["filesToUpload"]["tmp_name"] as $key => $tmp_name) {
+        $fileToUpload = $tmp_name;
+        $fileExtension = pathinfo($_FILES["filesToUpload"]["name"][$key], PATHINFO_EXTENSION);
+        $fileName = $folderName . '/' . $OutletName . '_' . time() . '_' . $key . '.' . $fileExtension; // Create folder structure
+        $fileNames[] = $fileName;
 
-    try {
-        // Create a Blob service client
-        $blobServiceClient = BlobRestProxy::createBlobService($connectionString);
+        try {
+            // Create a Blob service client
+            $blobServiceClient = BlobRestProxy::createBlobService($connectionString);
 
-        // Create options for the blob
-        $options = new CreateBlockBlobOptions();
-        $options->setContentType(mime_content_type($fileToUpload)); // Set content type based on the file
+            // Create options for the blob
+            $options = new CreateBlockBlobOptions();
+            $options->setContentType(mime_content_type($fileToUpload)); // Set content type based on the file
 
-        // Upload the file to Azure Blob Storage
-        $blobServiceClient->createBlockBlob($containerName, $fileName, fopen($fileToUpload, "r"), $options);
+            // Upload the file to Azure Blob Storage
+            $blobServiceClient->createBlockBlob($containerName, $fileName, fopen($fileToUpload, "r"), $options);
 
-        // echo "File '$fileName' uploaded successfully.";
-    } catch (\Exception $e) {
-        echo "Error uploading file: " . $e->getMessage();
+            // echo "File '$fileName' uploaded successfully.";
+        } catch (\Exception $e) {
+            echo "Error uploading file: " . $e->getMessage();
+        }
     }
+
+    // Remove duplicate file names
+    $uniqueFileNames = array_unique($fileNames);
+    
+    // แปลง array ของชื่อไฟล์เป็น string ที่คั่นด้วยเครื่องหมายจุลภาค
+    $fileNamesString = implode(',', $uniqueFileNames);
 } else {
     echo "No file uploaded or upload error.";
-    $fileName = null;
+    $fileNamesString = null;
 }
 
+// $Situation = $_POST['Situation'];
+// $lat = $_POST['lat'];
+// $lng = $_POST['lng'];
+
 // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
-$sql = "INSERT INTO MDC_Visitor (Status, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone,Delivery,Promotion,Event_outlet,Situation,openingandclosingtimes,Range_Age, Gender, Latitude, Longitude, processwork, Customer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead,$Outlet_Zone,$Delivery,$Promotionbeer,$Event,$Situation,$openingandclosingtimes,$RangeAge, $Gender, $lat, $lng, $processwork, $fileName);
+
+$sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone,Delivery,Promotion,Event_outlet,Situation,openingandclosingtimes,Range_Age, Gender, Latitude, Longitude, processwork, Customer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+$params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead,$Outlet_Zone,$Delivery,$Promotionbeer,$Event,$Situation,$openingandclosingtimes,$RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {
@@ -83,3 +99,21 @@ if ($stmt === false) {
 // ปิดการเชื่อมต่อฐานข้อมูล
 sqlsrv_close($conn);
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

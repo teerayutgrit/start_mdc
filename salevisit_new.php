@@ -667,7 +667,7 @@ require_once 'session_check.php';
                                     <h6 class="m-0 font-weight-bold text-light">รายละเอียดร้านค้า</h6>
                                 </div>
                                 <div class="card-body">
-                                    <form action="salevisit_insertdatatest.php" method="POST"
+                                    <form id="uploadForm" action="salevisit_insertdatatest.php" method="POST"
                                         class="was-validated align-items-center" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -793,18 +793,21 @@ require_once 'session_check.php';
                                                 <input type="hidden" id="lat" name="lat">
                                                 <input type="hidden" id="lng" name="lng">
                                             </div>
+                                            <!-- <div class="col-md-3">
+                                                <label for="fileToUpload" class="form-label">รูป</label>
+                                                <input type="file" name="filesToUpload[]" class="form-control is-valid" id="fileToUpload" multiple required>
+                                                <div class="invalid-feedback"></div>
+                                            </div> -->
                                             <div class="col-md-3">
                                                 <label for="fileToUpload" class="form-label">รูป</label>
-                                                <input type="file" name="fileToUpload" class="form-control is-valid"
-                                                    id="fileToUpload" required>
+                                                <input type="file" name="filesToUpload[]" class="form-control is-valid" id="fileToUpload" multiple required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                         <canvas id="canvas" style="display: none;"></canvas>
                                         <div id="map"></div>
                                         <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
-                                            <button type="button" class="btn btn-success"
-                                                onclick="resizeAndUpload()">Save</button>
+                                            <button type="button" class="btn btn-success" onclick="resizeAndUpload()">Save</button>
                                             <a class="btn btn-danger" href="index.php" role="button">Back</a>
                                         </div>
                                     </form>
@@ -958,7 +961,7 @@ require_once 'session_check.php';
             <div class="modal-body">successfully saved.</div>
             <div class="modal-footer">
                 <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
-                <a class="btn btn-primary" href="salevisit_new.php">Go to New Sale Visit</a>
+                <a class="btn btn-primary" href="salevisit_newtest.php">Go to New Sale Visit</a>
             </div>
         </div>
     </div>
@@ -1006,11 +1009,102 @@ require_once 'session_check.php';
     function resizeAndUpload() {
         const fileInput = document.getElementById('fileToUpload');
         const canvas = document.getElementById('canvas');
-        const max_width = 1920; // Maximum width of the resized image
-        const max_height = 1080; // Maximum height of the resized image
+        const max_width = 1920;
+        const max_height = 1080;
 
-        if (fileInput.files && fileInput.files[0]) {
-            const file = fileInput.files[0];
+        if (fileInput.files.length > 0) {
+            const files = Array.from(fileInput.files);
+            const formData = new FormData();
+
+            let fileCounter = 0;
+
+            files.forEach(file => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        let width = img.width;
+                        let height = img.height;
+                        const ratio = width / height;
+
+                        if (width > max_width) {
+                            width = max_width;
+                            height = max_width / ratio;
+                        }
+
+                        if (height > max_height) {
+                            height = max_height;
+                            width = max_height * ratio;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        canvas.toBlob(function(blob) {
+                            formData.append('filesToUpload[]', blob, file.name);
+
+                            fileCounter++;
+                            if (fileCounter === files.length) {
+                                uploadFiles(formData);
+                            }
+                        }, file.type, 0.85);
+                    };
+
+                    img.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            });
+        } else {
+            alert('No file selected.');
+        }
+    }
+
+    function uploadFiles(formData) {
+        const form = document.querySelector('form');
+        const formElements = form.elements;
+
+        // Append all form data
+        for (let i = 0; i < formElements.length; i++) {
+            if (formElements[i].type !== 'file') {
+                formData.append(formElements[i].name, formElements[i].value);
+            }
+        }
+
+        fetch('salevisit_insertdatatest.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Success:', result);
+            $('#saveModal').modal('show');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+
+    <!-- <script>
+    document.getElementById('fileToUpload').addEventListener('change', handleFileSelect);
+
+    function handleFileSelect(event) {
+        const fileInput = event.target;
+        const files = Array.from(fileInput.files);
+        const resizedImages = [];
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const max_width = 1920;
+        const max_height = 1080;
+
+        files.forEach((file, index) => {
             const reader = new FileReader();
 
             reader.onload = function(e) {
@@ -1032,38 +1126,122 @@ require_once 'session_check.php';
 
                     canvas.width = width;
                     canvas.height = height;
-                    const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
 
                     canvas.toBlob(function(blob) {
-                        const formData = new FormData(document.querySelector('form'));
-                        formData.set('fileToUpload', blob, file.name);
+                        const resizedFile = new File([blob], `${file.name}_${index}_${Date.now()}`, {
+                            type: file.type,
+                            lastModified: Date.now()
+                        });
 
-                        fetch('salevisit_insertdata.php', {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(response => response.text())
-                            .then(result => {
-                                // alert('Saved');
-                                // window.location.href = 'salevisit_new.php';
-                                $('#saveModal').modal('show'); // Show the modal
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
-                    }, file.type, 0.85); // Adjust the quality parameter if needed
+                        resizedImages.push(resizedFile);
+
+                        if (resizedImages.length === files.length) {
+                            // All images have been resized, now trigger the upload
+                            uploadResizedImages(resizedImages);
+                        }
+                    }, file.type, 0.85);
                 };
 
                 img.src = e.target.result;
             };
 
             reader.readAsDataURL(file);
-        } else {
-            alert('No file selected.');
-        }
+        });
     }
-    </script>
+
+    function uploadResizedImages(files) {
+        const formData = new FormData();
+        files.forEach(file => {
+            formData.append('filesToUpload[]', file);
+        });
+
+        fetch('salevisit_insertdatatest.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log('Success:', result);
+            $('#saveModal').modal('show');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script> -->
+
+    <!-- <script>
+        function resizeAndUpload() {
+            const fileInput = document.getElementById('fileToUpload');
+            const canvas = document.getElementById('canvas');
+            const max_width = 1920; // Maximum width of the resized image
+            const max_height = 1080; // Maximum height of the resized image
+
+            if (fileInput.files.length > 0) {
+                const files = Array.from(fileInput.files);
+                const formData = new FormData(document.getElementById('uploadForm'));
+
+                let fileCounter = 0;
+
+                files.forEach(file => {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            let width = img.width;
+                            let height = img.height;
+                            const ratio = width / height;
+
+                            if (width > max_width) {
+                                width = max_width;
+                                height = max_width / ratio;
+                            }
+
+                            if (height > max_height) {
+                                height = max_height;
+                                width = max_height * ratio;
+                            }
+
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, width, height);
+
+                            canvas.toBlob(function(blob) {
+                                formData.append('filesToUpload[]', blob, file.name);
+
+                                fileCounter++;
+                                if (fileCounter === files.length) {
+                                    fetch('salevisit_insertdatatest.php', {
+                                        method: 'POST',
+                                        body: formData
+                                    })
+                                    .then(response => response.text())
+                                    .then(result => {
+                                        console.log('Success:', result);
+                                        $('#saveModal').modal('show'); // Show the modal
+                                        // alert('Upload successful');
+                                        // window.location.href = 'salevisit_new.php'; // Redirect if needed
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                    });
+                                }
+                            }, file.type, 0.85); // Adjust the quality parameter if needed
+                        };
+
+                        img.src = e.target.result;
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                alert('No file selected.');
+            }
+        }
+    </script> -->
 
     <!-- ปุ่มระบุตำแหน่ง -->
     <script>
