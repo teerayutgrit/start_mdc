@@ -20,7 +20,19 @@ $postingdate = date("Y-m-d");
 $Status01 = "Register";
 // แทนค่า status
 $processwork = "40";
+
 // รับค่าจากฟอร์ม
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $checkboxes = $_POST['checkboxes'];
+    $Product_good = $_POST['Product_good'];
+    if (!empty($checkboxes)) {
+        $checkboxString = implode(',', $checkboxes);
+        $combinedString = $checkboxString . ',' . $Product_good;
+        echo 'Combined checkbox values and product good: ' . $combinedString;
+    } else {
+        echo 'No checkboxes selected.';
+    }
+}
 
 $lat = $_POST['lat'];
 $lng = $_POST['lng'];
@@ -36,7 +48,7 @@ $Delivery = $_POST['Delivery'];
 $Promotionbeer = $_POST['Promotionbeer'];
 $Event = $_POST['Event'];
 $Situation = $_POST['Situation'];
-
+$Contact_outlet = $_POST['Contact_outlet'];
 
 // Azure Blob Storage connection settings
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
@@ -80,14 +92,12 @@ if (isset($_FILES["filesToUpload"])) {
     $fileNamesString = null;
 }
 
-// $Situation = $_POST['Situation'];
-// $lat = $_POST['lat'];
-// $lng = $_POST['lng'];
+
 
 // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
 
-$sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone,Delivery,Promotion,Event_outlet,Situation,openingandclosingtimes,Range_Age, Gender, Latitude, Longitude, processwork, Customer_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead,$Outlet_Zone,$Delivery,$Promotionbeer,$Event,$Situation,$openingandclosingtimes,$RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString);
+$sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone,Delivery,Promotion,Event_outlet,Situation,openingandclosingtimes,Range_Age, Gender, Latitude, Longitude, processwork, Customer_image,PD_good1,Contact_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+$params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead,$Outlet_Zone,$Delivery,$Promotionbeer,$Event,$Situation,$openingandclosingtimes,$RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString,$combinedString,$Contact_outlet);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {

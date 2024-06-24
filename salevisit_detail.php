@@ -604,11 +604,13 @@ include 'dbcon.php';
                                                 <div class="text text-dark">
                                                     <i class="fa fa-calendar text-primary "></i> Date:
                                                     <?php echo htmlspecialchars($result["Posting_date"]); ?></p>
+                                                    <i class="fa fa-phone-square text-primary"></i> Contact:
+                                                    <?php echo htmlspecialchars($result["Contact_outlet"]);  ?></p>
                                                     <i class="fa fa-check-square text-primary"></i> Seat:
                                                     <?php echo htmlspecialchars($result["Seat_total"]);  ?></p>
                                                     <i class="fa fa-map-marker text-primary"></i> Zone:
                                                     <?php echo htmlspecialchars($result["Outlet_Zone"]);  ?></p>
-                                                    <i class="fa fa-handshake text-primary"></i> Spending per head:
+                                                    <i class="fa fa-dollar-sign text-primary"></i> Spending per head:
                                                     <?php echo htmlspecialchars($result["Spendingperhead"]);  ?></p>
                                                     <i class="fa fa-bolt text-primary"></i> Promotion:
                                                     <?php echo htmlspecialchars($result["Promotion"]);  ?></p>
@@ -629,13 +631,13 @@ include 'dbcon.php';
                                                     <?php echo htmlspecialchars($result["Event_outlet"]); ?></p>
                                                 </div>
                                             </div>
-                                            <!-- <div class="col-12">
+                                            <div class="col-6">
                                                 <div class="text text-nowrap ">
-                                                    <i class="fa fa-share-alt text-primary text-sm"></i> Product
-                                                    Present:
-                                                    <?php echo htmlspecialchars($result["Present_pd"]); ?></p>
+                                                <i class="fa fa-bullhorn text-primary"></i> Product:
+                                                <?php echo htmlspecialchars($result["PD_good1"]); ?></p>
                                                 </div>
-                                            </div> -->
+                                            </div>
+    
                                             <div class="col-12">
                                                 <div class="text text-nowrap ">
                                                     <i class="fa fa-hourglass-start text-primary"></i> สถานะ <div
@@ -706,7 +708,7 @@ include 'dbcon.php';
                                                 foreach ($images as $image) {
                                                     $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($image) . "?" . $sasToken;
                                                     ?>
-                                                    <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="<?php echo $blobUrl; ?>" data-lightbox="photos"><img class="img-fluid" src="<?php echo $blobUrl; ?>"></a></div>
+                                                    <div class="col-sm-6 col-md-4 col-lg-3 item" style="width: 300px; height: auto;"><a href="<?php echo $blobUrl; ?>" data-lightbox="photos"><img class="img-fluid" src="<?php echo $blobUrl; ?>"></a></div>
                                                     <?php
                                                      }
                                                 ?>
@@ -773,13 +775,13 @@ include 'dbcon.php';
                                             <div class="col-12">
                                                 <?php
                                             // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
-                                        $sql = "SELECT DISTINCT product_series FROM Product_data order by product_series ASC";
+                                        $sql = "SELECT * FROM Product_data order by product_mid ASC";
                                         $stmt = sqlsrv_query($conn, $sql);
                                         if ($stmt !== false) {
                                             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                                 echo "<div class='form-check'>";
-                                                    echo "<input class='form-check-input ' type='checkbox' name='product_series[]' value='" . $row['product_series'] . "' id='product_series_" . $row['product_series'] . "'>";
-                                                    echo "<label class='form-check-label text-dark' for='product_series" . $row['product_series'] . "'>" . $row['product_series'] . "</label>";
+                                                    echo "<input class='form-check-input ' type='checkbox' name='product_mid[]' value='" . $row['product_mid'] . "' id='product_series_ps" . $row['product_mid'] . "'>";
+                                                    echo "<label class='form-check-label text-dark' for='product_mid" . $row['product_mid'] . "'>" . $row['product_mid'] . "</label>";
                                                 echo "</div>";
                                             }
                                             sqlsrv_free_stmt($stmt);
@@ -891,7 +893,7 @@ include 'dbcon.php';
                     <form name="frmMain" action="update_sale_re_visit.php" method="post" id="formupdateproduct01"
                         onsubmit="setProductSeries()">
                         <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
-                        <input type="hidden" id="product_series_" name="product_series_">
+                        <input type="hidden" id="product_series_ps" name="product_series_ps">
                         <input name="update" type="submit" class="btn btn-primary" value="Update Product">
                     </form>
                 </div>
@@ -1067,9 +1069,9 @@ include 'dbcon.php';
     <!-- popupupdatepd-->
     <script>
     function setProductSeries() {
-        const checkboxes = document.querySelectorAll('input[name="product_series[]"]:checked');
+        const checkboxes = document.querySelectorAll('input[name="product_mid[]"]:checked');
         const selectedValues = Array.from(checkboxes).map(cb => cb.value);
-        document.getElementById('product_series_').value = selectedValues.join(',');
+        document.getElementById('product_series_ps').value = selectedValues.join(',');
     }
     </script>
 

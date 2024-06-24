@@ -371,17 +371,27 @@ include 'dbcon.php';
 
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <label for="Outlet_type-01" class="form-label">Cetegory</label>
+                                                <label for="Outlet_type-01" class="form-label">Segmentation</label>
                                                 <select class="form-select" name="Outlet_type" required
                                                     aria-label="select example">
                                                     <option value="<?php echo htmlspecialchars($result["Outlet_type"]); ?>"><?php echo htmlspecialchars($result["Outlet_type"]); ?></option>
-                                                    <option value="Resturant">Resturant</option>
-                                                    <option value="Lounge">Lounge</option>
-                                                    <option value="Bar">Bar</option>
-                                                    <option value="Cafe">Cafe'</option>
+                                                    <option value=""></option>
                                                     <option value="Agent">Agent</option>
-                                                    <option value="Sport Club">Sport Club</option>
-                                                    <option value="Ghost Resturant">Ghost Resturant</option>
+                                                    <option value="Bar & Restaurant">Bar & Restaurant</option>
+                                                    <option value="Café">Café</option>
+                                                    <option value="Café & Restaurant">Café & Restaurant</option>
+                                                    <option value="Chain Restaurant">Chain Restaurant</option>
+                                                    <option value="Community Mall / Flea Market">Community Mall / Flea Market</option>
+                                                    <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar</option>
+                                                    <option value="Fine Dining">Fine Dining</option>
+                                                    <option value="Garden & Restaurant">Garden & Restaurant</option>
+                                                    <option value="Hotel">Hotel</option>
+                                                    <option value="Micro Brew Bar">Micro Brew Bar</option>
+                                                    <option value="Online Shop">Online Shop</option>
+                                                    <option value="Other">Other</option>
+                                                    <option value="Restaurant">Restaurant</option>
+                                                    <option value="Rooftop Bar">Rooftop Bar</option>
+                                                    <option value="Sub-Agent">Sub-Agent</option>   
                                                 </select>
                                                 <div class="invalid-feedback"></div>
                                             </div>
@@ -485,7 +495,7 @@ include 'dbcon.php';
                                             <button class="btn btn-success" type="submit">Save</button>
                                             <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
                                             
-                                            <a class="btn btn-danger" href="salevisit_detail.php" role="button">Back</a>
+                                            <a class="btn btn-danger" href="salevisit_new.php" role="button">Back</a>
                                         </div>
                                     </form>
                                     <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>

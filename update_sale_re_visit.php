@@ -16,7 +16,7 @@ $reqid = $_POST['reqid'];
 // $OutletName = $_POST['OutletName'];
 $update_datetime = date("Y-m-d h:i:sa");
 $update_date = date("Y-m-d");
-$product_series_ = $_POST['product_series_'];
+$product_series_ps = $_POST['product_series_ps'];
 
 
 // เตรียมคำสั่ง SQL สำหรับการอัปเดตข้อมูล
@@ -27,7 +27,7 @@ $sql = "UPDATE MDC_Visitor SET
     Present_pd = ?
     WHERE id = ?";
 
-$params = array($processwork, $update_datetime, $update_date,$product_series_, $reqid);
+$params = array($processwork, $update_datetime, $update_date,$product_series_ps, $reqid);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {

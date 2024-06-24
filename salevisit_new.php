@@ -88,7 +88,7 @@ require_once 'session_check.php';
                         <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
                         <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
                         <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
-                        <a class="collapse-item" href="salevisit_new.php">New visit</a>
+                        <a class="collapse-item" href="salevisit_new.php">New Outlet</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
                         <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
 
@@ -667,7 +667,7 @@ require_once 'session_check.php';
                                     <h6 class="m-0 font-weight-bold text-light">รายละเอียดร้านค้า</h6>
                                 </div>
                                 <div class="card-body">
-                                    <form id="uploadForm" action="salevisit_insertdatatest.php" method="POST"
+                                    <form id="uploadForm" action="salevisit_insertdata.php" method="POST"
                                         class="was-validated align-items-center" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -684,7 +684,8 @@ require_once 'session_check.php';
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-3">
-                                                <label for="openingandclosingtimes" class="form-label">opening and closing times</label>
+                                                <label for="openingandclosingtimes" class="form-label">opening and
+                                                    closing times</label>
                                                 <input type="text" step="any" name="openingandclosingtimes"
                                                     class="form-control is-valid" id="validationTextarea" value=""
                                                     required>
@@ -694,17 +695,27 @@ require_once 'session_check.php';
 
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <label for="Outlet_type-01" class="form-label">Cetegory</label>
+                                                <label for="Outlet_type-01" class="form-label">Segmentation</label>
                                                 <select class="form-select" name="Outlet_type" required
                                                     aria-label="select example">
                                                     <option value=""></option>
-                                                    <option value="Resturant">Resturant</option>
-                                                    <option value="Lounge">Lounge</option>
-                                                    <option value="Bar">Bar</option>
-                                                    <option value="Cafe">Cafe'</option>
                                                     <option value="Agent">Agent</option>
-                                                    <option value="Sport Club">Sport Club</option>
-                                                    <option value="Ghost Resturant">Ghost Resturant</option>
+                                                    <option value="Bar & Restaurant">Bar & Restaurant</option>
+                                                    <option value="Café">Café</option>
+                                                    <option value="Café & Restaurant">Café & Restaurant</option>
+                                                    <option value="Chain Restaurant">Chain Restaurant</option>
+                                                    <option value="Community Mall / Flea Market">Community Mall / Flea
+                                                        Market</option>
+                                                    <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar</option>
+                                                    <option value="Fine Dining">Fine Dining</option>
+                                                    <option value="Garden & Restaurant">Garden & Restaurant</option>
+                                                    <option value="Hotel">Hotel</option>
+                                                    <option value="Micro Brew Bar">Micro Brew Bar</option>
+                                                    <option value="Online Shop">Online Shop</option>
+                                                    <option value="Other">Other</option>
+                                                    <option value="Restaurant">Restaurant</option>
+                                                    <option value="Rooftop Bar">Rooftop Bar</option>
+                                                    <option value="Sub-Agent">Sub-Agent</option>
                                                 </select>
                                                 <div class="invalid-feedback"></div>
                                             </div>
@@ -716,7 +727,8 @@ require_once 'session_check.php';
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-3">
-                                                <label for="Spendingperhead" class="form-label">Spending per head</label>
+                                                <label for="Spendingperhead" class="form-label">Spending per
+                                                    head</label>
                                                 <input type="text" step="any" name="Spendingperhead"
                                                     class="form-control is-valid" maxlength="" id="validationTextarea"
                                                     value="" required>
@@ -772,6 +784,38 @@ require_once 'session_check.php';
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="Contact_outlet" class="form-label">Contact</label>
+                                                <input type="text" step="any" name="Contact_outlet"
+                                                    class="form-control is-valid" id="validationTextarea" value="" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="Event" class="form-label">ไม่รู้จะใสอะไร</label>
+                                                <div class="form-check ">
+                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
+                                                        id="inlineCheckbox1" value="option1">
+                                                    <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
+                                                        id="inlineCheckbox2" value="option2">
+                                                    <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
+                                                        id="inlineCheckbox2" value="option3">
+                                                    <label class="form-check-label" for="inlineCheckbox2">3</label>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Product_good" class="form-label">รอใส่ brand สินค้าขายดี</label>
+                                                <input type="text" step="any" name="Product_good" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
                                             <div class="col-md-6">
                                                 <label for="Situation" class="form-label">Situation</label>
                                                 <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
@@ -800,14 +844,16 @@ require_once 'session_check.php';
                                             </div> -->
                                             <div class="col-md-3">
                                                 <label for="fileToUpload" class="form-label">รูป</label>
-                                                <input type="file" name="filesToUpload[]" class="form-control is-valid" id="fileToUpload" multiple required>
+                                                <input type="file" name="filesToUpload[]" class="form-control is-valid"
+                                                    id="fileToUpload" multiple required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                         <canvas id="canvas" style="display: none;"></canvas>
                                         <div id="map"></div>
                                         <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
-                                            <button type="button" class="btn btn-success" onclick="resizeAndUpload()">Save</button>
+                                            <button type="button" class="btn btn-success"
+                                                onclick="resizeAndUpload()">Save</button>
                                             <a class="btn btn-danger" href="index.php" role="button">Back</a>
                                         </div>
                                     </form>
@@ -947,25 +993,25 @@ require_once 'session_check.php';
 
     </a>
 
-<!-- บันทึกสำเร็จ modal HTML -->
-<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- บันทึกสำเร็จ modal HTML -->
+    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Saved</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">successfully saved.</div>
-            <div class="modal-footer">
-                <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
-                <a class="btn btn-primary" href="salevisit_newtest.php">Go to New Sale Visit</a>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Saved</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">successfully saved.</div>
+                <div class="modal-footer">
+                    <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
+                    <a class="btn btn-primary" href="salevisit_new.php">Go to New Sale Visit</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <!-- Logout Modal-->
@@ -1074,20 +1120,20 @@ require_once 'session_check.php';
             }
         }
 
-        fetch('salevisit_insertdatatest.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(result => {
-            console.log('Success:', result);
-            $('#saveModal').modal('show');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        fetch('salevisit_insertdata.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result);
+                $('#saveModal').modal('show');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
-</script>
+    </script>
 
 
     <!-- <script>
