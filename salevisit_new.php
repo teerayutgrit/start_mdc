@@ -80,7 +80,7 @@ require_once 'session_check.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                <?php if ($deptsys == "sale" || $deptsys == "admin"): ?>
+                <?php if ($Permission_user >= "1"): ?>
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
@@ -109,7 +109,7 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Service</span>
                 </a>
-                <?php if ($deptsys == "service" || $deptsys == "admin"): ?>
+                <?php if ($Permission_user >= "2"): ?>
                 <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -123,7 +123,7 @@ require_once 'session_check.php';
                 <?php endif; ?>
             </li>
 
-            <?php if ($deptsys == "admin"): ?>
+            <?php if ($Permission_user >= "2"): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
 
@@ -704,8 +704,7 @@ require_once 'session_check.php';
                                                     <option value="Café">Café</option>
                                                     <option value="Café & Restaurant">Café & Restaurant</option>
                                                     <option value="Chain Restaurant">Chain Restaurant</option>
-                                                    <option value="Community Mall / Flea Market">Community Mall / Flea
-                                                        Market</option>
+                                                    <option value="Community Mall / Flea Market">Community Mall / Flea Market</option>
                                                     <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar</option>
                                                     <option value="Fine Dining">Fine Dining</option>
                                                     <option value="Garden & Restaurant">Garden & Restaurant</option>
@@ -790,6 +789,16 @@ require_once 'session_check.php';
                                                     class="form-control is-valid" id="validationTextarea" value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
+                                            <div class="col-md-3">
+                                                <label for="Status_outlet" class="form-label">Status outlet</label>
+                                                <select class="form-select" name="Status_outlet" required
+                                                    aria-label="select example">
+                                                    <option value=""></option>
+                                                    <option value="New-outlet">New-outlet</option>
+                                                    <option value="Ex">Ex</option>
+                                                </select>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
@@ -797,19 +806,18 @@ require_once 'session_check.php';
                                                 <div class="form-check ">
                                                     <input class="form-check-input" type="checkbox" name="checkboxes[]"
                                                         id="inlineCheckbox1" value="option1">
-                                                    <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                                    <label class="form-check-label text-dark" for="inlineCheckbox1">1</label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="checkboxes[]"
                                                         id="inlineCheckbox2" value="option2">
-                                                    <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                                    <label class="form-check-label text-dark" for="inlineCheckbox2">2</label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="checkboxes[]"
                                                         id="inlineCheckbox2" value="option3">
-                                                    <label class="form-check-label" for="inlineCheckbox2">3</label>
+                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">3</label>
                                                 </div>
-                                                
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Product_good" class="form-label">รอใส่ brand สินค้าขายดี</label>

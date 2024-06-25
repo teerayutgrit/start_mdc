@@ -73,7 +73,7 @@ require_once 'session_check.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                <?php if ($deptsys == "sale" || $deptsys == "admin"): ?>
+                <?php if ($Permission_user >= "1"): ?>
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
@@ -102,7 +102,7 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Service</span>
                 </a>
-                <?php if ($deptsys == "service" || $deptsys == "admin"): ?>
+                <?php if ($Permission_user >= "2"): ?>
                 <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -117,7 +117,7 @@ require_once 'session_check.php';
                 <?php endif; ?>
             </li>
 
-            <?php if ($deptsys == "admin"): ?>
+            <?php if ($Permission_user >= "2"): ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
 

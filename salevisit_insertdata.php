@@ -49,6 +49,7 @@ $Promotionbeer = $_POST['Promotionbeer'];
 $Event = $_POST['Event'];
 $Situation = $_POST['Situation'];
 $Contact_outlet = $_POST['Contact_outlet'];
+$Status_outlet = $_POST['Status_outlet'];
 
 // Azure Blob Storage connection settings
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
@@ -96,8 +97,8 @@ if (isset($_FILES["filesToUpload"])) {
 
 // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
 
-$sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone,Delivery,Promotion,Event_outlet,Situation,openingandclosingtimes,Range_Age, Gender, Latitude, Longitude, processwork, Customer_image,PD_good1,Contact_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead,$Outlet_Zone,$Delivery,$Promotionbeer,$Event,$Situation,$openingandclosingtimes,$RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString,$combinedString,$Contact_outlet);
+$sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone,Delivery,Promotion,Event_outlet,Situation,openingandclosingtimes,Range_Age, Gender, Latitude, Longitude, processwork, Customer_image,PD_good1,Contact_outlet,Status_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+$params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead,$Outlet_Zone,$Delivery,$Promotionbeer,$Event,$Situation,$openingandclosingtimes,$RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString,$combinedString,$Contact_outlet,$Status_outlet);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {

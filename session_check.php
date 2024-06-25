@@ -23,5 +23,6 @@ if (empty($_SESSION['User_Name'])) {
     $userid = htmlspecialchars($_SESSION["User_id"], ENT_QUOTES, 'UTF-8');
     $deptsys = htmlspecialchars($_SESSION["department"], ENT_QUOTES, 'UTF-8');
     $user_name = htmlspecialchars($_SESSION["User_Name"], ENT_QUOTES, 'UTF-8');
+    $Permission_user = htmlspecialchars($_SESSION["Permission"], ENT_QUOTES, 'UTF-8');
 }
 ?>

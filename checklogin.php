@@ -41,6 +41,7 @@ if (!$result1) {
         $_SESSION["User_Name"] = $result1["User_Name"];
         $_SESSION["Password_user"] = $result1["Password_user"];
         $_SESSION["department"] = $result1["department"];
+        $_SESSION["Permission"] = $result1["Permission"];
         
         session_write_close();
         

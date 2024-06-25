@@ -91,7 +91,7 @@ include 'dbcon.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                <?php if ($deptsys == "sale" || $deptsys == "admin"): ?>
+                <?php if ($Permission_user >= "1"): ?>
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
@@ -120,7 +120,7 @@ include 'dbcon.php';
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Service</span>
                 </a>
-                <?php if ($deptsys == "service" || $deptsys == "admin"): ?>
+                <?php if ($Permission_user >= "2"): ?>
                 <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -134,7 +134,7 @@ include 'dbcon.php';
                 <?php endif; ?>
             </li>
 
-            <?php if ($deptsys == "admin"): ?>
+            <?php if ($Permission_user >= "2"):?>
             <!-- Divider -->
             <hr class="sidebar-divider ">
 
@@ -620,6 +620,9 @@ include 'dbcon.php';
                                                 <div class="text text-nowrap ">
                                                     <i class="fa fa-shopping-basket text-primary"></i> Category:
                                                     <?php echo htmlspecialchars($result["Outlet_type"]); ?></p>
+                                                    <i class="fa fa-archive text-primary"></i> Status outlet:
+                                                    <?php echo htmlspecialchars($result["Status_outlet"]); ?></p>
+                                                    <i class="fa-regular fa-diagram-project"></i>
                                                     <i class="fa fa-venus-mars text-primary"></i> Target:
                                                     <?php echo htmlspecialchars($result["Gender"]); ?></p>
                                                     <i class="fa fa-clock text-primary"></i> Times:
