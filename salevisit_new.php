@@ -837,8 +837,7 @@ require_once 'session_check.php';
                                             <div class="col-md-6">
                                                 <label for="Situation" class="form-label">Situation</label>
                                                 <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
-                                                <textarea class="form-control" name="Situation" id="Situation"
-                                                    rows="2"></textarea>
+                                                <textarea class="form-control" name="Situation" id="Situation" rows="2" required></textarea>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>

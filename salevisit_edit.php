@@ -513,7 +513,7 @@ include 'dbcon.php';
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Product_good" class="form-label">ชื่อสินค้า</label>
-                                                <input type="text" step="any" name="Product_good" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
+                                                <input type="text" step="any" name="Product_good" class="form-control is-valid" maxlength="" id="validationTextarea" value="">
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-6">
