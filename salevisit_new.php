@@ -802,25 +802,35 @@ require_once 'session_check.php';
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <label for="Event" class="form-label">ไม่รู้จะใสอะไร</label>
+                                                <label for="Event" class="form-label">ประเภทสินค้าขายดีในร้าน</label>
                                                 <div class="form-check ">
                                                     <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox1" value="option1">
-                                                    <label class="form-check-label text-dark" for="inlineCheckbox1">1</label>
+                                                        id="inlineCheckbox1" value="Beer">
+                                                    <label class="form-check-label text-dark" for="inlineCheckbox1">Beer</label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="option2">
-                                                    <label class="form-check-label text-dark" for="inlineCheckbox2">2</label>
+                                                        id="inlineCheckbox2" value="Wine">
+                                                    <label class="form-check-label text-dark" for="inlineCheckbox2">Wine</label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="option3">
-                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">3</label>
+                                                        id="inlineCheckbox2" value="Spirit">
+                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">Spirit</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
+                                                        id="inlineCheckbox2" value="Cocktail">
+                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">Cocktail</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
+                                                        id="inlineCheckbox2" value="Others">
+                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">Others</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
-                                                <label for="Product_good" class="form-label">รอใส่ brand สินค้าขายดี</label>
+                                                <label for="Product_good" class="form-label">ชื่อสินค้า</label>
                                                 <input type="text" step="any" name="Product_good" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
