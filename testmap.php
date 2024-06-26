@@ -76,7 +76,7 @@ function initMap() {
 
     // Create the map centered on the default location
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
+        zoom: 6,
         center: defaultLocation
     });
 
