@@ -44,6 +44,7 @@ require_once 'session_check.php';
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 
+
 </head>
 
 <body id="page-top">
@@ -54,85 +55,100 @@ require_once 'session_check.php';
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-                <div class="sidebar-brand-icon ">
+                <div class="sidebar-brand-icon">
                     <img class="sidebar-card-illustration mb-2" src="img/logo-mardicraft.svg" alt="..." width="50"
                         height="50">
-                    <!-- <i class="fas fa-laugh-wink"></i> -->
                 </div>
                 <div class="sidebar-brand-text mx-3">MardiCraft</div>
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <hr class="sidebar-divider bg-light">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider bg-light">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading ">
                 Sale
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSale"
+                    aria-expanded="true" aria-controls="collapseSale">
                     <!-- <i class="fas fa-fw fa-cog"></i> -->
                     <i class="fa fa-shopping-bag"></i>
-                    <span>Sale visit</span>
+                    <span>Sale</span>
                 </a>
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
-                    data-parent="#accordionSidebar">
+                <?php if ($Permission_user >= "1"): ?>
+                <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
                         <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <a class="collapse-item" href="salevisit_new.php">New visit</a>
-                        <a class="collapse-item" href="cards.html">Re visit</a>
+                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
+                        <a class="collapse-item" href="salevisit_new.php">New Outlet</a>
+                        <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
+                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
+
                     </div>
                 </div>
+                <?php endif; ?>
             </li>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider bg-light">
+
+            <div class="sidebar-heading ">
+                Service
+            </div>
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseservice"
+                    aria-expanded="true" aria-controls="collapseservice">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <span>Service</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <?php if ($Permission_user >= "2"): ?>
+                <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
                         <a class="collapse-item" href="utilities-color.html">Colors</a>
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
+                <?php endif; ?>
             </li>
 
+            <?php if ($Permission_user >= "2"): ?>
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider bg-light">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Admin
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-                    aria-controls="collapsePages">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Pages</span>
                 </a>
@@ -145,7 +161,7 @@ require_once 'session_check.php';
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item active" href="blank.html">Blank Page</a>
+                        <a class="collapse-item" href="blank.html">Blank Page</a>
                     </div>
                 </div>
             </li>
@@ -163,14 +179,48 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
+            <?php endif; ?>
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <hr class="sidebar-divider d-none d-md-block bg-light">
+
+            <div class="sidebar-heading ">
+                Inventory
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory"
+                    aria-expanded="true" aria-controls="collapseInventory">
+                    <!-- <i class="fas fa-fw fa-cog"></i> -->
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Stock</span>
+                </a>
+                <?php if ($Permission_user >= "1"): ?>
+                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
+                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
+                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
+                        <a class="collapse-item" href="stockkm38_52list.php">KM38 & KM52</a>
+                        <a class="collapse-item" href="stockkm38_52search.php">Search</a>
+                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
+                    </div>
+                </div>
+                <?php endif; ?>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider bg-light">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+            <!-- end เมนู  กำหนดสิทธิ์ -->
 
         </ul>
         <!-- End of Sidebar -->
@@ -391,12 +441,17 @@ require_once 'session_check.php';
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">New Visit</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Search</h1>
 
                     <div class="row">
-
-
-                        <div class="table-responsive-sm">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-primary shadow-lg rounded " style="margin-top: -0.5rem ">
+                                    <h6 class="m-0 font-weight-bold text-light ">รายการ</h6>
+                                </div>
+                                <div class="row" style="margin-top: 1rem ">
+                                <div class="table-responsive-sm">
     <?php
     include_once 'dbcon_inventory.php';
 
@@ -415,7 +470,6 @@ require_once 'session_check.php';
     <table id="myTable" class="table table-sm table-hover sm-2">
         <thead>
             <tr>
-                <th class="text-center">Inventory</th>
                 <th class="text-center">PD_CODE</th>
                 <th class="text-center">Product Name</th>
                 <th class="text-center">Lot</th>
@@ -424,6 +478,8 @@ require_once 'session_check.php';
                 <th class="text-center">BOX</th>
                 <th class="text-center">PCS</th>
                 <th class="text-center">Months Difference</th>
+                <th class="text-center">Inventory</th>
+
             </tr>
         </thead>
         <tbody>
@@ -440,15 +496,16 @@ require_once 'session_check.php';
                 }
             ?>
             <tr>
-                <td class="text-center"><?php echo htmlspecialchars($result["Inventory"]); ?></td>
                 <td class="text-nowrap"><?php echo htmlspecialchars($result["PD_CODE"]); ?></td>
-                <td class="text-nowrap"><?php echo htmlspecialchars($result["Product_Name"]); ?></td>
+                <td ><?php echo htmlspecialchars($result["Product_Name"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["Lot"]); ?></td>
                 <td class="text-nowrap"><?php echo htmlspecialchars($result["FullLot"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["Uom"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["BOX"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["PCS"]); ?></td>
                 <td class="text-center <?php echo $colorClass; ?>"><?php echo htmlspecialchars($result["Months_Difference"]); ?></td>
+                <td class="text-center"><?php echo htmlspecialchars($result["Inventory"]); ?></td>
+
             </tr>
             <?php
                }
@@ -459,7 +516,7 @@ require_once 'session_check.php';
         </tbody>
         <tfoot>
             <tr>
-            <th colspan="6"></th>
+            <th colspan="5"></th>
             <th class="text-center">Total</th>
             <th class="text-center">Total</th>
             <th></th>
@@ -468,6 +525,9 @@ require_once 'session_check.php';
     </table>
 </div>
 
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -514,6 +574,7 @@ require_once 'session_check.php';
         </div>
     </div>
 
+
         <!-- Bootstrap core JavaScript-->
         <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
     <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
@@ -543,7 +604,7 @@ $(document).ready(function() {
 
             // Total over all pages for BOX column
             var totalBox = api
-                .column(6)
+                .column(5)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
@@ -551,7 +612,7 @@ $(document).ready(function() {
 
             // Total over this page for BOX column
             var pageTotalBox = api
-                .column(6, { page: 'current' })
+                .column(5, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
@@ -559,7 +620,7 @@ $(document).ready(function() {
 
             // Total over all pages for PCS column
             var totalPcs = api
-                .column(7)
+                .column(6)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
@@ -567,15 +628,15 @@ $(document).ready(function() {
 
             // Total over this page for PCS column
             var pageTotalPcs = api
-                .column(7, { page: 'current' })
+                .column(6, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
             // Update footer
-            $(api.column(6).footer()).html('Total: ' + totalBox);
-            $(api.column(7).footer()).html('Total: ' + totalPcs);
+            $(api.column(5).footer()).html('Total: ' + totalBox);
+            $(api.column(6).footer()).html('Total: ' + totalPcs);
         }
     });
 });

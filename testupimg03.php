@@ -1,101 +1,135 @@
-<?php
-
-
-// session_check
-require_once 'session_check.php';
-// การเชื่อมต่อฐานข้อมูล SQL Servers
-include("dbcon.php");
-
-// อัปโหลดไฟล์ไปยัง Azure Blob Storage
-require_once 'vendor/autoload.php'; // Include Composer's autoloader
-
-// ดึงข้อมูลรูปภาพจากฐานข้อมูล
-// $sql = "SELECT Customer_image FROM MDC_Visitor where id ='272'"; // ระบุเงื่อนไขที่ต้องการ
-// $stmt = sqlsrv_query($conn, $sql);
-// $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-
-// $images = explode(',', $row['Customer_image']);
-// ?>
-
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Images</title>
+    <title>DataTable Example</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 </head>
 <body>
-    <div class="gallery">
-        <?php foreach ($images as $image): ?>
-            <img src="https://mardicraft2024.blob.core.windows.net/mdcimg/<?php echo $image; ?>" alt="Customer Image">
-        <?php endforeach; ?>
-    </div>
-</body>
-</html> -->
 
-<?php
-$sasToken = "si=readonly&sv=2022-11-02&sr=c&sig=GuZdU2IHmFOrcpcx3ka7yuM0T0%2Fay6EraGqIT6IYl54%3D"; // Replace with your actual SAS token
+<div class="table-responsive-sm">
+    <?php
+    include_once 'dbcon_inventory.php';
 
-// ตัวอย่างการเชื่อมต่อฐานข้อมูลและ query เพื่อดึงข้อมูลรูปภาพ
-$sql = "SELECT Customer_image FROM MDC_Visitor WHERE id ='273'"; // ระบุเงื่อนไขที่ต้องการ
-$stmt = sqlsrv_query($conn, $sql);
-if ($stmt === false) {
-    echo "Error in statement execution.\n";
-    die(print_r(sqlsrv_errors(), true));
-}
+    $stmt = "SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM38_Sum_total_mdc
+             UNION ALL
+             SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM52_Sum_total_mdc
+             ORDER BY PD_CODE, FullLot";
 
-// วนลูปเพื่อแสดงรูปภาพ
-while ($result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-    $images = explode(',', $result['Customer_image']); // แยกข้อมูลรูปภาพจากฐานข้อมูล
-    foreach ($images as $image) {
-        $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($image) . "?" . $sasToken;?>
-        <div class="card-body d-flex justify-content-center align-items-center">
-            <img src="<?php echo $blobUrl; ?>" alt="Customer Image" style="width: 370px; height: auto;">
-        </div>
-<?php
+    $query = sqlsrv_query($conn, $stmt);
+
+    if ($query === false) {
+        die(print_r(sqlsrv_errors(), true));
     }
-}
-?>
-<!DOCTYPE html>
-<html>
+    ?>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untitled</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
-    <link rel="stylesheet" href="test123a.css">
-
-    
-</head>
-
-<body>
-    
-    <div class="photo-gallery">
-        <div class="container">
-            <div class="intro">
-                <h2 class="text-center">Lightbox Gallery</h2>
-                <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae. </p>
-            </div>
+    <table id="myTable" class="table table-sm table-hover sm-2">
+        <thead>
+            <tr>
+                <th class="text-center">Inventory</th>
+                <th class="text-center">PD_CODE</th>
+                <th class="text-center">Product Name</th>
+                <th class="text-center">Lot</th>
+                <th class="text-center">Full Lot</th>
+                <th class="text-center">UOM</th>
+                <th class="text-center">BOX</th>
+                <th class="text-center">PCS</th>
+                <th class="text-center">Months Difference</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            while ($result = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC)) {
+                $monthsDifference = $result["Months_Difference"];
+                $colorClass = '';
+                if ($monthsDifference <= 3) {
+                    $colorClass = 'text-success'; // green
+                } elseif ($monthsDifference >= 4 && $monthsDifference <= 6) {
+                    $colorClass = 'text-warning'; // yellow
+                } elseif ($monthsDifference >= 7 && $monthsDifference <= 9) {
+                    $colorClass = 'text-danger'; // red
+                }
+            ?>
+            <tr>
+                <td class="text-center"><?php echo htmlspecialchars($result["Inventory"]); ?></td>
+                <td class="text-nowrap"><?php echo htmlspecialchars($result["PD_CODE"]); ?></td>
+                <td class="text-nowrap"><?php echo htmlspecialchars($result["Product_Name"]); ?></td>
+                <td class="text-center"><?php echo htmlspecialchars($result["Lot"]); ?></td>
+                <td><?php echo htmlspecialchars($result["FullLot"]); ?></td>
+                <td class="text-center"><?php echo htmlspecialchars($result["Uom"]); ?></td>
+                <td class="text-center"><?php echo htmlspecialchars($result["BOX"]); ?></td>
+                <td class="text-center"><?php echo htmlspecialchars($result["PCS"]); ?></td>
+                <td class="text-center <?php echo $colorClass; ?>"><?php echo htmlspecialchars($result["Months_Difference"]); ?></td>
+            </tr>
             <?php
-            foreach ($images as $image) {
-                $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($image) . "?" . $sasToken;
-                ?>
-            <div class="row photos">
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="<?php echo $blobUrl; ?>" data-lightbox="photos"><img class="img-fluid" src="<?php echo $blobUrl; ?>"></a></div>
-            </div>
-            <?php
-            }
-              ?>
-        </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+               }
+
+               sqlsrv_free_stmt($query);
+               sqlsrv_close($conn);
+               ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="6"></th>
+                <th class="text-center">Total</th>
+                <th colspan="2"></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'csv', 'excel', 'print'
+        ],
+        footerCallback: function (row, data, start, end, display) {
+            var api = this.api();
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+
+            // Total over all pages
+            total = api
+                .column(6)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            // Total over this page
+            pageTotal = api
+                .column(6, { page: 'current' })
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            // Update footer
+            $(api.column(6).footer()).html(
+                'Total: ' + pageTotal
+            );
+        }
+    });
+});
+</script>
+
+
 </body>
 </html>
-
-
-

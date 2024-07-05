@@ -167,6 +167,37 @@ require_once 'session_check.php';
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
+            <div class="sidebar-heading ">
+                Inventory
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory"
+                    aria-expanded="true" aria-controls="collapseInventory">
+                    <!-- <i class="fas fa-fw fa-cog"></i> -->
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Stock</span>
+                </a>
+                <?php if ($Permission_user >= "1"): ?>
+                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
+                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
+                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
+                        <a class="collapse-item" href="stockkm38_52list.php">KM38 & KM52</a>
+                        <a class="collapse-item" href="stockkm38_52search.php">Search</a>
+                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
+                    </div>
+                </div>
+                <?php endif; ?>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
