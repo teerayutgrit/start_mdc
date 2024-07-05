@@ -448,16 +448,10 @@ require_once 'session_check.php';
     include_once 'dbcon_inventory.php';
 
     // SQL statement to retrieve data from the views, group by FullLot and PD_CODE, and order by PD_CODE
-    $stmt = "SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, SUM(BOX) AS BOX, PCS, Months_Difference 
-             FROM (
-                 SELECT 'KM38' AS Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference 
-                 FROM dbo.V_KM38_Sum_total_mdc
-                 UNION ALL
-                 SELECT 'KM52' AS Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference 
-                 FROM dbo.V_KM52_Sum_total_mdc
-             ) AS combined
-             GROUP BY Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, PCS, Months_Difference
-             ORDER BY PD_CODE";
+    $stmt = "SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM38_Sum_total_mdc
+             UNION ALL
+             SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM52_Sum_total_mdc
+             ORDER BY PD_CODE, FullLot";
 
     // Execute the query
     $query = sqlsrv_query($conn, $stmt);
@@ -471,7 +465,6 @@ require_once 'session_check.php';
     <table id="myTable" class="table table-sm table-hover sm-2">
         <thead>
             <tr>
-                <th class="text-center">Inventory</th>
                 <th class="text-center">PD_CODE</th>
                 <th class="text-center">Product Name</th>
                 <!-- <th class="text-center">Brand</th> -->
@@ -482,6 +475,8 @@ require_once 'session_check.php';
                 <th class="text-center">BOX</th>
                 <th class="text-center">PCS</th>
                 <th class="text-center">Months Difference</th>
+                <th class="text-center">Inventory</th>
+
             </tr>
         </thead>
         <tbody>
@@ -490,27 +485,17 @@ require_once 'session_check.php';
             while ($result = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC)) {
                 $monthsDifference = $result["Months_Difference"];
                 $colorClass = '';
-
                 if ($monthsDifference <= 3) {
                     $colorClass = 'text-success'; // green
                 } elseif ($monthsDifference >= 4 && $monthsDifference <= 6) {
-                    $colorClass = 'text-warning'; // yellow
+                    $colorClass = 'text-info'; // yellow
                 } elseif ($monthsDifference >= 7 && $monthsDifference <= 9) {
+                    $colorClass = 'text-warning'; // yellow
+                } elseif ($monthsDifference >= 10 && $monthsDifference <= 12) {
                     $colorClass = 'text-danger'; // red
                 }
-
-                // Check if FullLot and PD_CODE are the same to add colspan
-                $fullLot = htmlspecialchars($result["FullLot"]);
-                $pdCode = htmlspecialchars($result["PD_CODE"]);
-
-                // Here you can add your logic to check the condition and add colspan
-                // For example:
-                if ($fullLot == 'some_condition' && $pdCode == 'some_condition') {
-                    echo '<tr><td colspan="2">Larry the Bird</td></tr>';
-                } else {
             ?>
             <tr>
-                <td class="text-center"><?php echo htmlspecialchars($result["Inventory"]); ?></td>
                 <td class="text-nowrap"><?php echo htmlspecialchars($result["PD_CODE"]); ?></td>
                 <td class="text-nowrap"><?php echo htmlspecialchars($result["Product_Name"]); ?></td>
                 <!-- <td class="text-center"><?php echo htmlspecialchars($result["Brand"]); ?></td> -->
@@ -520,10 +505,11 @@ require_once 'session_check.php';
                 <td class="text-center"><?php echo htmlspecialchars($result["Uom"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["BOX"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["PCS"]); ?></td>
-                <td class="text-center <?php echo $colorClass; ?>"><?php echo htmlspecialchars($monthsDifference); ?></td>
+                <td class="text-center fw-bold fs-5 <?php echo $colorClass; ?>"><?php echo htmlspecialchars($monthsDifference); ?></td>
+                <td class="text-center"><?php echo htmlspecialchars($result["Inventory"]); ?></td>
             </tr>
             <?php
-                }
+                
             }
 
             // Free the statement resources

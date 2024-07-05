@@ -189,6 +189,7 @@ require_once 'session_check.php';
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            <?php if ($Permission_user >= "1"): ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory"
                     aria-expanded="true" aria-controls="collapseInventory">
@@ -196,7 +197,7 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Stock</span>
                 </a>
-                <?php if ($Permission_user >= "1"): ?>
+                
                 <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -490,8 +491,10 @@ require_once 'session_check.php';
                 if ($monthsDifference <= 3) {
                     $colorClass = 'text-success'; // green
                 } elseif ($monthsDifference >= 4 && $monthsDifference <= 6) {
-                    $colorClass = 'text-warning'; // yellow
+                    $colorClass = 'text-info'; // yellow
                 } elseif ($monthsDifference >= 7 && $monthsDifference <= 9) {
+                    $colorClass = 'text-warning'; // yellow
+                } elseif ($monthsDifference >= 10 && $monthsDifference <= 12) {
                     $colorClass = 'text-danger'; // red
                 }
             ?>
@@ -503,7 +506,7 @@ require_once 'session_check.php';
                 <td class="text-center"><?php echo htmlspecialchars($result["Uom"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["BOX"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["PCS"]); ?></td>
-                <td class="text-center <?php echo $colorClass; ?>"><?php echo htmlspecialchars($result["Months_Difference"]); ?></td>
+                <td class="text-center fw-bold fs-5 <?php echo $colorClass; ?>"><?php echo htmlspecialchars($result["Months_Difference"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["Inventory"]); ?></td>
 
             </tr>
@@ -576,13 +579,14 @@ require_once 'session_check.php';
 
         <!-- Bootstrap core JavaScript-->
         <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
-    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
     <script>
 $(document).ready(function() {
     $('#myTable').DataTable({
@@ -590,7 +594,7 @@ $(document).ready(function() {
         buttons: [
             'csv', 'excel', 'print'
         ],
-        pageLength: 20, // Set the number of entries to display per page
+        pageLength: 15, // Set the number of entries to display per page
         footerCallback: function (row, data, start, end, display) {
             var api = this.api();
 
@@ -602,32 +606,30 @@ $(document).ready(function() {
                         i : 0;
             };
 
-            // Total over all pages for BOX column
-            var totalBox = api
+            // Total over all pages
+            totalbox = api
                 .column(5)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
-            // Total over this page for BOX column
-            var pageTotalBox = api
+            // Total over this page
+            pageTotalbox = api
                 .column(5, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
-            // Total over all pages for PCS column
-            var totalPcs = api
+            totalpcs = api
                 .column(6)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
-            // Total over this page for PCS column
-            var pageTotalPcs = api
+            pageTotalpcs = api
                 .column(6, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
@@ -635,8 +637,12 @@ $(document).ready(function() {
                 }, 0);
 
             // Update footer
-            $(api.column(5).footer()).html('Total: ' + totalBox);
-            $(api.column(6).footer()).html('Total: ' + totalPcs);
+            $(api.column(5).footer()).html(
+                'Total: ' + pageTotalbox
+            );
+            $(api.column(6).footer()).html(
+                'Total: ' + pageTotalpcs
+            );
         }
     });
 });

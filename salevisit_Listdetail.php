@@ -448,7 +448,7 @@ require_once 'session_check.php';
                 <td class="text-center"><?php echo htmlspecialchars($result["Uom"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["BOX"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["PCS"]); ?></td>
-                <td class="text-center <?php echo $colorClass; ?>"><?php echo htmlspecialchars($result["Months_Difference"]); ?></td>
+                <td class="text-center fw-bold fs-5 <?php echo $colorClass; ?>"><?php echo htmlspecialchars($result["Months_Difference"]); ?></td>
             </tr>
             <?php
                }
@@ -530,6 +530,7 @@ $(document).ready(function() {
         buttons: [
             'csv', 'excel', 'print'
         ],
+        pageLength: 15, // Set the number of entries to display per page
         footerCallback: function (row, data, start, end, display) {
             var api = this.api();
 
@@ -541,32 +542,30 @@ $(document).ready(function() {
                         i : 0;
             };
 
-            // Total over all pages for BOX column
-            var totalBox = api
+            // Total over all pages
+            totalbox = api
                 .column(6)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
-            // Total over this page for BOX column
-            var pageTotalBox = api
+            // Total over this page
+            pageTotalbox = api
                 .column(6, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
-            // Total over all pages for PCS column
-            var totalPcs = api
+            totalpcs = api
                 .column(7)
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
 
-            // Total over this page for PCS column
-            var pageTotalPcs = api
+            pageTotalpcs = api
                 .column(7, { page: 'current' })
                 .data()
                 .reduce(function (a, b) {
@@ -574,13 +573,16 @@ $(document).ready(function() {
                 }, 0);
 
             // Update footer
-            $(api.column(6).footer()).html('Total: ' + totalBox);
-            $(api.column(7).footer()).html('Total: ' + totalPcs);
+            $(api.column(6).footer()).html(
+                'Total: ' + pageTotalbox
+            );
+            $(api.column(7).footer()).html(
+                'Total: ' + pageTotalpcs
+            );
         }
     });
 });
 </script>
-
 
 </body>
 
