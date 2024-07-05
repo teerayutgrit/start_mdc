@@ -509,7 +509,6 @@ require_once 'session_check.php';
             </tr>
             <?php
                }
-
                sqlsrv_free_stmt($query);
                sqlsrv_close($conn);
                ?>
@@ -591,6 +590,7 @@ $(document).ready(function() {
         buttons: [
             'csv', 'excel', 'print'
         ],
+        pageLength: 20, // Set the number of entries to display per page
         footerCallback: function (row, data, start, end, display) {
             var api = this.api();
 
