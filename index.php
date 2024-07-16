@@ -56,15 +56,13 @@ require_once 'session_check.php';
                     <span>Dashboard</span></a>
             </li>
 
+            <?php if ($Permission_user == 1 || $Permission_user == 2): ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
-
             <!-- Heading -->
-
             <div class="sidebar-heading ">
                 Sale
             </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSale"
@@ -73,7 +71,7 @@ require_once 'session_check.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                <?php if ($Permission_user >= "1"): ?>
+                
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
@@ -165,6 +163,7 @@ require_once 'session_check.php';
             </li>
             <?php endif; ?>
 
+            <?php if ($Permission_user == 0 || $Permission_user == 1 || $Permission_user == 2 || $Permission_user == 3): ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -180,7 +179,6 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Stock</span>
                 </a>
-                <?php if ($Permission_user = 0 || $Permission_user == 1 || $Permission_user == 2 || $Permission_user == 3): ?>
                 <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
