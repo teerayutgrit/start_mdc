@@ -459,6 +459,8 @@ require_once 'session_check.php';
     $stmt = "SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM38_Sum_total_mdc
              UNION ALL
              SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM52_Sum_total_mdc
+             UNION ALL
+             SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_MDC01_Sum_total_mdc
              ORDER BY PD_CODE, FullLot";
 
     $query = sqlsrv_query($conn, $stmt);
@@ -468,7 +470,7 @@ require_once 'session_check.php';
     }
     ?>
 
-    <table id="myTable" class="table table-sm table-hover sm-2">
+    <table id="myTable" class="table">
         <thead>
             <tr>
                 <th class="text-center">PD_CODE</th>
@@ -508,7 +510,6 @@ require_once 'session_check.php';
                 <td class="text-center"><?php echo htmlspecialchars($result["PCS"]); ?></td>
                 <td class="text-center fw-bold fs-5 <?php echo $colorClass; ?>"><?php echo htmlspecialchars($result["Months_Difference"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["Inventory"]); ?></td>
-
             </tr>
             <?php
                }
@@ -519,9 +520,8 @@ require_once 'session_check.php';
         <tfoot>
             <tr>
             <th colspan="5"></th>
-            <th class="text-center">Total</th>
-            <th class="text-center">Total</th>
-            <th></th>
+            <th class="text-nowrap" style="color: #04A86B ;">Total</th>
+            <th class="text-nowrap" style="color: #04A86B ;">Total</th>
             </tr>
         </tfoot>
     </table>

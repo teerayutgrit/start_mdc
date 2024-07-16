@@ -451,6 +451,8 @@ require_once 'session_check.php';
     $stmt = "SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM38_Sum_total_mdc
              UNION ALL
              SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM52_Sum_total_mdc
+             UNION ALL
+             SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_MDC01_Sum_total_mdc
              ORDER BY PD_CODE, FullLot";
 
     // Execute the query
@@ -497,7 +499,7 @@ require_once 'session_check.php';
             ?>
             <tr>
                 <td class="text-nowrap"><?php echo htmlspecialchars($result["PD_CODE"]); ?></td>
-                <td class="text-nowrap"><?php echo htmlspecialchars($result["Product_Name"]); ?></td>
+                <td class="text-nowrap" ><?php echo htmlspecialchars($result["Product_Name"]); ?></td>
                 <!-- <td class="text-center"><?php echo htmlspecialchars($result["Brand"]); ?></td> -->
                 <td class="text-center"><?php echo htmlspecialchars($result["Lot"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["FullLot"]); ?></td>

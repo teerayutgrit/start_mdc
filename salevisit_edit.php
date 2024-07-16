@@ -92,6 +92,7 @@ include 'dbcon.php';
                         <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
                         <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="salevisit_new.php">New Outlet</a>
+                        <a class="collapse-item" href="salevisit_Ex.php">Existing</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
                         <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
 

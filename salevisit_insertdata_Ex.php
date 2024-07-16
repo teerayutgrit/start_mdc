@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // session_check
 require_once 'session_check.php';
@@ -18,7 +18,7 @@ date_default_timezone_set('Asia/Bangkok');
 $postingdatetime = date("Y-m-d h:i:sa");
 $postingdate = date("Y-m-d");
 $Status01 = "Register";
-$Status_outlet = "New Outlet";
+$Status_outlet = "Existing";
 // แทนค่า status
 $processwork = "40";
 
@@ -100,82 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die(print_r(sqlsrv_errors(), true));
     }
 
-    echo "<script>console.log('Success:', 'Data saved successfully.'); $('#saveModal').modal('show');</script>";
+    echo "<script> alert('Saved successfully'); window.location='salevisit_Ex.php';</script>";
 
     // ปิดการเชื่อมต่อฐานข้อมูล
     sqlsrv_close($conn);
-
-    // echo "<script>console.log('Success:', 'Data saved successfully.'); $('#saveModal').modal('show');</script>";
 }
-
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Mardi Craft Brewing - New Visit</title>
-
-    <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
-
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-
-</head>
-    <!-- บันทึกสำเร็จ modal HTML -->
-    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Saved</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">successfully saved.</div>
-                <div class="modal-footer">
-                    <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
-                    <a class="btn btn-primary" href="salevisit_new.php">Go to New Sale Visit</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-
-   

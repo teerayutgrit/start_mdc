@@ -31,10 +31,41 @@ require_once 'session_check.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <style>
+.multiselect {
+  width: 200px;
+}
 
+.selectBox {
+  position: relative;
+}
 
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
 
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
 
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+    </style>
 </head>
 
 <body id="page-top">
@@ -80,7 +111,7 @@ require_once 'session_check.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                <?php if ($deptsys == "sale" || $deptsys == "admin"): ?>
+                <?php if ($Permission_user >= "1"): ?>
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
@@ -88,9 +119,9 @@ require_once 'session_check.php';
                         <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
                         <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
                         <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
-                        <a class="collapse-item" href="salevisit_new.php">New visit</a>
+                        <a class="collapse-item" href="salevisit_new.php">New Outlet</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <a class="collapse-item" href="re_visitmain.php">Re visit</a>
+                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
 
                     </div>
                 </div>
@@ -99,6 +130,7 @@ require_once 'session_check.php';
 
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
+
             <div class="sidebar-heading ">
                 Service
             </div>
@@ -109,7 +141,7 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Service</span>
                 </a>
-                <?php if ($deptsys == "service" || $deptsys == "admin"): ?>
+                <?php if ($Permission_user >= "2"): ?>
                 <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -123,12 +155,11 @@ require_once 'session_check.php';
                 <?php endif; ?>
             </li>
 
-            <?php if ($deptsys == "admin"): ?>
+            <?php if ($Permission_user >= "2"): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-
+            
             <!-- Heading -->
-
             <div class="sidebar-heading">
                 Admin
             </div>
@@ -169,50 +200,40 @@ require_once 'session_check.php';
                     <span>Tables</span></a>
             </li>
             <?php endif; ?>
-
-
-            <!-- Heading -->
-            <!-- <div class="sidebar-heading">
-                Addons
-            </div>
-
-            Nav Item - Pages Collapse Menu
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            Nav Item - Charts
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            Nav Item - Tables
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li> -->
-
+        
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block bg-light">
+
+            <div class="sidebar-heading ">
+                Inventory
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory"
+                    aria-expanded="true" aria-controls="collapseInventory">
+                    <!-- <i class="fas fa-fw fa-cog"></i> -->
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Stock</span>
+                </a>
+                <?php if ($Permission_user >= "1"): ?>
+                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
+                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
+                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
+                        <a class="collapse-item" href="stockkm38_52list.php">KM38 & KM52</a>
+                        <a class="collapse-item" href="stockkm38_52search.php">Search</a>
+                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
+                    </div>
+                </div>
+                <?php endif; ?>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider bg-light">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -447,219 +468,12 @@ require_once 'session_check.php';
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div> -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">New Visit & Visit List</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i -->
                         <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-
-                    <!-- Content Row -->
-                    <!-- <div class="row"> -->
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                รอใสข้อมูลรายละเอียด</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- Pending Requests Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- Content Row -->
                     <div class="row">
-
-                        <!-- Content Column -->
-                        <!-- <div class="col-lg-6 mb-4"> -->
-
-                        <!-- Project Card Example -->
-                        <!-- <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                        <!-- Color System -->
-                        <!-- <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            Primary
-                                            <div class="text-white-50 small">#4e73df</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                        <!-- </div> -->
-
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div
@@ -667,147 +481,184 @@ require_once 'session_check.php';
                                     <h6 class="m-0 font-weight-bold text-light">รายละเอียดร้านค้า</h6>
                                 </div>
                                 <div class="card-body">
-                                    <form action="salevisit_insertdatatest.php" method="POST"
-                                        class="was-validated align-items-center" enctype="multipart/form-data">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="OutletName01" class="form-label">Outlet</label>
-                                                <input type="text" class="form-control" name="OutletName"
-                                                    id="OutletName01" value="" required>
-                                                <div class="valid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Outlet_Zone" class="form-label">Zone</label>
-                                                <input type="text" step="any" name="Outlet_Zone"
-                                                    class="form-control is-valid" id="validationTextarea" value=""
-                                                    required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="openingandclosingtimes" class="form-label">opening and closing times</label>
-                                                <input type="text" step="any" name="openingandclosingtimes"
-                                                    class="form-control is-valid" id="validationTextarea" value=""
-                                                    required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
+                                <form id="uploadForm" action="salevisit_insertdata.php" method="POST" class="was-validated align-items-center" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <label for="OutletName01" class="form-label">Outlet</label>
+            <input type="text" class="form-control" name="OutletName" id="OutletName01" value="" required>
+            <div class="valid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Outlet_Zone" class="form-label">Zone</label>
+            <input type="text" step="any" name="Outlet_Zone" class="form-control is-valid" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="openingandclosingtimes" class="form-label">Opening and Closing Times</label>
+            <input type="text" step="any" name="openingandclosingtimes" class="form-control is-valid" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
 
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="Outlet_type-01" class="form-label">Cetegory</label>
-                                                <select class="form-select" name="Outlet_type" required
-                                                    aria-label="select example">
-                                                    <option value=""></option>
-                                                    <option value="Resturant">Resturant</option>
-                                                    <option value="Lounge">Lounge</option>
-                                                    <option value="Bar">Bar</option>
-                                                    <option value="Cafe">Cafe'</option>
-                                                    <option value="Agent">Agent</option>
-                                                    <option value="Sport Club">Sport Club</option>
-                                                    <option value="Ghost Resturant">Ghost Resturant</option>
-                                                </select>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Seat_total-01" class="form-label">Seat</label>
-                                                <input type="number" step="any" name="Seat_total"
-                                                    class="form-control is-valid" maxlength="3" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Spendingperhead" class="form-label">Spending per head</label>
-                                                <input type="text" step="any" name="Spendingperhead"
-                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Delivery" class="form-label">Delivery</label>
-                                                <input type="text" step="any" name="Delivery"
-                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="Range01Age" class="form-label">Taget Age</label>
-                                                <select class="form-select" name="RangeAge" required
-                                                    aria-label="select example">
-                                                    <option value=""></option>
-                                                    <option value="20-25">20-25</option>
-                                                    <option value="26-30">26-30</option>
-                                                    <option value="31-40">31-40</option>
-                                                    <option value="41-50">41-50</option>
-                                                    <option value="51-60">51-60</option>
-                                                    <option value="60">60</option>
-                                                </select>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Gender01" class="form-label">Taget Gender</label>
-                                                <select class="form-select" name="Gender" required
-                                                    aria-label="select example">
-                                                    <option value=""></option>
-                                                    <option value="Men">Men</option>
-                                                    <option value="Women">Women</option>
-                                                    <option value="LGBQ+">LGBQ+</option>
-                                                    <option value="All">All</option>
-                                                </select>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Promotionbeer" class="form-label">Promotion beer</label>
-                                                <input type="text" step="any" name="Promotionbeer"
-                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Event" class="form-label">Event</label>
-                                                <input type="text" step="any" name="Event" class="form-control is-valid"
-                                                    maxlength="" id="validationTextarea" value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="Situation" class="form-label">Situation</label>
-                                                <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
-                                                <textarea class="form-control" name="Situation" id="Situation"
-                                                    rows="2"></textarea>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
-                                                <div class="">
-                                                    <button class="btn btn-info" onclick="getCurrentLocation()"
-                                                        type="button"><i class="fa fa-location-arrow"
-                                                            aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
-                                                </div>
-                                                <div class="invalid-feedback"></div>
-                                                <input type="hidden" id="lat" name="lat">
-                                                <input type="hidden" id="lng" name="lng">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="fileToUpload" class="form-label">รูป</label>
-                                                <input type="file" name="fileToUpload" class="form-control is-valid"
-                                                    id="fileToUpload" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <canvas id="canvas" style="display: none;"></canvas>
-                                        <div id="map"></div>
-                                        <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
-                                            <button type="button" class="btn btn-success"
-                                                onclick="resizeAndUpload()">Save</button>
-                                            <a class="btn btn-danger" href="index.php" role="button">Back</a>
-                                        </div>
-                                    </form>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="Outlet_type-01" class="form-label">Segmentation</label>
+            <select class="form-select" name="Outlet_type" required aria-label="select example">
+                <option value=""></option>
+                <option value="Agent">Agent</option>
+                <option value="Bar & Restaurant">Bar & Restaurant</option>
+                <option value="Café">Café</option>
+                <option value="Café & Restaurant">Café & Restaurant</option>
+                <option value="Chain Restaurant">Chain Restaurant</option>
+                <option value="Community Mall / Flea Market">Community Mall / Flea Market</option>
+                <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar</option>
+                <option value="Fine Dining">Fine Dining</option>
+                <option value="Garden & Restaurant">Garden & Restaurant</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Micro Brew Bar">Micro Brew Bar</option>
+                <option value="Online Shop">Online Shop</option>
+                <option value="Other">Other</option>
+                <option value="Restaurant">Restaurant</option>
+                <option value="Rooftop Bar">Rooftop Bar</option>
+                <option value="Sub-Agent">Sub-Agent</option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Seat_total-01" class="form-label">Seat</label>
+            <input type="number" step="any" name="Seat_total" class="form-control is-valid" maxlength="3" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Spendingperhead" class="form-label">Spending per Head</label>
+            <input type="text" step="any" name="Spendingperhead" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Delivery" class="form-label">Delivery</label>
+            <input type="text" step="any" name="Delivery" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="Range01Age" class="form-label">Target Age</label>
+            <select class="form-select" name="RangeAge" required aria-label="select example">
+                <option value=""></option>
+                <option value="20-25">20-25</option>
+                <option value="26-30">26-30</option>
+                <option value="31-40">31-40</option>
+                <option value="41-50">41-50</option>
+                <option value="51-60">51-60</option>
+                <option value="60">60</option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Gender01" class="form-label">Target Gender</label>
+            <select class="form-select" name="Gender" required aria-label="select example">
+                <option value=""></option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="LGBQ+">LGBQ+</option>
+                <option value="All">All</option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Promotionbeer" class="form-label">Promotion Beer</label>
+            <input type="text" step="any" name="Promotionbeer" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Event" class="form-label">Event</label>
+            <input type="text" step="any" name="Event" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="Contact_outlet" class="form-label">Contact</label>
+            <input type="text" step="any" name="Contact_outlet" class="form-control is-valid" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Event" class="form-label">ประเภทสินค้าขายดีในร้าน</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="checkboxes[]" id="inlineCheckbox1" value="Beer">
+                <label class="form-check-label text-dark" for="inlineCheckbox1">Beer</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="checkboxes[]" id="inlineCheckbox2" value="Wine">
+                <label class="form-check-label text-dark" for="inlineCheckbox2">Wine</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="checkboxes[]" id="inlineCheckbox2" value="Spirit">
+                <label class="form-check-label text-dark" for="inlineCheckbox2">Spirit</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="checkboxes[]" id="inlineCheckbox2" value="Cocktail">
+                <label class="form-check-label text-dark" for="inlineCheckbox2">Cocktail</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="checkboxes[]" id="inlineCheckbox2" value="Others">
+                <label class="form-check-label text-dark" for="inlineCheckbox2">Others</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="Product_good" class="form-label">Brand</label>
+            <input type="text" step="any" name="Product_good" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-3">
+            <label for="Product_good" class="form-label">Brand</label>
+            <div class="multiselect">
+    <div class="selectBox" onclick="showCheckboxes()">
+      <select>
+        <option>Select an option</option>
+      </select>
+      <div class="overSelect"></div>
+    </div>
+    <div id="checkboxes">
+      <label for="one">
+        <input type="checkbox" id="one" />First checkbox</label>
+      <label for="two">
+        <input type="checkbox" id="two" />Second checkbox</label>
+      <label for="three">
+        <input type="checkbox" id="three" />Third checkbox</label>
+    </div>
+  </div>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
+            <div class="">
+                <button class="btn btn-info" onclick="getCurrentLocation()" type="button"><i class="fa fa-location-arrow" aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
+            </div>
+            <div class="invalid-feedback"></div>
+            <input type="hidden" id="lat" name="lat">
+            <input type="hidden" id="lng" name="lng">
+        </div>
+        <div class="col-md-3">
+            <label for="fileToUpload" class="form-label">รูป</label>
+            <input type="file" name="filesToUpload[]" class="form-control is-valid" id="fileToUpload" multiple required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="col-md-6">
+            <label for="Situation" class="form-label">Situation</label>
+            <textarea class="form-control" name="Situation" id="Situation" rows="2" required></textarea>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <div id="map"></div>
+    <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
+        <button type="button" class="btn btn-success" onclick="resizeAndUpload()">Save</button>
+        <a class="btn btn-danger" href="index.php" role="button">Back</a>
+    </div>
+</form>
                                 </div>
                             </div>
                         </div>
@@ -876,7 +727,7 @@ require_once 'session_check.php';
                                                     break;
                                                 case 100:
                                                     $progressClass = 'bg-success';
-                                                    $progressText = 'ลูกค้าสั่งของ';
+                                                    $progressText = 'จบการนำเสนอ';
                                                     break;
                                                 default:
                                                     // Default case handled by setting $led01 to $result["processwork"]
@@ -944,25 +795,25 @@ require_once 'session_check.php';
 
     </a>
 
-<!-- บันทึกสำเร็จ modal HTML -->
-<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- บันทึกสำเร็จ modal HTML -->
+    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Saved</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">successfully saved.</div>
-            <div class="modal-footer">
-                <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
-                <a class="btn btn-primary" href="salevisit_new.php">Go to New Sale Visit</a>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Saved</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">successfully saved.</div>
+                <div class="modal-footer">
+                    <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
+                    <a class="btn btn-primary" href="salevisit_new.php">Go to New Sale Visit</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <!-- Logout Modal-->
@@ -1002,69 +853,6 @@ require_once 'session_check.php';
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
-    <script>
-    function resizeAndUpload() {
-        const fileInput = document.getElementById('fileToUpload');
-        const canvas = document.getElementById('canvas');
-        const max_width = 1000; // Maximum width of the resized image
-        const max_height = 1000; // Maximum height of the resized image
-
-        if (fileInput.files && fileInput.files[0]) {
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    let width = img.width;
-                    let height = img.height;
-                    const ratio = width / height;
-
-                    if (width > max_width) {
-                        width = max_width;
-                        height = max_width / ratio;
-                    }
-
-                    if (height > max_height) {
-                        height = max_height;
-                        width = max_height * ratio;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    canvas.toBlob(function(blob) {
-                        const formData = new FormData(document.querySelector('form'));
-                        formData.set('fileToUpload', blob, file.name);
-
-                        fetch('salevisit_insertdata.php', {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(response => response.text())
-                            .then(result => {
-                                // alert('Saved');
-                                // window.location.href = 'salevisit_new.php';
-                                $('#saveModal').modal('show'); // Show the modal
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
-                    }, file.type, 0.85); // Adjust the quality parameter if needed
-                };
-
-                img.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        } else {
-            alert('No file selected.');
-        }
-    }
-    </script>
-
     <!-- ปุ่มระบุตำแหน่ง -->
     <script>
     function getCurrentLocation() {
@@ -1099,7 +887,123 @@ require_once 'session_check.php';
     }
     </script>
 
+<script>
+    function resizeAndUpload() {
+        const fileInput = document.getElementById('fileToUpload');
+        const canvas = document.getElementById('canvas');
+        const max_width = 1920;
+        const max_height = 1080;
 
+        if (fileInput.files.length > 0) {
+            const files = Array.from(fileInput.files);
+            const formData = new FormData();
+
+            let fileCounter = 0;
+
+            files.forEach(file => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        let width = img.width;
+                        let height = img.height;
+                        const ratio = width / height;
+
+                        if (width > max_width) {
+                            width = max_width;
+                            height = max_width / ratio;
+                        }
+
+                        if (height > max_height) {
+                            height = max_height;
+                            width = max_height * ratio;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        canvas.toBlob(function(blob) {
+                            formData.append('filesToUpload[]', blob, file.name);
+
+                            fileCounter++;
+                            if (fileCounter === files.length) {
+                                uploadFiles(formData);
+                            }
+                        }, file.type, 0.85);
+                    };
+
+                    img.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            });
+        } else {
+            alert('No file selected.');
+        }
+    }
+
+    function uploadFiles(formData) {
+        const form = document.querySelector('form');
+        const formElements = form.elements;
+
+        // Append all form data
+        for (let i = 0; i < formElements.length; i++) {
+            if (formElements[i].type !== 'file') {
+                formData.append(formElements[i].name, formElements[i].value);
+            }
+        }
+
+        fetch('salevisit_insertdata.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result);
+                $('#saveModal').modal('show');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    document.getElementById("uploadForm").addEventListener("submit", function(event) {
+        var form = event.target;
+        var isValid = form.checkValidity();
+        if (!isValid) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add("was-validated");
+        }
+    });
+
+    function resizeAndUpload() {
+        var form = document.getElementById("uploadForm");
+        var isValid = form.checkValidity();
+        if (isValid) {
+            form.submit();
+        } else {
+            form.classList.add("was-validated");
+        }
+    }
+</script>
+<script> 
+    var expanded = false;
+
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+</script>
 
 </body>
 
