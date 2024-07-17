@@ -541,12 +541,12 @@ include 'dbcon.php';
                                                 <input type="hidden" id="lat" name="lat">
                                                 <input type="hidden" id="lng" name="lng">
                                             </div>
-                                            <!-- <div class="col-md-3">
+                                            <div class="col-md-3">
                                                 <label for="fileToUpload" class="form-label">รูป</label>
-                                                <input type="file" name="fileToUpload" class="form-control is-valid"
-                                                    id="fileToUpload" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div> -->
+                                                <input type="file" name="filesToUpload[]" class="form-control is-valid"
+                                                    id="fileToUpload" multiple>
+                                                <!-- <div class="invalid-feedback"></div> -->
+                                            </div>
                                         </div>
                                         <canvas id="canvas" style="display: none;"></canvas>
                                         <div id="map"></div>

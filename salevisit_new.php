@@ -41,7 +41,7 @@ require_once 'session_check.php';
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
+        
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -55,7 +55,7 @@ require_once 'session_check.php';
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider bg-light">
+            <hr class="sidebar-divider my-0 bg-light">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -64,14 +64,13 @@ require_once 'session_check.php';
                     <span>Dashboard</span></a>
             </li>
 
+            <?php if ($Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-
             <!-- Heading -->
             <div class="sidebar-heading ">
                 Sale
             </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSale"
@@ -80,27 +79,21 @@ require_once 'session_check.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                <?php if ($Permission_user >= "1"): ?>
+
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
-                        <a class="collapse-item" href="salevisit_new.php">New Outlet</a>
+                        <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <a class="collapse-item" href="salevisit_Ex.php">Existing</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
-
                     </div>
                 </div>
                 <?php endif; ?>
             </li>
 
+            <?php if ($Permission_user == 4 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-
             <div class="sidebar-heading ">
                 Service
             </div>
@@ -111,7 +104,6 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Service</span>
                 </a>
-                <?php if ($Permission_user >= "2"): ?>
                 <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -120,16 +112,18 @@ require_once 'session_check.php';
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <a class="collapse-item" href="testmap.php">map</a>
                     </div>
                 </div>
                 <?php endif; ?>
             </li>
 
-            <?php if ($Permission_user >= "2"): ?>
+            <?php if ($Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-            
+
             <!-- Heading -->
+
             <div class="sidebar-heading">
                 Admin
             </div>
@@ -170,7 +164,8 @@ require_once 'session_check.php';
                     <span>Tables</span></a>
             </li>
             <?php endif; ?>
-        
+
+            <?php if ($Permission_user == 0 || $Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block bg-light">
 
@@ -186,17 +181,12 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Stock</span>
                 </a>
-                <?php if ($Permission_user >= "1"): ?>
-                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="stockkm38_52list.php">KM38 & KM52</a>
                         <a class="collapse-item" href="stockkm38_52search.php">Search</a>
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
                     </div>
                 </div>
                 <?php endif; ?>
@@ -211,14 +201,6 @@ require_once 'session_check.php';
             </div>
 
             <!-- end เมนู  กำหนดสิทธิ์ -->
-
-            <!-- Sidebar Message -->
-            <!-- <div class="sidebar-card d-none d-lg-flex"> -->
-            <!-- <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..."> -->
-            <!-- <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p> -->
-            <!-- <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a> -->
-            <!-- </div> -->
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -695,7 +677,8 @@ require_once 'session_check.php';
                                                     <option value="Café">Café</option>
                                                     <option value="Café & Restaurant">Café & Restaurant</option>
                                                     <option value="Chain Restaurant">Chain Restaurant</option>
-                                                    <option value="Community Mall / Flea Market">Community Mall / Flea Market</option>
+                                                    <option value="Community Mall / Flea Market">Community Mall / Flea
+                                                        Market</option>
                                                     <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar</option>
                                                     <option value="Fine Dining">Fine Dining</option>
                                                     <option value="Garden & Restaurant">Garden & Restaurant</option>
@@ -776,46 +759,41 @@ require_once 'session_check.php';
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <label for="Contact_outlet" class="form-label">Contact</label>
-                                                <input type="text" step="any" name="Contact_outlet"
-                                                    class="form-control is-valid" id="validationTextarea" value="" required>
+                                                <input type="text" step="any" name="Contact_outlet"class="form-control is-valid" id="validationTextarea" value=""required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Event" class="form-label">ประเภทสินค้าขายดีในร้าน</label>
-                                                <div class="form-check ">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox1" value="Beer">
-                                                    <label class="form-check-label text-dark" for="inlineCheckbox1">Beer</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Wine">
-                                                    <label class="form-check-label text-dark" for="inlineCheckbox2">Wine</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Spirit">
-                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">Spirit</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Cocktail">
-                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">Cocktail</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Others">
-                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">Others</label>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="multiSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">Select</button> <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]"id="inlineCheckbox1" value="Beer"> <label for="inlineCheckbox1"> Beer</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox2" value="Wine"> <label for="inlineCheckbox2"> Wine</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Spirit"> <label for="inlineCheckbox3"> Spirit</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Cocktail"> <label for="inlineCheckbox3"> Cocktail</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Others"> <label for="inlineCheckbox3"> Others</label>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Product_good" class="form-label">Brand</label>
-                                                <input type="text" step="any" name="Product_good" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
+                                                <input type="text" step="any" name="Product_good"
+                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
+                                                    value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                        <div class="col-md-3">
+                                            <div class="col-md-3">
                                                 <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
                                                 <div class="">
                                                     <button class="btn btn-info" onclick="getCurrentLocation()"
@@ -835,7 +813,8 @@ require_once 'session_check.php';
                                             <div class="col-md-6">
                                                 <label for="Situation" class="form-label">Situation</label>
                                                 <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
-                                                <textarea class="form-control" name="Situation" id="Situation" rows="2" required></textarea>
+                                                <textarea class="form-control" name="Situation" id="Situation" rows="2"
+                                                    required></textarea>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
@@ -873,6 +852,7 @@ require_once 'session_check.php';
                                                 <tr>
                                                     <!-- <th class="text-center text-nowrap">วันที่อนุมัติ</th> -->
                                                     <th class="text-center">วันที่</th>
+                                                    <th class="text-center">สถานะร้านค้า</th>
                                                     <!-- <th class="text-center">ชื่อ</th> -->
                                                     <th class="text-center">ชื่อร้านค้า</th>
                                                     <!-- <th class="text-center">อายุ</th> -->
@@ -892,6 +872,7 @@ require_once 'session_check.php';
                                                         <td class="text-nowrap">
                                                             <?php echo htmlspecialchars($result["Posting_date"]); ?>
                                                         </td>
+                                                        <td class="text-nowrap"><?php echo htmlspecialchars($result["Status_outlet"]); ?></td>
                                                         <!-- <td class="text-nowrap"><?php echo htmlspecialchars($result["User_name"]); ?></td> -->
                                                         <td><?php echo htmlspecialchars($result["Customer_name"]); ?>
                                                         </td>
@@ -1145,159 +1126,30 @@ require_once 'session_check.php';
     }
     </script>
 
+<script>
+    const checkboxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
+    const dropdownButton = document.getElementById('multiSelectDropdown');
+    let selectedItems = [];
 
-    <!-- <script>
-    document.getElementById('fileToUpload').addEventListener('change', handleFileSelect);
+    function handleCheckboxChange() {
+        selectedItems = [];
+        let selectedItemsText = '';
 
-    function handleFileSelect(event) {
-        const fileInput = event.target;
-        const files = Array.from(fileInput.files);
-        const resizedImages = [];
-
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-
-        const max_width = 1920;
-        const max_height = 1080;
-
-        files.forEach((file, index) => {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    let width = img.width;
-                    let height = img.height;
-                    const ratio = width / height;
-
-                    if (width > max_width) {
-                        width = max_width;
-                        height = max_width / ratio;
-                    }
-
-                    if (height > max_height) {
-                        height = max_height;
-                        width = max_height * ratio;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    canvas.toBlob(function(blob) {
-                        const resizedFile = new File([blob], `${file.name}_${index}_${Date.now()}`, {
-                            type: file.type,
-                            lastModified: Date.now()
-                        });
-
-                        resizedImages.push(resizedFile);
-
-                        if (resizedImages.length === files.length) {
-                            // All images have been resized, now trigger the upload
-                            uploadResizedImages(resizedImages);
-                        }
-                    }, file.type, 0.85);
-                };
-
-                img.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        });
-    }
-
-    function uploadResizedImages(files) {
-        const formData = new FormData();
-        files.forEach(file => {
-            formData.append('filesToUpload[]', file);
-        });
-
-        fetch('salevisit_insertdatatest.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(result => {
-            console.log('Success:', result);
-            $('#saveModal').modal('show');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-</script> -->
-
-    <!-- <script>
-        function resizeAndUpload() {
-            const fileInput = document.getElementById('fileToUpload');
-            const canvas = document.getElementById('canvas');
-            const max_width = 1920; // Maximum width of the resized image
-            const max_height = 1080; // Maximum height of the resized image
-
-            if (fileInput.files.length > 0) {
-                const files = Array.from(fileInput.files);
-                const formData = new FormData(document.getElementById('uploadForm'));
-
-                let fileCounter = 0;
-
-                files.forEach(file => {
-                    const reader = new FileReader();
-
-                    reader.onload = function(e) {
-                        const img = new Image();
-                        img.onload = function() {
-                            let width = img.width;
-                            let height = img.height;
-                            const ratio = width / height;
-
-                            if (width > max_width) {
-                                width = max_width;
-                                height = max_width / ratio;
-                            }
-
-                            if (height > max_height) {
-                                height = max_height;
-                                width = max_height * ratio;
-                            }
-
-                            canvas.width = width;
-                            canvas.height = height;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0, width, height);
-
-                            canvas.toBlob(function(blob) {
-                                formData.append('filesToUpload[]', blob, file.name);
-
-                                fileCounter++;
-                                if (fileCounter === files.length) {
-                                    fetch('salevisit_insertdatatest.php', {
-                                        method: 'POST',
-                                        body: formData
-                                    })
-                                    .then(response => response.text())
-                                    .then(result => {
-                                        console.log('Success:', result);
-                                        $('#saveModal').modal('show'); // Show the modal
-                                        // alert('Upload successful');
-                                        // window.location.href = 'salevisit_new.php'; // Redirect if needed
-                                    })
-                                    .catch(error => {
-                                        console.error('Error:', error);
-                                    });
-                                }
-                            }, file.type, 0.85); // Adjust the quality parameter if needed
-                        };
-
-                        img.src = e.target.result;
-                    };
-
-                    reader.readAsDataURL(file);
-                });
-            } else {
-                alert('No file selected.');
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                selectedItems.push(checkbox.value);
+                selectedItemsText += checkbox.value + ', ';
             }
-        }
-    </script> -->
+        });
+
+        dropdownButton.innerText = selectedItems.length > 0 ? selectedItemsText.slice(0, -2) : 'Select';
+    }
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', handleCheckboxChange);
+    });
+    </script>
+
 
     <!-- ปุ่มระบุตำแหน่ง -->
     <script>

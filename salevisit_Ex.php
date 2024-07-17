@@ -18,23 +18,42 @@ require_once 'session_check.php';
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 
 
-           <!-- Custom fonts for this template-->
-           <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-            <!-- Custom styles for this template-->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"> </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Include Bootstrap-Select CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" rel="stylesheet" />
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Include Bootstrap-Select JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
     <?php
     // เชื่อมต่อฐานข้อมูล
     include("dbcon.php");
     ?>
-    <script>
+
+    <!-- scriipt นี้ใช้เพื่อ เลือกชื่อร้านแล่วไปดึงข้อมูลมา แต่ตอนนี้ไม่ได้ใช้ -->
+    <!-- <script>
     $(document).ready(function() {
         $('#OutletName01').on('change', function() {
             var outletName = $(this).val();
@@ -42,7 +61,9 @@ require_once 'session_check.php';
                 $.ajax({
                     url: 'fetch_outlet_data.php',
                     type: 'POST',
-                    data: { outlet_name: outletName },
+                    data: {
+                        outlet_name: outletName
+                    },
                     dataType: 'json',
                     success: function(data) {
                         if (data) {
@@ -61,7 +82,7 @@ require_once 'session_check.php';
             }
         });
     });
-    </script>
+    </script> -->
 
 </head>
 
@@ -69,7 +90,6 @@ require_once 'session_check.php';
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -83,7 +103,7 @@ require_once 'session_check.php';
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider bg-light">
+            <hr class="sidebar-divider my-0 bg-light">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -92,14 +112,13 @@ require_once 'session_check.php';
                     <span>Dashboard</span></a>
             </li>
 
+            <?php if ($Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-
             <!-- Heading -->
             <div class="sidebar-heading ">
                 Sale
             </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSale"
@@ -108,27 +127,21 @@ require_once 'session_check.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                <?php if ($Permission_user >= "1"): ?>
+
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
-                        <a class="collapse-item" href="salevisit_new.php">New Outlet</a>
+                        <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <a class="collapse-item" href="salevisit_Ex.php">Existing</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
-
                     </div>
                 </div>
                 <?php endif; ?>
             </li>
 
+            <?php if ($Permission_user == 4 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-
             <div class="sidebar-heading ">
                 Service
             </div>
@@ -139,7 +152,6 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Service</span>
                 </a>
-                <?php if ($Permission_user >= "2"): ?>
                 <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -148,16 +160,18 @@ require_once 'session_check.php';
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <a class="collapse-item" href="testmap.php">map</a>
                     </div>
                 </div>
                 <?php endif; ?>
             </li>
 
-            <?php if ($Permission_user >= "2"): ?>
+            <?php if ($Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-            
+
             <!-- Heading -->
+
             <div class="sidebar-heading">
                 Admin
             </div>
@@ -198,7 +212,8 @@ require_once 'session_check.php';
                     <span>Tables</span></a>
             </li>
             <?php endif; ?>
-        
+
+            <?php if ($Permission_user == 0 || $Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block bg-light">
 
@@ -214,17 +229,12 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Stock</span>
                 </a>
-                <?php if ($Permission_user >= "1"): ?>
-                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="stockkm38_52list.php">KM38 & KM52</a>
                         <a class="collapse-item" href="stockkm38_52search.php">Search</a>
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
                     </div>
                 </div>
                 <?php endif; ?>
@@ -239,14 +249,6 @@ require_once 'session_check.php';
             </div>
 
             <!-- end เมนู  กำหนดสิทธิ์ -->
-
-            <!-- Sidebar Message -->
-            <!-- <div class="sidebar-card d-none d-lg-flex"> -->
-            <!-- <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..."> -->
-            <!-- <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p> -->
-            <!-- <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a> -->
-            <!-- </div> -->
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -264,164 +266,8 @@ require_once 'session_check.php';
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
-                    <!-- <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form> -->
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <!-- <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a> -->
-                        <!-- Dropdown - Messages -->
-                        <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div> -->
-                        </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <!-- <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i> -->
-                        <!-- Counter - Alerts -->
-                        <!-- <span class="badge badge-danger badge-counter">3+</span>
-                            </a> -->
-                        <!-- Dropdown - Alerts -->
-                        <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div> -->
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <!-- <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i> -->
-                        <!-- Counter - Messages -->
-                        <!-- <span class="badge badge-danger badge-counter">7</span>
-                            </a> -->
-                        <!-- Dropdown - Messages -->
-                        <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div> -->
-                        </li>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -477,208 +323,8 @@ require_once 'session_check.php';
                         <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
 
-                    <!-- Content Row -->
-                    <!-- <div class="row"> -->
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                รอใสข้อมูลรายละเอียด</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- Pending Requests Card Example -->
-                    <!-- <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- Content Row -->
+                  
                     <div class="row">
-
-                        <!-- Content Column -->
-                        <!-- <div class="col-lg-6 mb-4"> -->
-
-                        <!-- Project Card Example -->
-                        <!-- <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                        <!-- Color System -->
-                        <!-- <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            Primary
-                                            <div class="text-white-50 small">#4e73df</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                        <!-- </div> -->
-
                         <div class="col-lg-12 mb-4">
                             <div class="card shadow mb-4">
                                 <div
@@ -689,36 +335,51 @@ require_once 'session_check.php';
                                     <form id="uploadForm" action="salevisit_insertdata_Ex.php" method="POST"
                                         class="was-validated align-items-center" enctype="multipart/form-data">
                                         <div class="row">
-            <div class="col-md-6">
-                <label for="OutletName01" class="form-label">Outlet</label>
-                <select class="form-select" name="OutletName" id="OutletName01" required aria-label="select example">
-                    <option value=""></option>
-                    <?php
-                    // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
-                    $sql_ex = "SELECT * FROM Customer_Data ORDER BY Customer_No ASC";
-                    $stmt_ex = sqlsrv_query($conn, $sql_ex);
-                    if ($stmt_ex !== false) {
-                        while ($result_ex = sqlsrv_fetch_array($stmt_ex, SQLSRV_FETCH_ASSOC)) {
-                            echo '<option value="' . htmlspecialchars($result_ex["Customer_Name"]) . '">' . htmlspecialchars($result_ex["Customer_Name"]) . '</option>';
-                        }
-                        sqlsrv_free_stmt($stmt_ex);
-                    } else {
-                        echo "<option value=''>ไม่พบข้อมูล</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <label for="Outlet_Zone" class="form-label">Zone</label>
-                <input type="text" step="any" name="Outlet_Zone" class="form-control is-valid" id="OutletZone" value="" required>
-                <div class="invalid-feedback"></div>
-            </div>
-            <div class="col-md-3">
-                <label for="openingandclosingtimes" class="form-label">Opening and Closing Times</label>
-                <input type="text" step="any" name="openingandclosingtimes" class="form-control is-valid" id="OpeningClosingTimes" value="" required>
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
+                                            <!-- Initialize Bootstrap-Select -->
+                                            <script>
+                                                $(document).ready(function() {
+                                                    $('.selectpicker').selectpicker();
+                                                });
+                                            </script>
+                                            <div class="col-md-6">
+                                                <label for="OutletName01" class="form-label">Outlet</label>
+                                                <select class="selectpicker form-control" name="OutletName" id="OutletName01" data-live-search="true" required aria-label="select example">
+                                                    <option value="">Nothing selected</option>
+                                                    <?php
+                                                    // Get the username from the session
+                                                    $user_id = $_SESSION["User_id"];
+                                                    // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
+                                                    $sql_ex = "SELECT DISTINCT Customer_No, Customer_Name FROM Customer_Data WHERE mdc_userid = ? ";
+                                                    $params = array($user_id);
+                                                    $stmt_ex = sqlsrv_query($conn, $sql_ex, $params);
+                                                    if ($stmt_ex !== false) {
+                                                        while ($result_ex = sqlsrv_fetch_array($stmt_ex, SQLSRV_FETCH_ASSOC)) {
+                                                            $customer_no = htmlspecialchars($result_ex["Customer_No"]);
+                                                            $customer_name = htmlspecialchars($result_ex["Customer_Name"]);
+                                                            echo '<option value="' . $customer_no . '|' . $customer_name . '">' . $customer_name . '</option>';
+                                                        }
+                                                        sqlsrv_free_stmt($stmt_ex);
+                                                    } else {
+                                                        echo "<option value=''>ไม่พบข้อมูล</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="Outlet_Zone" class="form-label">Zone</label>
+                                                <input type="text" step="any" name="Outlet_Zone"
+                                                    class="form-control is-valid" id="OutletZone" value="" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="openingandclosingtimes" class="form-label">Opening and
+                                                    Closing Times</label>
+                                                <input type="text" step="any" name="openingandclosingtimes"
+                                                    class="form-control is-valid" id="OpeningClosingTimes" value=""
+                                                    required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
 
                                         <div class="row">
                                             <div class="col-md-3">
@@ -731,7 +392,8 @@ require_once 'session_check.php';
                                                     <option value="Café">Café</option>
                                                     <option value="Café & Restaurant">Café & Restaurant</option>
                                                     <option value="Chain Restaurant">Chain Restaurant</option>
-                                                    <option value="Community Mall / Flea Market">Community Mall / Flea Market</option>
+                                                    <option value="Community Mall / Flea Market">Community Mall / Flea
+                                                        Market</option>
                                                     <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar</option>
                                                     <option value="Fine Dining">Fine Dining</option>
                                                     <option value="Garden & Restaurant">Garden & Restaurant</option>
@@ -813,45 +475,42 @@ require_once 'session_check.php';
                                             <div class="col-md-3">
                                                 <label for="Contact_outlet" class="form-label">Contact</label>
                                                 <input type="text" step="any" name="Contact_outlet"
-                                                    class="form-control is-valid" id="validationTextarea" value="" required>
+                                                    class="form-control is-valid" id="validationTextarea" value=""
+                                                    required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Event" class="form-label">ประเภทสินค้าขายดีในร้าน</label>
-                                                <div class="form-check ">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox1" value="Beer">
-                                                    <label class="form-check-label text-dark" for="inlineCheckbox1">Beer</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Wine">
-                                                    <label class="form-check-label text-dark" for="inlineCheckbox2">Wine</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Spirit">
-                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">Spirit</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Cocktail">
-                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">Cocktail</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Others">
-                                                    <label class="form-check-label  text-dark" for="inlineCheckbox2">Others</label>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="multiSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">Select</button> <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]"id="inlineCheckbox1" value="Beer"> <label for="inlineCheckbox1"> Beer</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox2" value="Wine"> <label for="inlineCheckbox2"> Wine</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Spirit"> <label for="inlineCheckbox3"> Spirit</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Cocktail"> <label for="inlineCheckbox3"> Cocktail</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Others"> <label for="inlineCheckbox3"> Others</label>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Product_good" class="form-label">Brand</label>
-                                                <input type="text" step="any" name="Product_good" class="form-control is-valid" maxlength="" id="validationTextarea" value="" required>
+                                                <input type="text" step="any" name="Product_good"
+                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
+                                                    value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                        <div class="col-md-3">
+                                            <div class="col-md-3">
                                                 <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
                                                 <div class="">
                                                     <button class="btn btn-info" onclick="getCurrentLocation()"
@@ -871,7 +530,8 @@ require_once 'session_check.php';
                                             <div class="col-md-6">
                                                 <label for="Situation" class="form-label">Situation</label>
                                                 <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
-                                                <textarea class="form-control" name="Situation" id="Situation" rows="2" required></textarea>
+                                                <textarea class="form-control" name="Situation" id="Situation" rows="2"
+                                                    required></textarea>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
@@ -909,7 +569,7 @@ require_once 'session_check.php';
                                                 <tr>
                                                     <!-- <th class="text-center text-nowrap">วันที่อนุมัติ</th> -->
                                                     <th class="text-center">วันที่</th>
-                                                    <!-- <th class="text-center">ชื่อ</th> -->
+                                                    <th class="text-center">สถานะร้านค้า</th>
                                                     <th class="text-center">ชื่อร้านค้า</th>
                                                     <!-- <th class="text-center">อายุ</th> -->
                                                     <!-- <th class="text-center">รูปแบบร้าน</th> -->
@@ -925,10 +585,8 @@ require_once 'session_check.php';
                                                 <tr>
                                                     <form action="salevisit_detail.php" method="post">
                                                         <!-- <td class="text-center"><?php echo htmlspecialchars($result["id"]); ?></td> -->
-                                                        <td class="text-nowrap">
-                                                            <?php echo htmlspecialchars($result["Posting_date"]); ?>
-                                                        </td>
-                                                        <!-- <td class="text-nowrap"><?php echo htmlspecialchars($result["User_name"]); ?></td> -->
+                                                        <td class="text-nowrap"><?php echo htmlspecialchars($result["Posting_date"]); ?></td>
+                                                        <td class="text-nowrap"><?php echo htmlspecialchars($result["Status_outlet"]); ?></td>
                                                         <td><?php echo htmlspecialchars($result["Customer_name"]); ?>
                                                         </td>
                                                         <!-- <td class="text-center text-nowrap"><?php echo htmlspecialchars($result["Range_Age"]); ?></td> -->
@@ -1181,159 +839,31 @@ require_once 'session_check.php';
     }
     </script>
 
+<script>
+    const checkboxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
+    const dropdownButton = document.getElementById('multiSelectDropdown');
+    let selectedItems = [];
 
-    <!-- <script>
-    document.getElementById('fileToUpload').addEventListener('change', handleFileSelect);
+    function handleCheckboxChange() {
+        selectedItems = [];
+        let selectedItemsText = '';
 
-    function handleFileSelect(event) {
-        const fileInput = event.target;
-        const files = Array.from(fileInput.files);
-        const resizedImages = [];
-
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-
-        const max_width = 1920;
-        const max_height = 1080;
-
-        files.forEach((file, index) => {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    let width = img.width;
-                    let height = img.height;
-                    const ratio = width / height;
-
-                    if (width > max_width) {
-                        width = max_width;
-                        height = max_width / ratio;
-                    }
-
-                    if (height > max_height) {
-                        height = max_height;
-                        width = max_height * ratio;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    canvas.toBlob(function(blob) {
-                        const resizedFile = new File([blob], `${file.name}_${index}_${Date.now()}`, {
-                            type: file.type,
-                            lastModified: Date.now()
-                        });
-
-                        resizedImages.push(resizedFile);
-
-                        if (resizedImages.length === files.length) {
-                            // All images have been resized, now trigger the upload
-                            uploadResizedImages(resizedImages);
-                        }
-                    }, file.type, 0.85);
-                };
-
-                img.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        });
-    }
-
-    function uploadResizedImages(files) {
-        const formData = new FormData();
-        files.forEach(file => {
-            formData.append('filesToUpload[]', file);
-        });
-
-        fetch('salevisit_insertdatatest.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(result => {
-            console.log('Success:', result);
-            $('#saveModal').modal('show');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-</script> -->
-
-    <!-- <script>
-        function resizeAndUpload() {
-            const fileInput = document.getElementById('fileToUpload');
-            const canvas = document.getElementById('canvas');
-            const max_width = 1920; // Maximum width of the resized image
-            const max_height = 1080; // Maximum height of the resized image
-
-            if (fileInput.files.length > 0) {
-                const files = Array.from(fileInput.files);
-                const formData = new FormData(document.getElementById('uploadForm'));
-
-                let fileCounter = 0;
-
-                files.forEach(file => {
-                    const reader = new FileReader();
-
-                    reader.onload = function(e) {
-                        const img = new Image();
-                        img.onload = function() {
-                            let width = img.width;
-                            let height = img.height;
-                            const ratio = width / height;
-
-                            if (width > max_width) {
-                                width = max_width;
-                                height = max_width / ratio;
-                            }
-
-                            if (height > max_height) {
-                                height = max_height;
-                                width = max_height * ratio;
-                            }
-
-                            canvas.width = width;
-                            canvas.height = height;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0, width, height);
-
-                            canvas.toBlob(function(blob) {
-                                formData.append('filesToUpload[]', blob, file.name);
-
-                                fileCounter++;
-                                if (fileCounter === files.length) {
-                                    fetch('salevisit_insertdatatest.php', {
-                                        method: 'POST',
-                                        body: formData
-                                    })
-                                    .then(response => response.text())
-                                    .then(result => {
-                                        console.log('Success:', result);
-                                        $('#saveModal').modal('show'); // Show the modal
-                                        // alert('Upload successful');
-                                        // window.location.href = 'salevisit_new.php'; // Redirect if needed
-                                    })
-                                    .catch(error => {
-                                        console.error('Error:', error);
-                                    });
-                                }
-                            }, file.type, 0.85); // Adjust the quality parameter if needed
-                        };
-
-                        img.src = e.target.result;
-                    };
-
-                    reader.readAsDataURL(file);
-                });
-            } else {
-                alert('No file selected.');
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                selectedItems.push(checkbox.value);
+                selectedItemsText += checkbox.value + ', ';
             }
-        }
-    </script> -->
+        });
+
+        dropdownButton.innerText = selectedItems.length > 0 ? selectedItemsText.slice(0, -2) : 'Select';
+    }
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', handleCheckboxChange);
+    });
+    </script>
+
+
 
     <!-- ปุ่มระบุตำแหน่ง -->
     <script>

@@ -15,7 +15,7 @@ include 'dbcon.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mardi Craft Brewing - main</title>
+    <title>Mardi Craft Brewing - detail</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 
@@ -66,7 +66,7 @@ include 'dbcon.php';
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider bg-light">
+            <hr class="sidebar-divider my-0 bg-light">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -75,14 +75,13 @@ include 'dbcon.php';
                     <span>Dashboard</span></a>
             </li>
 
+            <?php if ($Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-
             <!-- Heading -->
             <div class="sidebar-heading ">
                 Sale
             </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSale"
@@ -91,27 +90,21 @@ include 'dbcon.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                <?php if ($Permission_user >= "1"): ?>
+
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
-                        <a class="collapse-item" href="salevisit_new.php">New Outlet</a>
+                        <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <a class="collapse-item" href="salevisit_Ex.php">Existing</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
-
                     </div>
                 </div>
                 <?php endif; ?>
             </li>
 
+            <?php if ($Permission_user == 4 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-
             <div class="sidebar-heading ">
                 Service
             </div>
@@ -122,7 +115,6 @@ include 'dbcon.php';
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Service</span>
                 </a>
-                <?php if ($Permission_user >= "2"): ?>
                 <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -131,16 +123,18 @@ include 'dbcon.php';
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <a class="collapse-item" href="testmap.php">map</a>
                     </div>
                 </div>
                 <?php endif; ?>
             </li>
 
-            <?php if ($Permission_user >= "2"): ?>
+            <?php if ($Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-            
+
             <!-- Heading -->
+
             <div class="sidebar-heading">
                 Admin
             </div>
@@ -181,7 +175,8 @@ include 'dbcon.php';
                     <span>Tables</span></a>
             </li>
             <?php endif; ?>
-        
+
+            <?php if ($Permission_user == 0 || $Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block bg-light">
 
@@ -197,17 +192,12 @@ include 'dbcon.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Stock</span>
                 </a>
-                <?php if ($Permission_user >= "1"): ?>
-                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="stockkm38_52list.php">KM38 & KM52</a>
                         <a class="collapse-item" href="stockkm38_52search.php">Search</a>
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
                     </div>
                 </div>
                 <?php endif; ?>
@@ -220,8 +210,8 @@ include 'dbcon.php';
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-            <!-- end เมนู  กำหนดสิทธิ์ -->
 
+            <!-- end เมนู  กำหนดสิทธิ์ -->
         </ul>
         <!-- End of Sidebar -->
 
@@ -447,7 +437,7 @@ include 'dbcon.php';
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div> -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">New Visit</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Detail</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i -->
                         <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
@@ -571,7 +561,7 @@ include 'dbcon.php';
                                     // Generate SAS URL for the image
                                     // $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($result["Customer_image"]) . ".?" . $sasToken;
                                     $images = explode(',', $result['Customer_image']); // แยกข้อมูลรูปภาพจากฐานข้อมูล
-                                    // echo $blobUrl;
+                                    // echo $images;
                             ?>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded "
@@ -619,11 +609,11 @@ include 'dbcon.php';
                                             </div>
                                             <div class="col-6">
                                                 <div class="text text-nowrap ">
-                                                <i class="fa fa-bullhorn text-primary"></i> Product:
-                                                <?php echo htmlspecialchars($result["PD_good1"]); ?></p>
+                                                    <i class="fa fa-bullhorn text-primary"></i> Product:
+                                                    <?php echo htmlspecialchars($result["PD_good1"]); ?></p>
                                                 </div>
                                             </div>
-    
+
                                             <div class="col-12">
                                                 <div class="text text-nowrap ">
                                                     <i class="fa fa-hourglass-start text-primary"></i> สถานะ <div
@@ -690,17 +680,22 @@ include 'dbcon.php';
                                                         <!-- <img src="<?php echo $blobUrl; ?>"alt="<?php echo $result["Customer_name"]; ?>" style="width: 370px; height:auto;"> -->
                                                         <!-- <img src="<?php echo $blobUrl; ?>" alt="Customer Image" style="width: 370px; height: auto;"> -->
                                                         <div class="row photos">
-                                                        <?php
+                                                            <?php
                                                 foreach ($images as $image) {
                                                     $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($image) . "?" . $sasToken;
                                                     ?>
-                                                    <div class="col-sm-6 col-md-4 col-lg-3 item" style="width: 300px; height: auto;"><a href="<?php echo $blobUrl; ?>" data-lightbox="photos"><img class="img-fluid" src="<?php echo $blobUrl; ?>"></a></div>
-                                                    <?php
+                                                            <div class="col-sm-6 col-md-4 col-lg-3 item"
+                                                                style="width: 300px; height: auto;"><a
+                                                                    href="<?php echo $blobUrl; ?>"
+                                                                    data-lightbox="photos"><img class="img-fluid"
+                                                                        src="<?php echo $blobUrl; ?>"></a></div>
+                                                            <?php
                                                      }
                                                 ?>
-                                                    </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <!-- <?php echo $blobUrl; ?> -->
                                                 <div class="col-12 card  border-left-primary shadow text-dark mb-1 me-0.5 "
                                                     style="margin:10px 0px 0px 0px; ">
                                                     <div class="card-header shadow " style="margin:10px 0px 0px 0px;"><i
@@ -901,7 +896,8 @@ include 'dbcon.php';
                 <div class="modal-body">Are you sure you want to Edit product?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form name="frmMain" action="salevisit_edit.php" method="post" id="formeditproduct01" onsubmit="setProductSeries()">
+                    <form name="frmMain" action="salevisit_edit.php" method="post" id="formeditproduct01"
+                        onsubmit="setProductSeries()">
                         <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
                         <input name="edit" type="submit" class="btn btn-warning" value="Edit">
                     </form>

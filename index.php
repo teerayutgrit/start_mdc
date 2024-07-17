@@ -47,7 +47,7 @@ require_once 'session_check.php';
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <hr class="sidebar-divider my-0 ">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -56,7 +56,7 @@ require_once 'session_check.php';
                     <span>Dashboard</span></a>
             </li>
 
-            <?php if ($Permission_user == 1 || $Permission_user == 2): ?>
+            <?php if ($Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Heading -->
@@ -74,22 +74,16 @@ require_once 'session_check.php';
                 
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <a class="collapse-item" href="salevisit_Ex.php">Existing</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
-
                     </div>
                 </div>
                 <?php endif; ?>
             </li>
 
-            <?php if ($Permission_user == 3): ?>
+            <?php if ($Permission_user == 4 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
             <div class="sidebar-heading ">
@@ -116,7 +110,7 @@ require_once 'session_check.php';
                 <?php endif; ?>
             </li>
 
-            <?php if ($Permission_user == 3): ?>
+            <?php if ($Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -163,7 +157,7 @@ require_once 'session_check.php';
             </li>
             <?php endif; ?>
 
-            <?php if ($Permission_user == 0 || $Permission_user == 1 || $Permission_user == 2 || $Permission_user == 3): ?>
+            <?php if ($Permission_user == 0 || $Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -181,14 +175,9 @@ require_once 'session_check.php';
                 </a>
                 <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="stockkm38_52list.php">KM38 & KM52</a>
                         <a class="collapse-item" href="stockkm38_52search.php">Search</a>
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
                     </div>
                 </div>
                 <?php endif; ?>
@@ -219,20 +208,6 @@ require_once 'session_check.php';
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    <!-- <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form> -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -279,17 +254,12 @@ require_once 'session_check.php';
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div> -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     </div>
-                    <script>
+                    <!-- Content Row -->
+                    <?php if ($Permission_user == 1 || $Permission_user == 5): ?>
+                        <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         fetch('query_sumtotallist_api.php')
                             .then(response => response.json())
@@ -305,9 +275,7 @@ require_once 'session_check.php';
                             .catch(error => console.error('Error:', error));
                     });
                     </script>
-                    <!-- Content Row -->
                     <div class="row">
-
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
@@ -410,14 +378,118 @@ require_once 'session_check.php';
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
 
                     <!-- Content Row -->
+                    <?php if ($Permission_user == 1 || $Permission_user == 5): ?>
                     <div class="row">
-
+                         <!-- Content Column -->
+                         <div class="col-xl-12 col-lg-100">
+                            <!-- Project Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded "
+                                    style="margin-top: -0.5rem ">
+                                    <h6 class="m-0 font-weight-bold text-light">Visit List</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <?php
+                                   // Include query_visitmain_api.php to retrieve data
+                                     require_once 'query_visitmain_api.php';
+                                 ?>
+                                    <div class="table-responsive-sm">
+                                        <table id="myTable" class="table table-sm table-hover sm-2">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th class="text-center text-nowrap">วันที่อนุมัติ</th> -->
+                                                    <th class="text-center">วันที่</th>
+                                                    <th class="text-center">สถานะร้านค้า</th>
+                                                    <!-- <th class="text-center">ชื่อ</th> -->
+                                                    <th class="text-center">ชื่อร้านค้า</th>
+                                                    <!-- <th class="text-center">อายุ</th> -->
+                                                    <!-- <th class="text-center">รูปแบบร้าน</th> -->
+                                                    <th class="text-center">ความคืบหน้า</th>
+                                                    <th class="text-center">รายละเอียด</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
+                                                 // Loop through the results obtained from query_visitmain_api.php
+                                                 foreach ($results as $result) {
+                                                 ?>
+                                                <tr>
+                                                    <form action="salevisit_detail.php" method="post">
+                                                        <!-- <td class="text-center"><?php echo htmlspecialchars($result["id"]); ?></td> -->
+                                                        <td class="text-nowrap">
+                                                            <?php echo htmlspecialchars($result["Posting_date"]); ?>
+                                                        </td>
+                                                        <td class="text-nowrap"><?php echo htmlspecialchars($result["Status_outlet"]); ?></td>
+                                                        <!-- <td class="text-nowrap"><?php echo htmlspecialchars($result["User_name"]); ?></td> -->
+                                                        <td><?php echo htmlspecialchars($result["Customer_name"]); ?>
+                                                        </td>
+                                                        <!-- <td class="text-center text-nowrap"><?php echo htmlspecialchars($result["Range_Age"]); ?></td> -->
+                                                        <!-- <td><?php echo htmlspecialchars($result["Outlet_type"]); ?></td> -->
+                                                        <td>
+                                                            <div class="progress mr-4">
+                                                                <?php
+                                            $led01 = $result["processwork"];
+                                            $progressClass = 'bg-primary'; // Default class
+                                            $progressText = 'เข้าพบลูกค้า'; // Default text
+                                
+                                            switch ($result["processwork"]) {
+                                                case 40:
+                                                    $progressClass = 'bg-info';
+                                                    $progressText = 'เข้าพบลูกค้า';
+                                                    break;
+                                                case 80:
+                                                    $progressClass = 'bg-warning';
+                                                    $progressText = 'ลูกค้าเทสสินค้า';
+                                                    break;
+                                                case 100:
+                                                    $progressClass = 'bg-success';
+                                                    $progressText = 'จบการนำเสนอ';
+                                                    break;
+                                                default:
+                                                    // Default case handled by setting $led01 to $result["processwork"]
+                                                    break;
+                                            }
+                                        ?>
+                                                                <div id="myProgress1"
+                                                                    class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>"
+                                                                    role="progressbar"
+                                                                    aria-valuenow="<?php echo htmlspecialchars($led01); ?>"
+                                                                    aria-valuemin="0" aria-valuemax="100"
+                                                                    style="width:<?php echo htmlspecialchars($led01); ?>%">
+                                                                    <?php echo htmlspecialchars($progressText ); ?>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <!-- <td><?php echo htmlspecialchars($result["comment"]); ?></td> -->
+                                                        <!-- <td class="text-center"><?php if ($result["supportname"] != "") { echo "✔️"; } ?></td> -->
+                                                        <!-- <td align="center"><?php if ($result["mgitname"] != "") { echo "✔️"; } ?></td> -->
+                                                        <td class="text-center">
+                                                            <font size="+1" color="#3745B5"><strong>
+                                                                    <input name="reqid" type="hidden"
+                                                                        value="<?php echo htmlspecialchars($result["id"]); ?>" />
+                                                                    <input name="Submit" type="submit"
+                                                                        class="btn btn-sm btn-primary" value="Detail" />
+                                                                </strong></font>
+                                                        </td>
+                                                    </form>
+                                                </tr>
+                                                <?php 
+                                               }
+                                               ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
+                    <?php endif; ?>
                 </div>
-                <!-- /.container-fluid -->
+
 
             </div>
             <!-- End of Main Content -->

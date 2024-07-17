@@ -75,14 +75,13 @@ require_once 'session_check.php';
                     <span>Dashboard</span></a>
             </li>
 
+            <?php if ($Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-
             <!-- Heading -->
             <div class="sidebar-heading ">
                 Sale
             </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSale"
@@ -91,26 +90,21 @@ require_once 'session_check.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                <?php if ($Permission_user >= "1"): ?>
+
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
-                        <a class="collapse-item" href="salevisit_new.php">New Outlet</a>
+                        <a class="collapse-item" href="salevisit_new.php">New visit</a>
+                        <a class="collapse-item" href="salevisit_Ex.php">Existing</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
-
                     </div>
                 </div>
                 <?php endif; ?>
             </li>
 
+            <?php if ($Permission_user == 4 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
-
             <div class="sidebar-heading ">
                 Service
             </div>
@@ -121,7 +115,6 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Service</span>
                 </a>
-                <?php if ($Permission_user >= "2"): ?>
                 <div id="collapseservice" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -130,16 +123,18 @@ require_once 'session_check.php';
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <a class="collapse-item" href="testmap.php">map</a>
                     </div>
                 </div>
                 <?php endif; ?>
             </li>
 
-            <?php if ($Permission_user >= "2"): ?>
+            <?php if ($Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">
 
             <!-- Heading -->
+
             <div class="sidebar-heading">
                 Admin
             </div>
@@ -181,6 +176,7 @@ require_once 'session_check.php';
             </li>
             <?php endif; ?>
 
+            <?php if ($Permission_user == 0 || $Permission_user == 1 || $Permission_user == 2 || $Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block bg-light">
 
@@ -189,7 +185,6 @@ require_once 'session_check.php';
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <?php if ($Permission_user >= "1"): ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventory"
                     aria-expanded="true" aria-controls="collapseInventory">
@@ -197,18 +192,12 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Stock</span>
                 </a>
-                
                 <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- <a class="collapse-item" href="buttons.html">Buttons</a> -->
-                        <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <!-- <a class="collapse-item" href="salevisit_List.php">New visit</a> -->
                         <a class="collapse-item" href="stockkm38_52list.php">KM38 & KM52</a>
                         <a class="collapse-item" href="stockkm38_52search.php">Search</a>
-                        <!-- <a class="collapse-item" href="re_visitmain.php">Re visit</a> -->
                     </div>
                 </div>
                 <?php endif; ?>
@@ -221,8 +210,8 @@ require_once 'session_check.php';
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-            <!-- end เมนู  กำหนดสิทธิ์ -->
 
+            <!-- end เมนู  กำหนดสิทธิ์ -->
         </ul>
         <!-- End of Sidebar -->
 

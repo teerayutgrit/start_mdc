@@ -4,6 +4,11 @@
 require_once 'session_check.php';
 // การเชื่อมต่อฐานข้อมูล SQL Servers
 include("dbcon.php");
+// อัปโหลดไฟล์ไปยัง Azure Blob Storage
+require_once 'vendor/autoload.php'; // Include Composer's autoloader
+
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 
 // เซ็ต timezone
 date_default_timezone_set('Asia/Bangkok');
@@ -64,7 +69,7 @@ $sql = "UPDATE MDC_Visitor SET
     PD_good1 = ?
     WHERE id = ?";
 
-$params = array($OutletName, $postingdatetime, $postingdate, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $Contact_outlet, $Status_outlet, $combinedString, $reqid);
+$params = array($OutletName, $postingdatetime, $postingdate, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $Contact_outlet, $Status_outlet,$combinedString, $reqid);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {

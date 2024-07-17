@@ -33,9 +33,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $combinedString = $Product_good;
     }
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $outlet_value = $_POST['OutletName'];
+        list($Customer_No, $OutletName) = explode('|', $outlet_value);
+        // Now you have both $customer_no and $customer_name
+        // echo "Customer No: " . $Customer_No . "<br>";
+        // echo "Customer Name: " . $OutletName;
+    }
+
     $lat = $_POST['lat'];
     $lng = $_POST['lng'];
-    $OutletName = $_POST['OutletName'];
+    // $OutletName = $_POST['OutletName'];
+    // $Customer_No = $_POST['Customer_No'];
     $Seat_total = $_POST['Seat_total'];
     $Outlet_type = $_POST['Outlet_type'];
     $RangeAge = $_POST['RangeAge'];
@@ -48,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Event = $_POST['Event'];
     $Situation = $_POST['Situation'];
     $Contact_outlet = $_POST['Contact_outlet'];
+  
 
     // Azure Blob Storage connection settings
     $connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
@@ -56,12 +66,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // ตรวจสอบว่ามีไฟล์ที่ถูกอัปโหลดหรือไม่
     if (isset($_FILES["filesToUpload"])) {
         $fileNames = [];
-        $folderName = $OutletName;
+        $folderName = $Customer_No;
 
         foreach ($_FILES["filesToUpload"]["tmp_name"] as $key => $tmp_name) {
             $fileToUpload = $tmp_name;
             $fileExtension = pathinfo($_FILES["filesToUpload"]["name"][$key], PATHINFO_EXTENSION);
-            $fileName = $folderName . '/' . $OutletName . '_' . time() . '_' . $key . '.' . $fileExtension; // Create folder structure
+            $fileName = $folderName . '/' . $Customer_No . '_' . time() . '_' . $key . '.' . $fileExtension; // Create folder structure
             $fileNames[] = $fileName;
 
             try {
@@ -92,8 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
-    $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet);
+    $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet,Customer_No) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$Customer_No);
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {

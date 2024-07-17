@@ -1,8 +1,6 @@
 <?php 
 //เช็8login
 require_once 'session_check.php';
-
-include 'dbcon.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +13,10 @@ include 'dbcon.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mardi Craft Brewing - Visit edit</title>
+    <title>Mardi Craft Brewing - Existing</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
+
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -34,8 +33,57 @@ include 'dbcon.php';
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    <!-- Include Bootstrap CSS -->
+<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" /> -->
 
+<!-- Include Bootstrap-Select CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" rel="stylesheet" />
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Include Bootstrap-Select JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <?php
+    // เชื่อมต่อฐานข้อมูล
+    include("dbcon.php");
+    ?>
+    <!-- <script>
+    $(document).ready(function() {
+        $('#OutletName01').on('change', function() {
+            var outletName = $(this).val();
+            if (outletName) {
+                $.ajax({
+                    url: 'fetch_outlet_data.php',
+                    type: 'POST',
+                    data: {
+                        outlet_name: outletName
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data) {
+                            $('#OutletZone').val(data.Outlet_Zone);
+                            $('#OpeningClosingTimes').val(data.openingandclosingtimes);
+                        } else {
+                            alert('ไม่พบข้อมูลสำหรับร้าน ' + outletName);
+                            $('#OutletZone').val('');
+                            $('#OpeningClosingTimes').val('');
+                        }
+                    }
+                });
+            } else {
+                $('#OutletZone').val('');
+                $('#OpeningClosingTimes').val('');
+            }
+        });
+    });
+    </script> -->
 
 </head>
 
@@ -43,7 +91,6 @@ include 'dbcon.php';
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -206,7 +253,6 @@ include 'dbcon.php';
         </ul>
         <!-- End of Sidebar -->
 
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -221,11 +267,23 @@ include 'dbcon.php';
                         <i class="fa fa-bars"></i>
                     </button>
 
+                    <!-- Topbar Search -->
+                    <!-- <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form> -->
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        </li>
-                        </li>
-                        </li>
+
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -276,11 +334,10 @@ include 'dbcon.php';
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div> -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Edit</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Existing</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i -->
                         <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-lg-12 mb-4">
@@ -289,59 +346,51 @@ include 'dbcon.php';
                                     class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded">
                                     <h6 class="m-0 font-weight-bold text-light">รายละเอียดร้านค้า</h6>
                                 </div>
-                                <?php
-                                // Check if reqid is set in POST request
-                                if (!isset($_POST['reqid'])) {
-                                    // Handle the case where reqid is not provided
-                                    echo "Request ID is not set.";
-                                    exit();
-                                }
-                                
-                                $reqid = $_POST['reqid'];
-                                
-                                    // Prepare the statement to prevent SQL injection
-                                    $stmt = sqlsrv_prepare($conn, "SELECT * FROM MDC_Visitor WHERE id = ? ORDER BY id DESC", array(&$reqid));
-                                
-                                    if ($stmt === false) {
-                                        die(print_r(sqlsrv_errors(), true));
-                                    }
-                                
-                                    // Generate SAS token (this should be done in a secure way, possibly with a server-side function or script)
-                                      $sasToken = "si=readonly&sv=2022-11-02&sr=c&sig=GuZdU2IHmFOrcpcx3ka7yuM0T0%2Fay6EraGqIT6IYl54%3D"; // Replace with your actual SAS token     
-                                ?>
                                 <div class="card-body">
-                                    <?php
-                                if (sqlsrv_execute($stmt)) {
-                                    while ($result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                    // Generate SAS URL for the image
-                                    $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($result["Customer_image"]) . ".?" . $sasToken; // Adjust the file extension if necessary
-                                    // echo $blobUrl;
-                            ?>
-                                    <form action="edit_sale_visit.php" method="POST"
+                                    <form id="uploadForm" action="salevisit_insertdata_Ex.php" method="POST"
                                         class="was-validated align-items-center" enctype="multipart/form-data">
                                         <div class="row">
+                                            <!-- Initialize Bootstrap-Select -->
+                                            <script>
+                                                $(document).ready(function() {
+                                                    $('.selectpicker').selectpicker();
+                                                });
+                                            </script>
                                             <div class="col-md-6">
                                                 <label for="OutletName01" class="form-label">Outlet</label>
-                                                <input type="text" class="form-control" name="OutletName"
-                                                    id="OutletName01"
-                                                    value="<?php echo htmlspecialchars($result["Customer_name"]); ?>"
-                                                    required>
-                                                <div class="valid-feedback"></div>
+                                                <select class="selectpicker form-control" name="OutletName" id="OutletName01" data-live-search="true" required aria-label="select example">
+                                                    <option value="">Nothing selected</option>
+                                                    <?php
+                                                    // Get the username from the session
+                                                    $user_id = $_SESSION["User_id"];
+                                                    // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
+                                                    $sql_ex = "SELECT DISTINCT Customer_No, Customer_Name FROM Customer_Data WHERE mdc_userid = ? ";
+                                                    $params = array($user_id);
+                                                    $stmt_ex = sqlsrv_query($conn, $sql_ex, $params);
+                                                    if ($stmt_ex !== false) {
+                                                        while ($result_ex = sqlsrv_fetch_array($stmt_ex, SQLSRV_FETCH_ASSOC)) {
+                                                            $customer_no = htmlspecialchars($result_ex["Customer_No"]);
+                                                            $customer_name = htmlspecialchars($result_ex["Customer_Name"]);
+                                                            echo '<option value="' . $customer_no . '|' . $customer_name . '">' . $customer_name . '</option>';
+                                                        }
+                                                        sqlsrv_free_stmt($stmt_ex);
+                                                    } else {
+                                                        echo "<option value=''>ไม่พบข้อมูล</option>";
+                                                    }
+                                                    ?>
+                                                </select>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Outlet_Zone" class="form-label">Zone</label>
                                                 <input type="text" step="any" name="Outlet_Zone"
-                                                    class="form-control is-valid" id="validationTextarea"
-                                                    value="<?php echo htmlspecialchars($result["Outlet_Zone"]); ?>"
-                                                    required>
+                                                    class="form-control is-valid" id="OutletZone" value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-3">
-                                                <label for="openingandclosingtimes" class="form-label">opening and
-                                                    closing times</label>
+                                                <label for="openingandclosingtimes" class="form-label">Opening and
+                                                    Closing Times</label>
                                                 <input type="text" step="any" name="openingandclosingtimes"
-                                                    class="form-control is-valid" id="validationTextarea"
-                                                    value="<?php echo htmlspecialchars($result["openingandclosingtimes"]); ?>"
+                                                    class="form-control is-valid" id="OpeningClosingTimes" value=""
                                                     required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
@@ -352,9 +401,6 @@ include 'dbcon.php';
                                                 <label for="Outlet_type-01" class="form-label">Segmentation</label>
                                                 <select class="form-select" name="Outlet_type" required
                                                     aria-label="select example">
-                                                    <option
-                                                        value="<?php echo htmlspecialchars($result["Outlet_type"]); ?>">
-                                                        <?php echo htmlspecialchars($result["Outlet_type"]); ?></option>
                                                     <option value=""></option>
                                                     <option value="Agent">Agent</option>
                                                     <option value="Bar & Restaurant">Bar & Restaurant</option>
@@ -380,8 +426,7 @@ include 'dbcon.php';
                                                 <label for="Seat_total-01" class="form-label">Seat</label>
                                                 <input type="number" step="any" name="Seat_total"
                                                     class="form-control is-valid" maxlength="3" id="validationTextarea"
-                                                    value="<?php echo htmlspecialchars($result["Seat_total"]); ?>"
-                                                    required>
+                                                    value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-3">
@@ -389,16 +434,14 @@ include 'dbcon.php';
                                                     head</label>
                                                 <input type="text" step="any" name="Spendingperhead"
                                                     class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="<?php echo htmlspecialchars($result["Spendingperhead"]); ?>"
-                                                    required>
+                                                    value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Delivery" class="form-label">Delivery</label>
                                                 <input type="text" step="any" name="Delivery"
                                                     class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="<?php echo htmlspecialchars($result["Delivery"]); ?>"
-                                                    required>
+                                                    value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
@@ -407,9 +450,7 @@ include 'dbcon.php';
                                                 <label for="Range01Age" class="form-label">Taget Age</label>
                                                 <select class="form-select" name="RangeAge" required
                                                     aria-label="select example">
-                                                    <option
-                                                        value="<?php echo htmlspecialchars($result["Range_Age"]); ?>">
-                                                        <?php echo htmlspecialchars($result["Range_Age"]); ?></option>
+                                                    <option value=""></option>
                                                     <option value="20-25">20-25</option>
                                                     <option value="26-30">26-30</option>
                                                     <option value="31-40">31-40</option>
@@ -423,8 +464,7 @@ include 'dbcon.php';
                                                 <label for="Gender01" class="form-label">Taget Gender</label>
                                                 <select class="form-select" name="Gender" required
                                                     aria-label="select example">
-                                                    <option value="<?php echo htmlspecialchars($result["Gender"]); ?>">
-                                                        <?php echo htmlspecialchars($result["Gender"]); ?>"</option>
+                                                    <option value=""></option>
                                                     <option value="Men">Men</option>
                                                     <option value="Women">Women</option>
                                                     <option value="LGBQ+">LGBQ+</option>
@@ -436,16 +476,13 @@ include 'dbcon.php';
                                                 <label for="Promotionbeer" class="form-label">Promotion beer</label>
                                                 <input type="text" step="any" name="Promotionbeer"
                                                     class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="<?php echo htmlspecialchars($result["Promotion"]); ?>"
-                                                    required>
+                                                    value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Event" class="form-label">Event</label>
                                                 <input type="text" step="any" name="Event" class="form-control is-valid"
-                                                    maxlength="" id="validationTextarea"
-                                                    value="<?php echo htmlspecialchars($result["Event_outlet"]); ?>"
-                                                    required>
+                                                    maxlength="" id="validationTextarea" value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
@@ -453,79 +490,37 @@ include 'dbcon.php';
                                             <div class="col-md-3">
                                                 <label for="Contact_outlet" class="form-label">Contact</label>
                                                 <input type="text" step="any" name="Contact_outlet"
-                                                    class="form-control is-valid" id="validationTextarea"
-                                                    value="<?php echo htmlspecialchars($result["Contact_outlet"]); ?>"
+                                                    class="form-control is-valid" id="validationTextarea" value=""
                                                     required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <label for="Status_outlet" class="form-label">Status outlet</label>
-                                                <select class="form-select" name="Status_outlet" required
-                                                    aria-label="select example">
-                                                    <option
-                                                        value="<?php echo htmlspecialchars($result["Status_outlet"]); ?>">
-                                                        <?php echo htmlspecialchars($result["Status_outlet"]); ?>
-                                                    </option>
-                                                    <option value="New-outlet">New-outlet</option>
-                                                    <option value="Ex">Ex</option>
-                                                </select>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Event" class="form-label">ประเภทสินค้าและสินค้าขายดี</label>
-                                                <input type="text" step="any" name="PD_good"
-                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="<?php echo htmlspecialchars($result["PD_good1"]); ?>"
-                                                    required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-3">
                                                 <label for="Event" class="form-label">ประเภทสินค้าขายดีในร้าน</label>
-                                                <div class="form-check ">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox1" value="Beer">
-                                                    <label class="form-check-label text-dark"
-                                                        for="inlineCheckbox1">Beer</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Wine">
-                                                    <label class="form-check-label text-dark"
-                                                        for="inlineCheckbox2">Wine</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Spirit">
-                                                    <label class="form-check-label  text-dark"
-                                                        for="inlineCheckbox2">Spirit</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Cocktail">
-                                                    <label class="form-check-label  text-dark"
-                                                        for="inlineCheckbox2">Cocktail</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="checkboxes[]"
-                                                        id="inlineCheckbox2" value="Others">
-                                                    <label class="form-check-label  text-dark"
-                                                        for="inlineCheckbox2">Others</label>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="multiSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">Select</button> <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]"id="inlineCheckbox1" value="Beer"> <label for="inlineCheckbox1"> Beer</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox2" value="Wine"> <label for="inlineCheckbox2"> Wine</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Spirit"> <label for="inlineCheckbox3"> Spirit</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Cocktail"> <label for="inlineCheckbox3"> Cocktail</label>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Others"> <label for="inlineCheckbox3"> Others</label>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
-                                                <label for="Product_good" class="form-label">ชื่อสินค้า</label>
+                                                <label for="Product_good" class="form-label">Brand</label>
                                                 <input type="text" step="any" name="Product_good"
                                                     class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="">
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="Situation" class="form-label">Situation</label>
-                                                <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
-                                                <textarea class="form-control" name="Situation" id="Situation"
-                                                    rows="2"><?php echo htmlspecialchars($result["Situation"]); ?></textarea>
+                                                    value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
@@ -541,25 +536,132 @@ include 'dbcon.php';
                                                 <input type="hidden" id="lat" name="lat">
                                                 <input type="hidden" id="lng" name="lng">
                                             </div>
-                                            <!-- <div class="col-md-3">
+                                            <div class="col-md-3">
                                                 <label for="fileToUpload" class="form-label">รูป</label>
-                                                <input type="file" name="fileToUpload" class="form-control is-valid"
-                                                    id="fileToUpload" required>
+                                                <input type="file" name="filesToUpload[]" class="form-control is-valid"
+                                                    id="fileToUpload" multiple required>
                                                 <div class="invalid-feedback"></div>
-                                            </div> -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="Situation" class="form-label">Situation</label>
+                                                <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
+                                                <textarea class="form-control" name="Situation" id="Situation" rows="2"
+                                                    required></textarea>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
                                         </div>
                                         <canvas id="canvas" style="display: none;"></canvas>
                                         <div id="map"></div>
                                         <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
-                                            <!-- <button type="button" class="btn btn-success"  type="submit" >Save</button> -->
-                                            <button class="btn btn-success" type="submit">Save</button>
-                                            <input type="hidden" id="reqid" name="reqid"
-                                                value="<?php echo htmlspecialchars($reqid); ?>">
-
-                                            <a class="btn btn-danger" href="salevisit_new.php" role="button">Back</a>
+                                            <button type="button" class="btn btn-success"
+                                                onclick="resizeAndUpload()">Save</button>
+                                            <a class="btn btn-danger" href="index.php" role="button">Back</a>
                                         </div>
                                     </form>
-                                    <?php } } else { echo "Error in statement execution.\n"; die(print_r(sqlsrv_errors(), true)); } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Content Column -->
+                        <div class="col-xl-12 col-lg-100">
+                            <!-- Project Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded "
+                                    style="margin-top: -0.5rem ">
+                                    <h6 class="m-0 font-weight-bold text-light">Visit List</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <?php
+                                   // Include query_visitmain_api.php to retrieve data
+                                     require_once 'query_visitmain_api.php';
+                                 ?>
+                                    <div class="table-responsive-sm">
+                                        <table id="myTable" class="table table-sm table-hover sm-2">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th class="text-center text-nowrap">วันที่อนุมัติ</th> -->
+                                                    <th class="text-center">วันที่</th>
+                                                    <!-- <th class="text-center">ชื่อ</th> -->
+                                                    <th class="text-center">ชื่อร้านค้า</th>
+                                                    <!-- <th class="text-center">อายุ</th> -->
+                                                    <!-- <th class="text-center">รูปแบบร้าน</th> -->
+                                                    <th class="text-center">ความคืบหน้า</th>
+                                                    <th class="text-center">รายละเอียด</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
+                                                 // Loop through the results obtained from query_visitmain_api.php
+                                                 foreach ($results as $result) {
+                                                 ?>
+                                                <tr>
+                                                    <form action="salevisit_detail.php" method="post">
+                                                        <!-- <td class="text-center"><?php echo htmlspecialchars($result["id"]); ?></td> -->
+                                                        <td class="text-nowrap">
+                                                            <?php echo htmlspecialchars($result["Posting_date"]); ?>
+                                                        </td>
+                                                        <!-- <td class="text-nowrap"><?php echo htmlspecialchars($result["User_name"]); ?></td> -->
+                                                        <td><?php echo htmlspecialchars($result["Customer_name"]); ?>
+                                                        </td>
+                                                        <!-- <td class="text-center text-nowrap"><?php echo htmlspecialchars($result["Range_Age"]); ?></td> -->
+                                                        <!-- <td><?php echo htmlspecialchars($result["Outlet_type"]); ?></td> -->
+                                                        <td>
+                                                            <div class="progress mr-4">
+                                                                <?php
+                                            $led01 = $result["processwork"];
+                                            $progressClass = 'bg-primary'; // Default class
+                                            $progressText = 'เข้าพบลูกค้า'; // Default text
+                                
+                                            switch ($result["processwork"]) {
+                                                case 40:
+                                                    $progressClass = 'bg-info';
+                                                    $progressText = 'เข้าพบลูกค้า';
+                                                    break;
+                                                case 80:
+                                                    $progressClass = 'bg-warning';
+                                                    $progressText = 'ลูกค้าเทสสินค้า';
+                                                    break;
+                                                case 100:
+                                                    $progressClass = 'bg-success';
+                                                    $progressText = 'จบการนำเสนอ';
+                                                    break;
+                                                default:
+                                                    // Default case handled by setting $led01 to $result["processwork"]
+                                                    break;
+                                            }
+                                        ?>
+                                                                <div id="myProgress1"
+                                                                    class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>"
+                                                                    role="progressbar"
+                                                                    aria-valuenow="<?php echo htmlspecialchars($led01); ?>"
+                                                                    aria-valuemin="0" aria-valuemax="100"
+                                                                    style="width:<?php echo htmlspecialchars($led01); ?>%">
+                                                                    <?php echo htmlspecialchars($progressText ); ?>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <!-- <td><?php echo htmlspecialchars($result["comment"]); ?></td> -->
+                                                        <!-- <td class="text-center"><?php if ($result["supportname"] != "") { echo "✔️"; } ?></td> -->
+                                                        <!-- <td align="center"><?php if ($result["mgitname"] != "") { echo "✔️"; } ?></td> -->
+                                                        <td class="text-center">
+                                                            <font size="+1" color="#3745B5"><strong>
+                                                                    <input name="reqid" type="hidden"
+                                                                        value="<?php echo htmlspecialchars($result["id"]); ?>" />
+                                                                    <input name="Submit" type="submit"
+                                                                        class="btn btn-sm btn-primary" value="Detail" />
+                                                                </strong></font>
+                                                        </td>
+                                                    </form>
+                                                </tr>
+                                                <?php 
+                                               }
+                                               ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -654,64 +756,131 @@ include 'dbcon.php';
     function resizeAndUpload() {
         const fileInput = document.getElementById('fileToUpload');
         const canvas = document.getElementById('canvas');
-        const max_width = 1920; // Maximum width of the resized image
-        const max_height = 1080; // Maximum height of the resized image
+        const max_width = 1920;
+        const max_height = 1080;
 
-        if (fileInput.files && fileInput.files[0]) {
-            const file = fileInput.files[0];
-            const reader = new FileReader();
+        if (fileInput.files.length > 0) {
+            const files = Array.from(fileInput.files);
+            const formData = new FormData();
 
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    let width = img.width;
-                    let height = img.height;
-                    const ratio = width / height;
+            let fileCounter = 0;
 
-                    if (width > max_width) {
-                        width = max_width;
-                        height = max_width / ratio;
-                    }
+            files.forEach(file => {
+                const reader = new FileReader();
 
-                    if (height > max_height) {
-                        height = max_height;
-                        width = max_height * ratio;
-                    }
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        let width = img.width;
+                        let height = img.height;
+                        const ratio = width / height;
 
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
+                        if (width > max_width) {
+                            width = max_width;
+                            height = max_width / ratio;
+                        }
 
-                    canvas.toBlob(function(blob) {
-                        const formData = new FormData(document.querySelector('form'));
-                        formData.set('fileToUpload', blob, file.name);
+                        if (height > max_height) {
+                            height = max_height;
+                            width = max_height * ratio;
+                        }
 
-                        fetch('salevisit_insertdata.php', {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(response => response.text())
-                            .then(result => {
-                                // alert('Saved');
-                                // window.location.href = 'salevisit_new.php';
-                                $('#saveModal').modal('show'); // Show the modal
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
-                    }, file.type, 0.85); // Adjust the quality parameter if needed
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        canvas.toBlob(function(blob) {
+                            formData.append('filesToUpload[]', blob, file.name);
+
+                            fileCounter++;
+                            if (fileCounter === files.length) {
+                                uploadFiles(formData);
+                            }
+                        }, file.type, 0.85);
+                    };
+
+                    img.src = e.target.result;
                 };
 
-                img.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
+            });
         } else {
             alert('No file selected.');
         }
     }
+
+    function uploadFiles(formData) {
+        const form = document.querySelector('form');
+        const formElements = form.elements;
+
+        // Append all form data
+        for (let i = 0; i < formElements.length; i++) {
+            if (formElements[i].type !== 'file') {
+                formData.append(formElements[i].name, formElements[i].value);
+            }
+        }
+
+        fetch('salevisit_insertdata_Ex.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result);
+                $('#saveModal').modal('show');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    document.getElementById("uploadForm").addEventListener("submit", function(event) {
+        var form = event.target;
+        var isValid = form.checkValidity();
+        if (!isValid) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add("was-validated");
+        }
+    });
+
+    function resizeAndUpload() {
+        var form = document.getElementById("uploadForm");
+        var isValid = form.checkValidity();
+        if (isValid) {
+            form.submit();
+        } else {
+            form.classList.add("was-validated");
+        }
+    }
     </script>
+
+<script>
+    const checkboxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
+    const dropdownButton = document.getElementById('multiSelectDropdown');
+    let selectedItems = [];
+
+    function handleCheckboxChange() {
+        selectedItems = [];
+        let selectedItemsText = '';
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                selectedItems.push(checkbox.value);
+                selectedItemsText += checkbox.value + ', ';
+            }
+        });
+
+        dropdownButton.innerText = selectedItems.length > 0 ? selectedItemsText.slice(0, -2) : 'Select';
+    }
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', handleCheckboxChange);
+    });
+    </script>
+
+
 
     <!-- ปุ่มระบุตำแหน่ง -->
     <script>
