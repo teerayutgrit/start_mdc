@@ -13,6 +13,9 @@ date_default_timezone_set('Asia/Bangkok');
 $processwork = "80";
 // รับค่าจากฟอร์ม
 $reqid = $_POST['reqid'];
+$Customer_name = $_POST['Customer_name'];
+$Customer_count ="1";
+
 // $OutletName = $_POST['OutletName'];
 $update_datetime = date("Y-m-d h:i:sa");
 $update_date = date("Y-m-d");
@@ -31,6 +34,14 @@ $params = array($processwork, $update_datetime, $update_date,$product_series_ps,
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+$sqlCustomerTransaction = "INSERT INTO Customer_transaction (Customer_name,Customer_count,User_name) VALUES (?,?,?)";
+$paramsCustomerTransaction = array( $Customer_name,$Customer_count,$user_name);
+$stmtInsertCustomerTransaction = sqlsrv_query($conn, $sqlCustomerTransaction, $paramsCustomerTransaction);
+
+if ($stmtInsertCustomerTransaction === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 

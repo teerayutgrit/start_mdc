@@ -16,7 +16,7 @@ require_once 'session_check.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mardi Craft Brewing - Blank</title>
+    <title>Mardi Craft Brewing - Stocksearch</title>
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 
     <!-- Custom fonts for this template-->

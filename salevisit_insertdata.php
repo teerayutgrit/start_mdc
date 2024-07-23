@@ -21,6 +21,15 @@ $Status01 = "Register";
 $Status_outlet = "New Outlet";
 // แทนค่า status
 $processwork = "40";
+$Customer_count ="1";
+
+// ฟังก์ชั่นสำหรับเจนโค้ด
+function generateCode() {
+    
+    // $date = date("Ymd"); // แปลงวันที่เป็นรูปแบบ Ymd เช่น 20240719
+    return 'MDC'.str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
+}
+
 
 // รับค่าจากฟอร์ม
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -49,6 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Situation = $_POST['Situation'];
     $Contact_outlet = $_POST['Contact_outlet'];
 
+    // Generate the new code
+    $codegen = generateCode();
+
     // Azure Blob Storage connection settings
     $connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
     $containerName = 'mdcimg';
@@ -56,12 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // ตรวจสอบว่ามีไฟล์ที่ถูกอัปโหลดหรือไม่
     if (isset($_FILES["filesToUpload"])) {
         $fileNames = [];
-        $folderName = $OutletName;
+        $folderName = $codegen;
+        $shortTime = substr(time(), 0, 10);
 
         foreach ($_FILES["filesToUpload"]["tmp_name"] as $key => $tmp_name) {
             $fileToUpload = $tmp_name;
             $fileExtension = pathinfo($_FILES["filesToUpload"]["name"][$key], PATHINFO_EXTENSION);
-            $fileName = $folderName . '/' . $OutletName . '_' . time() . '_' . $key . '.' . $fileExtension; // Create folder structure
+            $fileName = $folderName . '/' . $codegen .'_'. $key . '.' . $fileExtension; // Create folder structure
             $fileNames[] = $fileName;
 
             try {
@@ -100,8 +113,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die(print_r(sqlsrv_errors(), true));
     }
 
+$sqlCustomerTransaction = "INSERT INTO Customer_transaction (Customer_name,Customer_count,User_name) VALUES (?,?,?)";
+$paramsCustomerTransaction = array( $OutletName,$Customer_count,$user_name);
+$stmtInsertCustomerTransaction = sqlsrv_query($conn, $sqlCustomerTransaction, $paramsCustomerTransaction);
+
+if ($stmtInsertCustomerTransaction === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
     echo "<script> alert('Saved successfully'); window.location='salevisit_new.php';</script>";
 
     // ปิดการเชื่อมต่อฐานข้อมูล
     sqlsrv_close($conn);
 }
+?>

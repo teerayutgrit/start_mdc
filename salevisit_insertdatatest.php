@@ -18,8 +18,12 @@ date_default_timezone_set('Asia/Bangkok');
 $postingdatetime = date("Y-m-d h:i:sa");
 $postingdate = date("Y-m-d");
 $Status01 = "Register";
+
+$Customer_count ="1";
 // แทนค่า status
 $processwork = "40";
+
+
 // รับค่าจากฟอร์ม
 
 $lat = $_POST['lat'];
@@ -94,6 +98,14 @@ if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
+
+$sqlCustomerTransaction = "INSERT INTO Customer_transaction (Customer_name,Customer_count,User_name) VALUES (?,?,?)";
+$paramsCustomerTransaction = array( $OutletName,$Customer_count,$user_name);
+$stmtInsertCustomerTransaction = sqlsrv_query($conn, $sqlCustomerTransaction, $paramsCustomerTransaction);
+
+if ($stmtInsertCustomerTransaction === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
 // echo "<script> alert('Saved'); window.location='salevisit_new1.php';</script>";
 
 // ปิดการเชื่อมต่อฐานข้อมูล

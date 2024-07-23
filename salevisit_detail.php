@@ -562,6 +562,7 @@ include 'dbcon.php';
                                     // $blobUrl = "https://mardicraft2024.blob.core.windows.net/mdcimg/" . urlencode($result["Customer_image"]) . ".?" . $sasToken;
                                     $images = explode(',', $result['Customer_image']); // แยกข้อมูลรูปภาพจากฐานข้อมูล
                                     // echo $images;
+                                     $Customer_name = $result["Customer_name"];
                             ?>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded "
@@ -871,9 +872,10 @@ include 'dbcon.php';
                 <div class="modal-body">Are you sure you want to update product?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form name="frmMain" action="update_sale_re_visit.php" method="post" id="formupdateproduct01"
+                    <form name="frmMain" action="update_sale_product.php" method="post" id="formupdateproduct01"
                         onsubmit="setProductSeries()">
                         <input type="hidden" id="reqid" name="reqid" value="<?php echo htmlspecialchars($reqid); ?>">
+                        <input type="hidden" id="Customer_name" name="Customer_name" value="<?php echo htmlspecialchars($Customer_name); ?>">
                         <input type="hidden" id="product_series_ps" name="product_series_ps">
                         <input name="update" type="submit" class="btn btn-primary" value="Update Product">
                     </form>

@@ -22,6 +22,8 @@ $Status_outlet = "Existing";
 // แทนค่า status
 $processwork = "40";
 
+$Customer_count ="1";
+
 // รับค่าจากฟอร์ม
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $checkboxes = $_POST['checkboxes'];
@@ -109,6 +111,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
     }
+
+    $sqlCustomerTransaction = "INSERT INTO Customer_transaction (Customer_name,Customer_count,User_name) VALUES (?,?,?)";
+$paramsCustomerTransaction = array( $OutletName,$Customer_count,$user_name);
+$stmtInsertCustomerTransaction = sqlsrv_query($conn, $sqlCustomerTransaction, $paramsCustomerTransaction);
+
+if ($stmtInsertCustomerTransaction === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
 
     echo "<script> alert('Saved successfully'); window.location='salevisit_Ex.php';</script>";
 
