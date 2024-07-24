@@ -35,7 +35,7 @@ if (sqlsrv_execute($stmt)) {
 sqlsrv_free_stmt($stmt);
 
 // Close the database connection
-sqlsrv_close($conn);
+// sqlsrv_close($conn);
 
 // Return the results
 return $results;

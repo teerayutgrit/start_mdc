@@ -119,6 +119,29 @@ require_once 'session_check.php';
                 <?php endif; ?>
             </li>
 
+            <?php if ($Permission_user == 2 || $Permission_user == 5): ?>
+            <!-- Divider -->
+            <hr class="sidebar-divider bg-light">
+
+            <!-- Heading -->
+
+            <div class="sidebar-heading">
+                REPORT
+            </div>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="Report_salevisit_list.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Sale Visit Report</span></a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Sale Visit Report</span></a>
+            </li> -->
+            <?php endif; ?>
+
             <?php if ($Permission_user == 5): ?>
             <!-- Divider -->
             <hr class="sidebar-divider bg-light">

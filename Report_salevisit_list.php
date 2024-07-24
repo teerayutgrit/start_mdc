@@ -13,7 +13,7 @@ require_once 'session_check.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mardi Craft Brewing - main</title>
+    <title>Mardi Craft Brewing - Report list</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="img/logo-mardicraft.svg">
 
@@ -71,7 +71,7 @@ require_once 'session_check.php';
                     <i class="fa fa-shopping-bag"></i>
                     <span>Sale</span>
                 </a>
-                
+
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
@@ -126,11 +126,6 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Sale Visit Report</span></a>
             </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Sale Visit Report</span></a>
-            </li> -->
             <?php endif; ?>
 
 
@@ -157,7 +152,8 @@ require_once 'session_check.php';
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="login.html">Login</a>
                         <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a><div class="collapse-divider"></div>
+                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
                         <a class="collapse-item" href="blank.html">Blank Page</a>
@@ -196,7 +192,8 @@ require_once 'session_check.php';
                     <i class="fas fa-fw fa-table"></i>
                     <span>Stock</span>
                 </a>
-                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <a class="collapse-item" href="stockkm38_52list.php">KM38 & KM52</a>
@@ -278,11 +275,11 @@ require_once 'session_check.php';
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Report</h1>
                     </div>
                     <!-- Content Row -->
                     <?php if ($Permission_user == 1 || $Permission_user == 5): ?>
-                        <script>
+                    <!-- <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         fetch('query_sumtotallist_api.php')
                             .then(response => response.json())
@@ -297,10 +294,10 @@ require_once 'session_check.php';
                             })
                             .catch(error => console.error('Error:', error));
                     });
-                    </script>
+                    </script> -->
                     <div class="row">
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -316,9 +313,9 @@ require_once 'session_check.php';
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -334,7 +331,7 @@ require_once 'session_check.php';
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Earnings (Monthly) Card Example -->
                         <!-- <div class="col-xl-3 col-md-6 mb-4">
@@ -366,7 +363,7 @@ require_once 'session_check.php';
                         </div> -->
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -382,8 +379,8 @@ require_once 'session_check.php';
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        </div> -->
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-danger shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -399,127 +396,23 @@ require_once 'session_check.php';
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <?php endif; ?>
 
-                    <!-- Content Row -->
                     <?php
-                       // Include query_visitmain_api.php to retrieve data
-                         require_once 'query_visitmain_api.php';
-                     ?>
-                    <?php if ($Permission_user == 1 || $Permission_user == 5): ?>
-                    <div class="row">
-                         <!-- Content Column -->
-                         <div class="col-xl-12 col-lg-100">
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded "
-                                    style="margin-top: -0.5rem ">
-                                    <h6 class="m-0 font-weight-bold text-light">Visit List</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="table-responsive-sm">
-                                        <table id="myTable" class="table table-sm table-hover sm-2">
-                                            <thead>
-                                                <tr>
-                                                    <!-- <th class="text-center text-nowrap">วันที่อนุมัติ</th> -->
-                                                    <th class="text-center">วันที่</th>
-                                                    <th class="text-center">สถานะร้านค้า</th>
-                                                    <!-- <th class="text-center">ชื่อ</th> -->
-                                                    <th class="text-center">ชื่อร้านค้า</th>
-                                                    <!-- <th class="text-center">อายุ</th> -->
-                                                    <!-- <th class="text-center">รูปแบบร้าน</th> -->
-                                                    <th class="text-center">ความคืบหน้า</th>
-                                                    <th class="text-center">รายละเอียด</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php 
-                                                 // Loop through the results obtained from query_visitmain_api.php
-                                                 foreach ($results as $result) {
-                                                 ?>
-                                                <tr>
-                                                    <form action="salevisit_detail.php" method="post">
-                                                        <!-- <td class="text-center"><?php echo htmlspecialchars($result["id"]); ?></td> -->
-                                                        <td class="text-nowrap">
-                                                            <?php echo htmlspecialchars($result["Posting_date"]); ?>
-                                                        </td>
-                                                        <td class="text-nowrap"><?php echo htmlspecialchars($result["Status_outlet"]); ?></td>
-                                                        <!-- <td class="text-nowrap"><?php echo htmlspecialchars($result["User_name"]); ?></td> -->
-                                                        <td><?php echo htmlspecialchars($result["Customer_name"]); ?>
-                                                        </td>
-                                                        <!-- <td class="text-center text-nowrap"><?php echo htmlspecialchars($result["Range_Age"]); ?></td> -->
-                                                        <!-- <td><?php echo htmlspecialchars($result["Outlet_type"]); ?></td> -->
-                                                        <td>
-                                                            <div class="progress mr-4">
-                                                                <?php
-                                            $led01 = $result["processwork"];
-                                            $progressClass = 'bg-primary'; // Default class
-                                            $progressText = 'เข้าพบลูกค้า'; // Default text
-                                
-                                            switch ($result["processwork"]) {
-                                                case 40:
-                                                    $progressClass = 'bg-info';
-                                                    $progressText = 'เข้าพบลูกค้า';
-                                                    break;
-                                                case 80:
-                                                    $progressClass = 'bg-warning';
-                                                    $progressText = 'ลูกค้าเทสสินค้า';
-                                                    break;
-                                                case 100:
-                                                    $progressClass = 'bg-success';
-                                                    $progressText = 'จบการนำเสนอ';
-                                                    break;
-                                                default:
-                                                    // Default case handled by setting $led01 to $result["processwork"]
-                                                    break;
-                                            }
-                                        ?>
-                                                                <div id="myProgress1"
-                                                                    class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>"
-                                                                    role="progressbar"
-                                                                    aria-valuenow="<?php echo htmlspecialchars($led01); ?>"
-                                                                    aria-valuemin="0" aria-valuemax="100"
-                                                                    style="width:<?php echo htmlspecialchars($led01); ?>%">
-                                                                    <?php echo htmlspecialchars($progressText ); ?>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <!-- <td><?php echo htmlspecialchars($result["comment"]); ?></td> -->
-                                                        <!-- <td class="text-center"><?php if ($result["supportname"] != "") { echo "✔️"; } ?></td> -->
-                                                        <!-- <td align="center"><?php if ($result["mgitname"] != "") { echo "✔️"; } ?></td> -->
-                                                        <td class="text-center">
-                                                            <font size="+1" color="#3745B5"><strong>
-                                                                    <input name="reqid" type="hidden"
-                                                                        value="<?php echo htmlspecialchars($result["id"]); ?>" />
-                                                                    <input name="Submit" type="submit"
-                                                                        class="btn btn-sm btn-primary" value="Detail" />
-                                                                </strong></font>
-                                                        </td>
-                                                    </form>
-                                                </tr>
-                                                <?php 
-                                               }
-                                               ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endif; ?>
+                    // Include query_visit_report.php to retrieve data
+                    require_once 'query_visit_report.php';
+                    ?>
 
-                    <!-- Content Row -->
+   <!-- Content Row -->
 <?php if ($Permission_user == 2 || $Permission_user == 5): ?>
     <div class="row">
         <!-- Content Column -->
         <div class="col-xl-12 col-lg-100">
             <div class="col-md-5 mb-4">
                 <form method="POST" action="">
-                    <select class="selectpicker form-control" name="User_Name" id="saleName01" data-live-search="true"  aria-label="select example">
+                    <select class="selectpicker form-control" name="User_Name" id="saleName01" data-live-search="true" aria-label="select example">
                         <option value="">All</option>
                         <?php
                         // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
@@ -547,10 +440,7 @@ require_once 'session_check.php';
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <?php
-                    // Include query_visit_report.php to retrieve data
-                    require_once 'query_visit_report.php';
-                    ?>
+
                     <div class="table-responsive-sm">
                         <table id="myTable" class="table table-sm table-hover sm-2">
                             <thead>
@@ -618,14 +508,61 @@ require_once 'session_check.php';
                 </div>
             </div>
         </div>
+        <div class="col-12 card shadow text-dark " >
+                        <!-- <div class="card-header shadow" style="margin:10px 0px 0px 0px;">
+                            <i class="fa fa-map-marker text-primary"></i> Map
+                        </div> -->
+                        <div class="card-body d-flex justify-content-center align-items-center">
+                            <div id="map" style="height: 500px; width: 100%;"></div>
+                        </div>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrpXCQ89oWF2OVtp9r9lQco72BM3ps9yo&callback=initMap" async defer></script>
+                        <script>
+                            function initMap() {
+                                var locations = <?php echo json_encode($main_results); ?>;
+
+                                var map = new google.maps.Map(document.getElementById('map'), {
+                                    zoom: 6,
+                                    center: locations.length > 0 ? { lat: parseFloat(locations[0]['Latitude']), lng: parseFloat(locations[0]['Longitude']) } : { lat: 0, lng: 0 }
+                                });
+
+                                var iconBase = 'img/';
+                                var customIcon = {
+                                    url: iconBase + 'mdk.png', // Replace with your custom icon URL
+                                    scaledSize: new google.maps.Size(20, 20) // Adjust the size (width, height)
+                                };
+
+                                locations.forEach(function(location) {
+                                    var latLng = {
+                                        lat: parseFloat(location['Latitude']),
+                                        lng: parseFloat(location['Longitude'])
+                                    };
+
+                                    var marker = new google.maps.Marker({
+                                        position: latLng,
+                                        map: map,
+                                        title: location['Customer_name'],
+                                        icon: customIcon // Set the custom icon
+                                    });
+
+                                    google.maps.event.addListener(marker, 'click', function() {
+                                        window.open('https://www.google.com/maps/search/?api=1&query=' + latLng.lat + ',' + latLng.lng);
+                                    });
+                                });
+                            }
+
+                            window.onload = initMap;
+                        </script>
+                    </div>
     </div>
 <?php endif; ?>
 
+
                 </div>
-
-
+                
             </div>
             <!-- End of Main Content -->
+
+             
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
