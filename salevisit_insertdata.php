@@ -121,7 +121,7 @@ if ($stmtInsertCustomerTransaction === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-    echo "<script> alert('Saved successfully'); window.location='salevisit_new.php';</script>";
+    // echo "<script> alert('Saved successfully'); window.location='salevisit_new.php';</script>";
 
     // ปิดการเชื่อมต่อฐานข้อมูล
     sqlsrv_close($conn);

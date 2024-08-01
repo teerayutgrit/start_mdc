@@ -1023,131 +1023,89 @@ require_once 'session_check.php';
     <script src="js/demo/chart-pie-demo.js"></script>
 
     <script>
-    function resizeAndUpload() {
-        const fileInput = document.getElementById('fileToUpload');
-        const canvas = document.getElementById('canvas');
-        const max_width = 1280;
-        const max_height = 720;
+        function resizeAndUpload() {
+            const fileInput = document.getElementById('fileToUpload');
+            const canvas = document.getElementById('canvas');
+            const max_width = 200;  // ปรับความกว้างสูงสุดเป็น 640 พิกเซล
+            const max_height = 200;  // ปรับความสูงสูงสุดเป็น 360 พิกเซล
 
-        if (fileInput.files.length > 0) {
-            const files = Array.from(fileInput.files);
-            const formData = new FormData();
+            if (fileInput.files.length > 0) {
+                const files = Array.from(fileInput.files);
+                const formData = new FormData();
 
-            let fileCounter = 0;
+                let fileCounter = 0;
 
-            files.forEach(file => {
-                const reader = new FileReader();
+                files.forEach(file => {
+                    const reader = new FileReader();
 
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.onload = function() {
-                        let width = img.width;
-                        let height = img.height;
-                        const ratio = width / height;
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            let width = img.width;
+                            let height = img.height;
+                            const ratio = width / height;
 
-                        if (width > max_width) {
-                            width = max_width;
-                            height = max_width / ratio;
-                        }
-
-                        if (height > max_height) {
-                            height = max_height;
-                            width = max_height * ratio;
-                        }
-
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-
-                        canvas.toBlob(function(blob) {
-                            formData.append('filesToUpload[]', blob, file.name);
-
-                            fileCounter++;
-                            if (fileCounter === files.length) {
-                                uploadFiles(formData);
+                            if (width > max_width) {
+                                width = max_width;
+                                height = max_width / ratio;
                             }
-                        }, file.type, 0.75);
+
+                            if (height > max_height) {
+                                height = max_height;
+                                width = max_height * ratio;
+                            }
+
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, width, height);
+
+                            canvas.toBlob(function(blob) {
+                                formData.append('filesToUpload[]', blob, file.name);
+
+                                fileCounter++;
+                                if (fileCounter === files.length) {
+                                    uploadFiles(formData);
+                                }
+                            }, file.type, 0.75);  // ลดคุณภาพของรูปภาพลงเป็น 0.75 (75%)
+                        };
+
+                        img.src = e.target.result;
                     };
 
-                    img.src = e.target.result;
-                };
-
-                reader.readAsDataURL(file);
-            });
-        } else {
-            alert('No file selected.');
-        }
-    }
-
-    function uploadFiles(formData) {
-        const form = document.querySelector('form');
-        const formElements = form.elements;
-
-        // Append all form data
-        for (let i = 0; i < formElements.length; i++) {
-            if (formElements[i].type !== 'file') {
-                formData.append(formElements[i].name, formElements[i].value);
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                alert('No file selected.');
             }
         }
 
-        fetch('salevisit_insertdata.php', {
+        function uploadFiles(formData) {
+            const form = document.querySelector('form');
+            const formElements = form.elements;
+
+            // Append all form data
+            for (let i = 0; i < formElements.length; i++) {
+                if (formElements[i].type !== 'file') {
+                    formData.append(formElements[i].name, formElements[i].value);
+                }
+            }
+
+            fetch('salevisit_insertdata.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(result => {
                 console.log('Success:', result);
-                $('#saveModal').modal('show');
+                // alert('File uploaded successfully.');
+                $('#saveModal').modal('show');  // แสดง modal เมื่ออัพโหลดเสร็จสิ้น
             })
             .catch(error => {
                 console.error('Error:', error);
+                alert('Error uploading file.');
             });
-    }
-
-    document.getElementById("uploadForm").addEventListener("submit", function(event) {
-        var form = event.target;
-        var isValid = form.checkValidity();
-        if (!isValid) {
-            event.preventDefault();
-            event.stopPropagation();
-            form.classList.add("was-validated");
         }
-    });
-
-    function resizeAndUpload() {
-        var form = document.getElementById("uploadForm");
-        var isValid = form.checkValidity();
-        if (isValid) {
-            form.submit();
-        } else {
-            form.classList.add("was-validated");
-        }
-    }
-    </script>
-
-<script>
-    const checkboxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
-    const dropdownButton = document.getElementById('multiSelectDropdown');
-    let selectedItems = [];
-
-    function handleCheckboxChange() {
-        selectedItems = [];
-        let selectedItemsText = '';
-
-        checkboxes.forEach((checkbox) => {
-            if (checkbox.checked) {
-                selectedItems.push(checkbox.value);
-                selectedItemsText += checkbox.value + ', ';
-            }
-        });
-
-        dropdownButton.innerText = selectedItems.length > 0 ? selectedItemsText.slice(0, -2) : 'Select';
-    }
-
-    checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener('change', handleCheckboxChange);
-    });
     </script>
 
 
