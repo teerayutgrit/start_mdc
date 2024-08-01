@@ -1026,8 +1026,8 @@ require_once 'session_check.php';
     function resizeAndUpload() {
         const fileInput = document.getElementById('fileToUpload');
         const canvas = document.getElementById('canvas');
-        const max_width = 200;
-        const max_height = 200;
+        const max_width = 1280;
+        const max_height = 720;
 
         if (fileInput.files.length > 0) {
             const files = Array.from(fileInput.files);
@@ -1067,7 +1067,7 @@ require_once 'session_check.php';
                             if (fileCounter === files.length) {
                                 uploadFiles(formData);
                             }
-                        }, file.type, 0.70); //คุณภาพไฟล์
+                        }, file.type, 0.75);
                     };
 
                     img.src = e.target.result;
