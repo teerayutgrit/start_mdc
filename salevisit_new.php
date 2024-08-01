@@ -1026,8 +1026,8 @@ require_once 'session_check.php';
         function resizeAndUpload() {
             const fileInput = document.getElementById('fileToUpload');
             const canvas = document.getElementById('canvas');
-            const max_width = 200;  // ปรับความกว้างสูงสุดเป็น 640 พิกเซล
-            const max_height = 200;  // ปรับความสูงสูงสุดเป็น 360 พิกเซล
+            const max_width = 1280;  // ปรับความกว้างสูงสุดเป็น 640 พิกเซล
+            const max_height = 720;  // ปรับความสูงสูงสุดเป็น 360 พิกเซล
 
             if (fileInput.files.length > 0) {
                 const files = Array.from(fileInput.files);
