@@ -1026,8 +1026,8 @@ require_once 'session_check.php';
     function resizeAndUpload() {
         const fileInput = document.getElementById('fileToUpload');
         const canvas = document.getElementById('canvas');
-        const max_width = 1920;
-        const max_height = 1080;
+        const max_width = 1280;
+        const max_height = 720;
 
         if (fileInput.files.length > 0) {
             const files = Array.from(fileInput.files);
