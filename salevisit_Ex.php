@@ -691,7 +691,7 @@ require_once 'session_check.php';
                 <div class="modal-body">successfully saved.</div>
                 <div class="modal-footer">
                     <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
-                    <a class="btn btn-primary" href="salevisit_Ex.php">Go to New Sale Visit</a>
+                    <a class="btn btn-primary" href="salevisit_Ex.php">Go to Sale Visit</a>
                 </div>
             </div>
         </div>
