@@ -394,6 +394,7 @@ require_once 'session_check.php';
                                                     <option value="Chain Restaurant">Chain Restaurant</option>
                                                     <option value="Community Mall / Flea Market">Community Mall / Flea
                                                         Market</option>
+                                                    <option value="Craft Beer Bar">Craft Beer Bar</option>
                                                     <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar</option>
                                                     <option value="Fine Dining">Fine Dining</option>
                                                     <option value="Garden & Restaurant">Garden & Restaurant</option>
