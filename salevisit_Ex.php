@@ -805,7 +805,7 @@ require_once 'session_check.php';
                 }
             }
 
-            fetch('salevisit_insertdata.php', {
+            fetch('salevisit_insertdata_Ex.php', {
                 method: 'POST',
                 body: formData
             })
