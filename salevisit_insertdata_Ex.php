@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Event = $_POST['Event'];
     $Situation = $_POST['Situation'];
     $Contact_outlet = $_POST['Contact_outlet'];
+    $branch_outlet = $_POST['branch_outlet'];
   
 
     // Azure Blob Storage connection settings
@@ -104,8 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
-    $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet,Customer_No) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$Customer_No);
+    $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet,Customer_No,branch_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$Customer_No,$branch_outlet);
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {

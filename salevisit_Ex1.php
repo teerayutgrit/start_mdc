@@ -36,25 +36,26 @@ require_once 'session_check.php';
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Include Bootstrap CSS -->
-<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" /> -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" /> -->
 
-<!-- Include Bootstrap-Select CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" rel="stylesheet" />
+    <!-- Include Bootstrap-Select CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css"
+        rel="stylesheet" />
 
-<!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Include Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- Include Bootstrap-Select JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <!-- Include Bootstrap-Select JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
     <?php
     // เชื่อมต่อฐานข้อมูล
     include("dbcon.php");
     ?>
-    <!-- <script>
+    <script>
     $(document).ready(function() {
         $('#OutletName01').on('change', function() {
             var outletName = $(this).val();
@@ -68,8 +69,20 @@ require_once 'session_check.php';
                     dataType: 'json',
                     success: function(data) {
                         if (data) {
+                            $('#branch_outlet').val(data.branch_outlet);
                             $('#OutletZone').val(data.Outlet_Zone);
                             $('#OpeningClosingTimes').val(data.openingandclosingtimes);
+                            $('#Outlet_type').val(data.Outlet_type);
+                            $('#Seat_total').val(data.Seat_total);
+                            $('#Spendingperhead').val(data.Spendingperhead);
+                            $('#Delivery').val(data.Delivery);
+                            $('#Range_Age').val(data.Range_Age);
+                            $('#Gender').val(data.Gender);
+                            $('#Promotion').val(data.Promotion);
+                            $('#Event_outlet').val(data.Event_outlet);
+                            $('#Contact_outlet').val(data.Contact_outlet);
+                            $('#PD_good1').val(data.PD_good1);
+                            $('#Situation').val(data.Situation);
                         } else {
                             alert('ไม่พบข้อมูลสำหรับร้าน ' + outletName);
                             $('#OutletZone').val('');
@@ -78,12 +91,24 @@ require_once 'session_check.php';
                     }
                 });
             } else {
+                $('#branch_outlet').val('');
                 $('#OutletZone').val('');
                 $('#OpeningClosingTimes').val('');
+                $('#Outlet_type').val('');
+                $('#Seat_total').val('');
+                $('#Spendingperhead').val('');
+                $('#Delivery').val('');
+                $('#Range_Age').val('');
+                $('#Gender').val('');
+                $('#Promotion').val('');
+                $('#Event_outlet').val('');
+                $('#Contact_outlet').val('');
+                $('#PD_good1').val('');
+                $('#Situation').val('');
             }
         });
     });
-    </script> -->
+    </script>
 
 </head>
 
@@ -347,31 +372,34 @@ require_once 'session_check.php';
                                     <h6 class="m-0 font-weight-bold text-light">รายละเอียดร้านค้า</h6>
                                 </div>
                                 <div class="card-body">
-                                    <form id="uploadForm" action="salevisit_insertdata_Ex.php" method="POST"
+                                    <form id="uploadForm" action="salevisit_insertdata_Ex1.php" method="POST"
                                         class="was-validated align-items-center" enctype="multipart/form-data">
                                         <div class="row">
                                             <!-- Initialize Bootstrap-Select -->
                                             <script>
-                                                $(document).ready(function() {
-                                                    $('.selectpicker').selectpicker();
-                                                });
+                                            $(document).ready(function() {
+                                                $('.selectpicker').selectpicker();
+                                            });
                                             </script>
                                             <div class="col-md-6">
                                                 <label for="OutletName01" class="form-label">Outlet</label>
-                                                <select class="selectpicker form-control" name="OutletName" id="OutletName01" data-live-search="true" required aria-label="select example">
+                                                <select class="selectpicker form-control" name="OutletName"
+                                                    id="OutletName01" data-live-search="true" required
+                                                    aria-label="select example" onchange="updateCustomerNo()">
                                                     <option value="">Nothing selected</option>
                                                     <?php
                                                     // Get the username from the session
                                                     $user_id = $_SESSION["User_id"];
                                                     // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
-                                                    $sql_ex = "SELECT DISTINCT Customer_No, Customer_Name FROM Customer_Data WHERE mdc_userid = ? ";
-                                                    $params = array($user_id);
+                                                    $sql_ex = "SELECT DISTINCT Customer_No, Customer_Name FROM Customer_Data ";
+                                                    // $params = array($user_id);
                                                     $stmt_ex = sqlsrv_query($conn, $sql_ex, $params);
                                                     if ($stmt_ex !== false) {
                                                         while ($result_ex = sqlsrv_fetch_array($stmt_ex, SQLSRV_FETCH_ASSOC)) {
                                                             $customer_no = htmlspecialchars($result_ex["Customer_No"]);
                                                             $customer_name = htmlspecialchars($result_ex["Customer_Name"]);
-                                                            echo '<option value="' . $customer_no . '|' . $customer_name . '">' . $customer_name . '</option>';
+                                                            echo '<option value="' . $customer_name . '" data-customer-no="' . $customer_no . '">' . $customer_name . '</option>';
+                                                            
                                                         }
                                                         sqlsrv_free_stmt($stmt_ex);
                                                     } else {
@@ -379,6 +407,23 @@ require_once 'session_check.php';
                                                     }
                                                     ?>
                                                 </select>
+                                                <input type="text" name="Customer_No" id="CustomerNoHidden">
+                                                <script>
+                                                function updateCustomerNo() {
+                                                    var select = document.getElementById("OutletName01");
+                                                    var customerNo = select.options[select.selectedIndex].getAttribute("data-customer-no");
+                                                    document.getElementById("CustomerNoHidden").value = customerNo;
+                                                }
+                                                </script>
+                                                <!-- <input type="hidden" name="Customer_No" id="CustomerNoHidden"  value="<?php echo htmlspecialchars($result_ex["Customer_No"]); ?>">
+                                                <?php echo $customer_no; ?> -->
+
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="branch_outlet" class="form-label">branch</label>
+                                                <input type="text" step="any" name="branch_outlet"
+                                                    class="form-control is-valid" id="branch_outlet" value="" required>
+                                                <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="Outlet_Zone" class="form-label">Zone</label>
@@ -386,177 +431,194 @@ require_once 'session_check.php';
                                                     class="form-control is-valid" id="OutletZone" value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <label for="openingandclosingtimes" class="form-label">Opening and
-                                                    Closing Times</label>
-                                                <input type="text" step="any" name="openingandclosingtimes"
-                                                    class="form-control is-valid" id="OpeningClosingTimes" value=""
-                                                    required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="Outlet_type-01" class="form-label">Segmentation</label>
-                                                <select class="form-select" name="Outlet_type" required
-                                                    aria-label="select example">
-                                                    <option value=""></option>
-                                                    <option value="Agent">Agent</option>
-                                                    <option value="Bar & Restaurant">Bar & Restaurant</option>
-                                                    <option value="Café">Café</option>
-                                                    <option value="Café & Restaurant">Café & Restaurant</option>
-                                                    <option value="Chain Restaurant">Chain Restaurant</option>
-                                                    <option value="Community Mall / Flea Market">Community Mall / Flea
-                                                        Market</option>
-                                                    <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar</option>
-                                                    <option value="Fine Dining">Fine Dining</option>
-                                                    <option value="Garden & Restaurant">Garden & Restaurant</option>
-                                                    <option value="Hotel">Hotel</option>
-                                                    <option value="Micro Brew Bar">Micro Brew Bar</option>
-                                                    <option value="Online Shop">Online Shop</option>
-                                                    <option value="Other">Other</option>
-                                                    <option value="Restaurant">Restaurant</option>
-                                                    <option value="Rooftop Bar">Rooftop Bar</option>
-                                                    <option value="Sub-Agent">Sub-Agent</option>
-                                                </select>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Seat_total-01" class="form-label">Seat</label>
-                                                <input type="number" step="any" name="Seat_total"
-                                                    class="form-control is-valid" maxlength="3" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Spendingperhead" class="form-label">Spending per
-                                                    head</label>
-                                                <input type="text" step="any" name="Spendingperhead"
-                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Delivery" class="form-label">Delivery</label>
-                                                <input type="text" step="any" name="Delivery"
-                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="Range01Age" class="form-label">Taget Age</label>
-                                                <select class="form-select" name="RangeAge" required
-                                                    aria-label="select example">
-                                                    <option value=""></option>
-                                                    <option value="20-25">20-25</option>
-                                                    <option value="26-30">26-30</option>
-                                                    <option value="31-40">31-40</option>
-                                                    <option value="41-50">41-50</option>
-                                                    <option value="51-60">51-60</option>
-                                                    <option value="60">60</option>
-                                                </select>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Gender01" class="form-label">Taget Gender</label>
-                                                <select class="form-select" name="Gender" required
-                                                    aria-label="select example">
-                                                    <option value=""></option>
-                                                    <option value="Men">Men</option>
-                                                    <option value="Women">Women</option>
-                                                    <option value="LGBQ+">LGBQ+</option>
-                                                    <option value="All">All</option>
-                                                </select>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Promotionbeer" class="form-label">Promotion beer</label>
-                                                <input type="text" step="any" name="Promotionbeer"
-                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Event" class="form-label">Event</label>
-                                                <input type="text" step="any" name="Event" class="form-control is-valid"
-                                                    maxlength="" id="validationTextarea" value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="Contact_outlet" class="form-label">Contact</label>
-                                                <input type="text" step="any" name="Contact_outlet"
-                                                    class="form-control is-valid" id="validationTextarea" value=""
-                                                    required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="Event" class="form-label">ประเภทสินค้าขายดีในร้าน</label>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="multiSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">Select</button> <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
-                                                        <li>
-                                                            <input type="checkbox" name="checkboxes[]"id="inlineCheckbox1" value="Beer"> <label for="inlineCheckbox1"> Beer</label>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox2" value="Wine"> <label for="inlineCheckbox2"> Wine</label>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Spirit"> <label for="inlineCheckbox3"> Spirit</label>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Cocktail"> <label for="inlineCheckbox3"> Cocktail</label>
-                                                        </li>
-                                                        <li>
-                                                            <input type="checkbox" name="checkboxes[]" id="inlineCheckbox3" value="Others"> <label for="inlineCheckbox3"> Others</label>
-                                                        </li>
-                                                    </ul>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="openingandclosingtimes" class="form-label">Opening and
+                                                        Closing Times</label>
+                                                    <input type="text" step="any" name="openingandclosingtimes"
+                                                        class="form-control is-valid" id="OpeningClosingTimes" value=""
+                                                        required>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="Outlet_type-01" class="form-label">Segmentation</label>
+                                                    <select class="form-select" name="Outlet_type" id="Outlet_type"
+                                                        required aria-label="select example">
+                                                        <option value=""></option>
+                                                        <option value="Agent">Agent</option>
+                                                        <option value="Bar & Restaurant">Bar & Restaurant</option>
+                                                        <option value="Café">Café</option>
+                                                        <option value="Café & Restaurant">Café & Restaurant</option>
+                                                        <option value="Chain Restaurant">Chain Restaurant</option>
+                                                        <option value="Community Mall / Flea Market">Community Mall /
+                                                            Flea Market</option>
+                                                        <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar
+                                                        </option>
+                                                        <option value="Fine Dining">Fine Dining</option>
+                                                        <option value="Garden & Restaurant">Garden & Restaurant</option>
+                                                        <option value="Hotel">Hotel</option>
+                                                        <option value="Micro Brew Bar">Micro Brew Bar</option>
+                                                        <option value="Online Shop">Online Shop</option>
+                                                        <option value="Other">Other</option>
+                                                        <option value="Restaurant">Restaurant</option>
+                                                        <option value="Rooftop Bar">Rooftop Bar</option>
+                                                        <option value="Sub-Agent">Sub-Agent</option>
+                                                    </select>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="Seat_total-01" class="form-label">Seat</label>
+                                                    <input type="number" step="any" name="Seat_total"
+                                                        class="form-control is-valid" maxlength="3" id="Seat_total"
+                                                        value="" required>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="Spendingperhead" class="form-label">Spending per
+                                                        head</label>
+                                                    <input type="text" step="any" name="Spendingperhead"
+                                                        class="form-control is-valid" maxlength="" id="Spendingperhead"
+                                                        value="" required>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <label for="Product_good" class="form-label">Brand</label>
-                                                <input type="text" step="any" name="Product_good"
-                                                    class="form-control is-valid" maxlength="" id="validationTextarea"
-                                                    value="" required>
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
-                                                <div class="">
-                                                    <button class="btn btn-info" onclick="getCurrentLocation()"
-                                                        type="button"><i class="fa fa-location-arrow"
-                                                            aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="Delivery" class="form-label">Delivery</label>
+                                                    <input type="text" step="any" name="Delivery"
+                                                        class="form-control is-valid" maxlength="" id="Delivery"
+                                                        value="" required>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
-                                                <div class="invalid-feedback"></div>
-                                                <input type="hidden" id="lat" name="lat">
-                                                <input type="hidden" id="lng" name="lng">
+                                                <div class="col-md-3">
+                                                    <label for="Range01Age" class="form-label">Taget Age</label>
+                                                    <select class="form-select" name="RangeAge" id="Range_Age" required
+                                                        aria-label="select example">
+                                                        <option value=""></option>
+                                                        <option value="20-25">20-25</option>
+                                                        <option value="26-30">26-30</option>
+                                                        <option value="31-40">31-40</option>
+                                                        <option value="41-50">41-50</option>
+                                                        <option value="51-60">51-60</option>
+                                                        <option value="60">60</option>
+                                                    </select>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="Gender01" class="form-label">Taget Gender</label>
+                                                    <select class="form-select" name="Gender" id="Gender" required
+                                                        aria-label="select example">
+                                                        <option value=""></option>
+                                                        <option value="Men">Men</option>
+                                                        <option value="Women">Women</option>
+                                                        <option value="LGBQ+">LGBQ+</option>
+                                                        <option value="All">All</option>
+                                                    </select>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="Promotionbeer" class="form-label">Promotion beer</label>
+                                                    <input type="text" step="any" name="Promotionbeer"
+                                                        class="form-control is-valid" maxlength="" id="Promotion"
+                                                        value="" required>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <label for="fileToUpload" class="form-label">รูป</label>
-                                                <input type="file" name="filesToUpload[]" class="form-control is-valid"
-                                                    id="fileToUpload" multiple required>
-                                                <div class="invalid-feedback"></div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="Event" class="form-label">Event</label>
+                                                    <input type="text" step="any" name="Event"
+                                                        class="form-control is-valid" maxlength="" id="Event_outlet"
+                                                        value="" required>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="Contact_outlet" class="form-label">Contact</label>
+                                                    <input type="text" step="any" name="Contact_outlet"
+                                                        class="form-control is-valid" id="Contact_outlet" value=""
+                                                        required>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="Event"
+                                                        class="form-label">ประเภทสินค้าขายดีในร้าน</label>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-outline-primary dropdown-toggle"
+                                                            type="button" id="multiSelectDropdown"
+                                                            data-bs-toggle="dropdown"
+                                                            aria-expanded="false">Select</button>
+                                                        <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
+                                                            <li>
+                                                                <input type="checkbox" name="checkboxes[]"
+                                                                    id="inlineCheckbox1" value="Beer"> <label
+                                                                    for="inlineCheckbox1"> Beer</label>
+                                                            </li>
+                                                            <li>
+                                                                <input type="checkbox" name="checkboxes[]"
+                                                                    id="inlineCheckbox2" value="Wine"> <label
+                                                                    for="inlineCheckbox2"> Wine</label>
+                                                            </li>
+                                                            <li>
+                                                                <input type="checkbox" name="checkboxes[]"
+                                                                    id="inlineCheckbox3" value="Spirit"> <label
+                                                                    for="inlineCheckbox3"> Spirit</label>
+                                                            </li>
+                                                            <li>
+                                                                <input type="checkbox" name="checkboxes[]"
+                                                                    id="inlineCheckbox3" value="Cocktail"> <label
+                                                                    for="inlineCheckbox3"> Cocktail</label>
+                                                            </li>
+                                                            <li>
+                                                                <input type="checkbox" name="checkboxes[]"
+                                                                    id="inlineCheckbox3" value="Others"> <label
+                                                                    for="inlineCheckbox3"> Others</label>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="Product_good" class="form-label">Brand</label>
+                                                    <input type="text" step="any" name="Product_good"
+                                                        class="form-control is-valid" maxlength="" id="PD_good1"
+                                                        value="" required>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="Situation" class="form-label">Situation</label>
-                                                <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
-                                                <textarea class="form-control" name="Situation" id="Situation" rows="2"
-                                                    required></textarea>
-                                                <div class="invalid-feedback"></div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="Gender01" class="form-label">ตำแหน่งร้าน</label>
+                                                    <div class="">
+                                                        <button class="btn btn-info" onclick="getCurrentLocation()"
+                                                            type="button"><i class="fa fa-location-arrow"
+                                                                aria-hidden="true"></i> ระบุตำแหน่งร้านค้า</button>
+                                                    </div>
+                                                    <div class="invalid-feedback"></div>
+                                                    <input type="hidden" id="lat" name="lat">
+                                                    <input type="hidden" id="lng" name="lng">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="fileToUpload" class="form-label">รูป</label>
+                                                    <input type="file" name="filesToUpload[]"
+                                                        class="form-control is-valid" id="fileToUpload" multiple
+                                                        required>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Situation" class="form-label">Situation</label>
+                                                    <!-- <input type="text" step="any" name="Situation" class="form-control is-valid" maxlength="" id="Situation"  value="" required> -->
+                                                    <textarea class="form-control" name="Situation" id="Situation"
+                                                        rows="2" required></textarea>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <canvas id="canvas" style="display: none;"></canvas>
-                                        <div id="map"></div>
-                                        <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
-                                            <button type="button" class="btn btn-success"
-                                                onclick="resizeAndUpload()">Save</button>
-                                            <a class="btn btn-danger" href="index.php" role="button">Back</a>
-                                        </div>
+                                            <canvas id="canvas" style="display: none;"></canvas>
+                                            <div id="map"></div>
+                                            <div class="d-grid gap-2 d-md-flex mt-2 justify-content-center">
+                                                <button type="button" class="btn btn-success"
+                                                    onclick="resizeAndUpload()">Save</button>
+                                                <a class="btn btn-danger" href="index.php" role="button">Back</a>
+                                            </div>
                                     </form>
                                 </div>
                             </div>
@@ -821,7 +883,7 @@ require_once 'session_check.php';
             }
         }
 
-        fetch('salevisit_insertdata_Ex.php', {
+        fetch('salevisit_insertdata_Ex1.php', {
                 method: 'POST',
                 body: formData
             })
@@ -856,7 +918,7 @@ require_once 'session_check.php';
     }
     </script>
 
-<script>
+    <script>
     const checkboxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
     const dropdownButton = document.getElementById('multiSelectDropdown');
     let selectedItems = [];

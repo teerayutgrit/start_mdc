@@ -588,12 +588,15 @@ include 'dbcon.php';
                                                     <?php echo htmlspecialchars($result["Spendingperhead"]);  ?></p>
                                                     <i class="fa fa-bolt text-primary"></i> Promotion:
                                                     <?php echo htmlspecialchars($result["Promotion"]);  ?></p>
+                                                    <i class="fa fa-bullhorn text-primary"></i> Product:<?php echo htmlspecialchars($result["PD_good1"]); ?></p>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="text text-nowrap ">
                                                     <i class="fa fa-shopping-basket text-primary"></i> Category:
                                                     <?php echo htmlspecialchars($result["Outlet_type"]); ?></p>
+                                                    <i class="fa fa-code-branch text-primary"></i> Branch:
+                                                    <?php echo htmlspecialchars($result["branch_outlet"]); ?></p>
                                                     <i class="fa fa-archive text-primary"></i> Status outlet:
                                                     <?php echo htmlspecialchars($result["Status_outlet"]); ?></p>
                                                     <i class="fa-regular fa-diagram-project"></i>
@@ -606,12 +609,6 @@ include 'dbcon.php';
                                                     <?php echo htmlspecialchars($result["Delivery"]); ?></p>
                                                     <i class="fa fa-info text-primary"></i> Event:
                                                     <?php echo htmlspecialchars($result["Event_outlet"]); ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="text text-nowrap ">
-                                                    <i class="fa fa-bullhorn text-primary"></i> Product:
-                                                    <?php echo htmlspecialchars($result["PD_good1"]); ?></p>
                                                 </div>
                                             </div>
 

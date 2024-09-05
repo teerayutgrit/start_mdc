@@ -26,6 +26,19 @@ require_once 'session_check.php';
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.0/css/buttons.dataTables.min.css">
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.0/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.0/js/buttons.html5.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.0/js/buttons.print.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
 
 </head>
 
@@ -429,7 +442,7 @@ require_once 'session_check.php';
                                                     <th class="text-center">สถานะร้านค้า</th>
                                                     <!-- <th class="text-center">ชื่อ</th> -->
                                                     <th class="text-center">ชื่อร้านค้า</th>
-                                                    <!-- <th class="text-center">อายุ</th> -->
+                                                    <th class="text-center">สาขา</th>
                                                     <!-- <th class="text-center">รูปแบบร้าน</th> -->
                                                     <th class="text-center">ความคืบหน้า</th>
                                                     <th class="text-center">รายละเอียด</th>
@@ -443,13 +456,11 @@ require_once 'session_check.php';
                                                 <tr>
                                                     <form action="salevisit_detail.php" method="post">
                                                         <!-- <td class="text-center"><?php echo htmlspecialchars($result["id"]); ?></td> -->
-                                                        <td class="text-nowrap">
-                                                            <?php echo htmlspecialchars($result["Posting_date"]); ?>
-                                                        </td>
+                                                        <td class="text-nowrap"><?php echo htmlspecialchars($result["Posting_date"]); ?></td>
                                                         <td class="text-nowrap"><?php echo htmlspecialchars($result["Status_outlet"]); ?></td>
                                                         <!-- <td class="text-nowrap"><?php echo htmlspecialchars($result["User_name"]); ?></td> -->
-                                                        <td><?php echo htmlspecialchars($result["Customer_name"]); ?>
-                                                        </td>
+                                                        <td><?php echo htmlspecialchars($result["Customer_name"]); ?></td>
+                                                        <td><?php echo htmlspecialchars($result["branch_outlet"]); ?></td>
                                                         <!-- <td class="text-center text-nowrap"><?php echo htmlspecialchars($result["Range_Age"]); ?></td> -->
                                                         <!-- <td><?php echo htmlspecialchars($result["Outlet_type"]); ?></td> -->
                                                         <td>
@@ -540,6 +551,7 @@ require_once 'session_check.php';
                     <button type="submit" class="btn btn-primary mt-2">Filter</button>
                 </form>
             </div>
+
             <!-- Project Card Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between bg-gradient-primary shadow-lg rounded" style="margin-top: -0.5rem">
@@ -551,7 +563,7 @@ require_once 'session_check.php';
                     // Include query_visit_report.php to retrieve data
                     require_once 'query_visit_report.php';
                     ?>
-                    <div class="table-responsive-sm">
+                    <div class="table-responsive p-0">
                         <table id="myTable" class="table table-sm table-hover sm-2">
                             <thead>
                                 <tr>
@@ -559,6 +571,7 @@ require_once 'session_check.php';
                                     <th class="text-center">ชื่อ</th>
                                     <th class="text-center">สถานะร้านค้า</th>
                                     <th class="text-center">ชื่อร้านค้า</th>
+                                    <th class="text-center">สาขา</th>
                                     <th class="text-center">ความคืบหน้า</th>
                                     <th class="text-center">รายละเอียด</th>
                                 </tr>
@@ -574,6 +587,7 @@ require_once 'session_check.php';
                                         <td class="text-nowrap"><?php echo htmlspecialchars($result["User_name"]); ?></td>
                                         <td class="text-nowrap"><?php echo htmlspecialchars($result["Status_outlet"]); ?></td>
                                         <td><?php echo htmlspecialchars($result["Customer_name"]); ?></td>
+                                        <td><?php echo htmlspecialchars($result["branch_outlet"]); ?></td>
                                         <td>
                                             <div class="progress mr-4">
                                                 <?php

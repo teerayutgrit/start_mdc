@@ -9,6 +9,7 @@ date_default_timezone_set('Asia/Bangkok');
 
 // แทนค่า status
 $processwork = "100";
+$Status_outlet = "Existing";
 
 // ตรวจสอบว่าค่า reqid และ status_finish ถูกส่งมาจากฟอร์ม
 if (isset($_POST['reqid']) && isset($_POST['status_finish'])) {
@@ -28,10 +29,11 @@ if (isset($_POST['reqid']) && isset($_POST['status_finish'])) {
         processwork = ?,
         update_datetime_finish = ?,
         update_date_finish = ?,
-        status_finish = ?
+        status_finish = ?,
+        Status_outlet = ?
         WHERE id = ?";
 
-    $params = array($processwork, $update_datetime_finish, $update_date_finish, $status_finish, $reqid);
+    $params = array($processwork, $update_datetime_finish, $update_date_finish, $status_finish,$Status_outlet, $reqid);
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {

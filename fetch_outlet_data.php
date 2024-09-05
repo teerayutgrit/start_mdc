@@ -6,7 +6,7 @@ include_once 'dbcon.php';
 $outletName = $_POST['outlet_name']; // Get outlet name from AJAX request
 
 // Example SQL query to fetch data based on outlet name
-$sql = "SELECT Outlet_Zone, openingandclosingtimes FROM MDC_Visitor WHERE Customer_name = ?";
+$sql = "SELECT branch_outlet,Outlet_Zone, openingandclosingtimes,Outlet_type,Seat_total,Spendingperhead,Delivery,Range_Age,Gender,Promotion,Event_outlet,Contact_outlet,PD_good1,Situation FROM MDC_Visitor WHERE Customer_name = ?";
 $params = array($outletName);
 $stmt = sqlsrv_query($conn, $sql, $params);
 

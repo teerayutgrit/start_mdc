@@ -366,11 +366,20 @@ require_once 'session_check.php';
                                                 </select>
                                             </div>
                                             <div class="col-md-3">
+                                                <label for="branch_outlet" class="form-label">branch</label>
+                                                <input type="text" step="any" name="branch_outlet"
+                                                    class="form-control is-valid" id="branch_outlet" value="" required>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-3">
                                                 <label for="Outlet_Zone" class="form-label">Zone</label>
                                                 <input type="text" step="any" name="Outlet_Zone"
                                                     class="form-control is-valid" id="OutletZone" value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
+                                        </div>
+
+                                        <div class="row">
                                             <div class="col-md-3">
                                                 <label for="openingandclosingtimes" class="form-label">Opening and
                                                     Closing Times</label>
@@ -379,9 +388,6 @@ require_once 'session_check.php';
                                                     required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
-                                        </div>
-
-                                        <div class="row">
                                             <div class="col-md-3">
                                                 <label for="Outlet_type-01" class="form-label">Segmentation</label>
                                                 <select class="form-select" name="Outlet_type" required
@@ -423,6 +429,8 @@ require_once 'session_check.php';
                                                     value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-3">
                                                 <label for="Delivery" class="form-label">Delivery</label>
                                                 <input type="text" step="any" name="Delivery"
@@ -430,8 +438,6 @@ require_once 'session_check.php';
                                                     value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-3">
                                                 <label for="Range01Age" class="form-label">Taget Age</label>
                                                 <select class="form-select" name="RangeAge" required
@@ -465,14 +471,14 @@ require_once 'session_check.php';
                                                     value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-3">
                                                 <label for="Event" class="form-label">Event</label>
                                                 <input type="text" step="any" name="Event" class="form-control is-valid"
                                                     maxlength="" id="validationTextarea" value="" required>
                                                 <div class="invalid-feedback"></div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-3">
                                                 <label for="Contact_outlet" class="form-label">Contact</label>
                                                 <input type="text" step="any" name="Contact_outlet"
@@ -572,6 +578,7 @@ require_once 'session_check.php';
                                                     <th class="text-center">วันที่</th>
                                                     <th class="text-center">สถานะร้านค้า</th>
                                                     <th class="text-center">ชื่อร้านค้า</th>
+                                                    <th class="text-center">สาขา</th>
                                                     <!-- <th class="text-center">อายุ</th> -->
                                                     <!-- <th class="text-center">รูปแบบร้าน</th> -->
                                                     <th class="text-center">ความคืบหน้า</th>
@@ -588,8 +595,8 @@ require_once 'session_check.php';
                                                         <!-- <td class="text-center"><?php echo htmlspecialchars($result["id"]); ?></td> -->
                                                         <td class="text-nowrap"><?php echo htmlspecialchars($result["Posting_date"]); ?></td>
                                                         <td class="text-nowrap"><?php echo htmlspecialchars($result["Status_outlet"]); ?></td>
-                                                        <td><?php echo htmlspecialchars($result["Customer_name"]); ?>
-                                                        </td>
+                                                        <td><?php echo htmlspecialchars($result["Customer_name"]); ?></td>
+                                                        <td><?php echo htmlspecialchars($result["branch_outlet"]); ?></td>
                                                         <!-- <td class="text-center text-nowrap"><?php echo htmlspecialchars($result["Range_Age"]); ?></td> -->
                                                         <!-- <td><?php echo htmlspecialchars($result["Outlet_type"]); ?></td> -->
                                                         <td>

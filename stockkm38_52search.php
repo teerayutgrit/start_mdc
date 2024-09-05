@@ -469,12 +469,12 @@ require_once 'session_check.php';
     <?php
     include_once 'dbcon_inventory.php';
 
-    $stmt = "SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM38_Sum_total_mdc
+    $stmt = "SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, Exp_date, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM38_Sum_total_mdc
              UNION ALL
-             SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM52_Sum_total_mdc
+             SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, Exp_date, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_KM52_Sum_total_mdc
              UNION ALL
-             SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, FullLot, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_MDC01_Sum_total_mdc
-             ORDER BY PD_CODE, FullLot";
+             SELECT Inventory, PD_CODE, Product_Name, Brand, Lot, Exp_date, Size, Uom, BOX, PCS, Months_Difference FROM dbo.V_MDC01_Sum_total_mdc
+             ORDER BY PD_CODE, Lot";
 
     $query = sqlsrv_query($conn, $stmt);
 
@@ -489,11 +489,11 @@ require_once 'session_check.php';
                 <th class="text-center">PD_CODE</th>
                 <th class="text-center">Product Name</th>
                 <th class="text-center">Lot</th>
-                <th class="text-center">Full Lot</th>
+                <th class="text-center">Exp Date</th>
                 <th class="text-center">UOM</th>
                 <th class="text-center">BOX</th>
                 <th class="text-center">PCS</th>
-                <th class="text-center">Months Difference</th>
+                <th class="text-center">Shelf life/Months</th>
                 <th class="text-center">Inventory</th>
 
             </tr>
@@ -501,27 +501,57 @@ require_once 'session_check.php';
         <tbody>
             <?php 
             while ($result = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC)) {
-                $monthsDifference = $result["Months_Difference"];
-                $colorClass = '';
-                if ($monthsDifference <= 3) {
-                    $colorClass = 'text-success'; // green
-                } elseif ($monthsDifference >= 4 && $monthsDifference <= 6) {
-                    $colorClass = 'text-info'; // yellow
-                } elseif ($monthsDifference >= 7 && $monthsDifference <= 9) {
-                    $colorClass = 'text-warning'; // yellow
-                } elseif ($monthsDifference >= 10 && $monthsDifference <= 12) {
-                    $colorClass = 'text-danger'; // red
-                }
+                // $monthsDifference = $result["Months_Difference"];
+                // $colorClass = '';
+                // if ($monthsDifference <= 3) {
+                //     $colorClass = 'text-success'; // green
+                // } elseif ($monthsDifference >= 4 && $monthsDifference <= 6) {
+                //     $colorClass = 'text-info'; // yellow
+                // } elseif ($monthsDifference >= 7 && $monthsDifference <= 9) {
+                //     $colorClass = 'text-warning'; // yellow
+                // } elseif ($monthsDifference >= 10 && $monthsDifference <= 12) {
+                //     $colorClass = 'text-danger'; // red
+                // }
             ?>
+                            <?php
+                // คำนวณจำนวนเดือนที่แตกต่างกัน
+                $expire_date = DateTime::createFromFormat('d/m/y', $result['Exp_date']);
+
+                if ($expire_date) {
+                  $current_date = new DateTime();
+                  $diff = $expire_date->diff($current_date);
+                  $months_diff = ($diff->y * 12) + $diff->m;
+                  
+                  if ($expire_date < $current_date) {
+                    $months_diff = -$months_diff;
+                }
+  
+                  // กำหนดสีตามเงื่อนไข
+                  if ($months_diff >= 13) {
+                      $colorClass = 'text-success'; // green
+                  } elseif ($months_diff >= 7 && $months_diff <= 12) {
+                      $colorClass = 'text-info'; // blue
+                  } elseif ($months_diff >= 4 && $months_diff <= 6) {
+                      $colorClass = 'text-warning'; // yellow
+                  } elseif ($months_diff >= -50 && $months_diff <= 3) {
+                      $colorClass = 'text-danger'; // red
+                  } else {
+                      $colorClass = ''; // Default, no color
+                  }
+              } else {
+                  $months_diff = 'Invalid Date';
+                  $colorClass = 'text-muted'; // สีสำหรับวันที่ที่ไม่ถูกต้อง
+              }
+                ?>
             <tr>
                 <td class="text-nowrap"><?php echo htmlspecialchars($result["PD_CODE"]); ?></td>
                 <td ><?php echo htmlspecialchars($result["Product_Name"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["Lot"]); ?></td>
-                <td class="text-nowrap"><?php echo htmlspecialchars($result["FullLot"]); ?></td>
+                <td class="text-nowrap"><?php echo htmlspecialchars($result["Exp_date"]); ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["Uom"]); ?></td>
-                <td class="text-center"><?php echo htmlspecialchars($result["BOX"]); ?></td>
-                <td class="text-center"><?php echo htmlspecialchars($result["PCS"]); ?></td>
-                <td class="text-center fw-bold fs-5 <?php echo $colorClass; ?>"><?php echo htmlspecialchars($result["Months_Difference"]); ?></td>
+                <td class="fw-bold"><?php echo htmlspecialchars($result["BOX"]); ?></td>
+                <td class="fw-bold"><?php echo htmlspecialchars($result["PCS"]); ?></td>
+                <td class="text-center fw-bold fs-5 <?php echo $colorClass; ?>"><?php echo $months_diff; ?></td>
                 <td class="text-center"><?php echo htmlspecialchars($result["Inventory"]); ?></td>
             </tr>
             <?php
@@ -541,6 +571,9 @@ require_once 'session_check.php';
 </div>
 
                                 </div>
+                                <div class=" text-center text-sm text-muted text-lg-start">
+            <p class="text-center fw-bold text-danger">** จำนวนของ Shelf life ถ้าเป็นค่าที่ติดลบคือ เลยวันหมดอายุมาแล้ว ค่าบวกคือ จำนวนเดือนคงเหลือก่อนหมดอายุ **</p>
+          </div>
                             </div>
                         </div>
                     </div>

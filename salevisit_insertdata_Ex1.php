@@ -18,18 +18,11 @@ date_default_timezone_set('Asia/Bangkok');
 $postingdatetime = date("Y-m-d h:i:sa");
 $postingdate = date("Y-m-d");
 $Status01 = "Register";
-$Status_outlet = "New Outlet";
+$Status_outlet = "Existing";
 // แทนค่า status
 $processwork = "40";
+
 $Customer_count ="1";
-
-// ฟังก์ชั่นสำหรับเจนโค้ด
-function generateCode() {
-    
-    // $date = date("Ymd"); // แปลงวันที่เป็นรูปแบบ Ymd เช่น 20240719
-    return 'MDC'.str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
-}
-
 
 // รับค่าจากฟอร์ม
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -42,9 +35,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $combinedString = $Product_good;
     }
 
+    // if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    //     $outlet_value = $_POST['OutletName'];
+    //     list($Customer_No, $OutletName) = explode('|', $outlet_value);
+    // }
+
     $lat = $_POST['lat'];
     $lng = $_POST['lng'];
+    $branch_outlet = $_POST['branch_outlet'];
     $OutletName = $_POST['OutletName'];
+    $Customer_No = $_POST['Customer_No'];
     $Seat_total = $_POST['Seat_total'];
     $Outlet_type = $_POST['Outlet_type'];
     $RangeAge = $_POST['RangeAge'];
@@ -57,10 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Event = $_POST['Event'];
     $Situation = $_POST['Situation'];
     $Contact_outlet = $_POST['Contact_outlet'];
-    $branch_outlet = $_POST['branch_outlet'];
 
-    // Generate the new code
-    $codegen = generateCode();
+
 
     // Azure Blob Storage connection settings
     $connectionString = 'DefaultEndpointsProtocol=https;AccountName=mardicraft2024;AccountKey=T9y7+eLYhKZWF4Ae0d6wPjMkRDcifPu5PgBmm65yS8aX+0SUFqQZrXe570kiFzCrX4lWmFvz2xrL+AStNVZ+Nw==;EndpointSuffix=core.windows.net';
@@ -69,13 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // ตรวจสอบว่ามีไฟล์ที่ถูกอัปโหลดหรือไม่
     if (isset($_FILES["filesToUpload"])) {
         $fileNames = [];
-        $folderName = $codegen;
-        $shortTime = substr(time(), 0, 10);
+        $folderName = $Customer_No;
 
         foreach ($_FILES["filesToUpload"]["tmp_name"] as $key => $tmp_name) {
             $fileToUpload = $tmp_name;
             $fileExtension = pathinfo($_FILES["filesToUpload"]["name"][$key], PATHINFO_EXTENSION);
-            $fileName = $folderName . '/' . $codegen .'_'. $key . '.' . $fileExtension; // Create folder structure
+            $fileName = $folderName . '/' . $Customer_No . '_' . time() . '_' . $key . '.' . $fileExtension; // Create folder structure
             $fileNames[] = $fileName;
 
             try {
@@ -106,15 +103,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
-    $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet,branch_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$branch_outlet);
+    $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet,Customer_No,branch_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$Customer_No,$branch_outlet);
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
     }
 
-$sqlCustomerTransaction = "INSERT INTO Customer_transaction (Customer_name,Customer_count,User_name) VALUES (?,?,?)";
+    $sqlCustomerTransaction = "INSERT INTO Customer_transaction (Customer_name,Customer_count,User_name) VALUES (?,?,?)";
 $paramsCustomerTransaction = array( $OutletName,$Customer_count,$user_name);
 $stmtInsertCustomerTransaction = sqlsrv_query($conn, $sqlCustomerTransaction, $paramsCustomerTransaction);
 
@@ -122,9 +119,9 @@ if ($stmtInsertCustomerTransaction === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-    // echo "<script> alert('Saved successfully'); window.location='salevisit_new.php';</script>";
+
+    echo "<script> alert('Saved successfully'); window.location='salevisit_Ex1.php';</script>";
 
     // ปิดการเชื่อมต่อฐานข้อมูล
     sqlsrv_close($conn);
 }
-?>
