@@ -421,9 +421,9 @@ function fetchBranches() {
                     <?php
                     // Fetch unique OutletName and Customer_No from the database
                     $User_Name = $_SESSION["User_Name"];
-                    // $params = array($User_Name);
-                    $sql_ex = "SELECT DISTINCT Customer_name ,Customer_No FROM Visitor_group order by Customer_name";
-                    $stmt_ex = sqlsrv_query($conn, $sql_ex);
+                    $params = array($User_Name);
+                    $sql_ex = "SELECT DISTINCT Customer_name ,Customer_No FROM Visitor_group where User_Name = ? order by Customer_name";
+                    $stmt_ex = sqlsrv_query($conn, $sql_ex,$params);
                     if ($stmt_ex !== false) {
                         while ($result_ex = sqlsrv_fetch_array($stmt_ex, SQLSRV_FETCH_ASSOC)) {
                             $customer_no = htmlspecialchars($result_ex["Customer_No"]);
