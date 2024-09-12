@@ -133,6 +133,7 @@ require_once 'session_check.php';
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <a class="collapse-item" href="salevisit_Ex.php">Existing</a>
+                        <a class="collapse-item" href="salevisit_revisit.php">Re visit</a>
                         <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
                     </div>
                 </div>
@@ -398,8 +399,7 @@ require_once 'session_check.php';
                                                     <option value="Café">Café</option>
                                                     <option value="Café & Restaurant">Café & Restaurant</option>
                                                     <option value="Chain Restaurant">Chain Restaurant</option>
-                                                    <option value="Community Mall / Flea Market">Community Mall / Flea
-                                                        Market</option>
+                                                    <option value="Community Mall / Flea Market">Community Mall / FleaMarket</option>
                                                     <option value="Craft Beer Bar">Craft Beer Bar</option>
                                                     <option value="Expat Bar / Sport Bar">Expat Bar / Sport Bar</option>
                                                     <option value="Fine Dining">Fine Dining</option>

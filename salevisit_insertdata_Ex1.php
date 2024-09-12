@@ -18,7 +18,7 @@ date_default_timezone_set('Asia/Bangkok');
 $postingdatetime = date("Y-m-d h:i:sa");
 $postingdate = date("Y-m-d");
 $Status01 = "Register";
-$Status_outlet = "Existing";
+// $Status_outlet = "Existing";
 // แทนค่า status
 $processwork = "40";
 
@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Event = $_POST['Event'];
     $Situation = $_POST['Situation'];
     $Contact_outlet = $_POST['Contact_outlet'];
+    $Status_outlet = $_POST['Status_outlet'];
 
 
 
@@ -104,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
     $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet,Customer_No,branch_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$Customer_No,$branch_outlet);
+    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$Customer_No,$branch_outlet,);
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {
@@ -120,7 +121,7 @@ if ($stmtInsertCustomerTransaction === false) {
 }
 
 
-    echo "<script> alert('Saved successfully'); window.location='salevisit_Ex1.php';</script>";
+    echo "<script> alert('Saved successfully'); window.location='salevisit_revisit.php';</script>";
 
     // ปิดการเชื่อมต่อฐานข้อมูล
     sqlsrv_close($conn);

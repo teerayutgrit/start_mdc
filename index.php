@@ -90,7 +90,7 @@ require_once 'session_check.php';
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <a class="collapse-item" href="salevisit_new.php">New visit</a>
                         <a class="collapse-item" href="salevisit_Ex.php">Existing</a>
-                        <!-- <a class="collapse-item" href="cards.html">Re visit</a> -->
+                        <a class="collapse-item" href="salevisit_revisit.php">Re visit</a>
                     </div>
                 </div>
                 <?php endif; ?>

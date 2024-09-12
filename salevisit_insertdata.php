@@ -27,7 +27,7 @@ $Customer_count ="1";
 function generateCode() {
     
     // $date = date("Ymd"); // แปลงวันที่เป็นรูปแบบ Ymd เช่น 20240719
-    return 'MDC'.str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
+    return 'MDC'.str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
 }
 
 
@@ -105,9 +105,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fileNamesString = null;
     }
 
+    $Customer_No = $folderName ;
     // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
-    $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet,branch_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$branch_outlet);
+    $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet,Customer_No,branch_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$Customer_No,$branch_outlet);
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {

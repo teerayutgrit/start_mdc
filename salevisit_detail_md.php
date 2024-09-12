@@ -574,7 +574,7 @@ include 'dbcon.php';
                                     <form action="update_sale_re_visit.php" method="POST"
                                         class="was-validated align-items-center" enctype="multipart/form-data">
                                         <div class="row">
-                                            <div class="col-6">
+                                        <div class="col-6">
                                                 <div class="text text-dark">
                                                     <i class="fa fa-calendar text-primary "></i> Date:
                                                     <?php echo htmlspecialchars($result["Posting_date"]); ?></p>
@@ -588,12 +588,15 @@ include 'dbcon.php';
                                                     <?php echo htmlspecialchars($result["Spendingperhead"]);  ?></p>
                                                     <i class="fa fa-bolt text-primary"></i> Promotion:
                                                     <?php echo htmlspecialchars($result["Promotion"]);  ?></p>
+                                                    <i class="fa fa-bullhorn text-primary"></i> Product:<?php echo htmlspecialchars($result["PD_good1"]); ?></p>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="text text-nowrap ">
                                                     <i class="fa fa-shopping-basket text-primary"></i> Category:
                                                     <?php echo htmlspecialchars($result["Outlet_type"]); ?></p>
+                                                    <i class="fa fa-code-branch text-primary"></i> Branch:
+                                                    <?php echo htmlspecialchars($result["branch_outlet"]); ?></p>
                                                     <i class="fa fa-archive text-primary"></i> Status outlet:
                                                     <?php echo htmlspecialchars($result["Status_outlet"]); ?></p>
                                                     <i class="fa-regular fa-diagram-project"></i>
