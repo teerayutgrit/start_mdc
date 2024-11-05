@@ -26,11 +26,10 @@ $Customer_count ="1";
 // ฟังก์ชั่นสำหรับเจนโค้ด
 function generateCode() {
     
-    // $date = date("Ymd"); // แปลงวันที่เป็นรูปแบบ Ymd เช่น 20240719
     return 'MDC'.str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
 }
 
-
+$date = date("Ymd"); // แปลงวันที่เป็นรูปแบบ Ymd เช่น 20240719
 // รับค่าจากฟอร์ม
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $checkboxes = $_POST['checkboxes'];
@@ -69,13 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // ตรวจสอบว่ามีไฟล์ที่ถูกอัปโหลดหรือไม่
     if (isset($_FILES["filesToUpload"])) {
         $fileNames = [];
-        $folderName = $codegen;
+        $folderName = $codegen . $date;
         $shortTime = substr(time(), 0, 10);
 
         foreach ($_FILES["filesToUpload"]["tmp_name"] as $key => $tmp_name) {
             $fileToUpload = $tmp_name;
             $fileExtension = pathinfo($_FILES["filesToUpload"]["name"][$key], PATHINFO_EXTENSION);
-            $fileName = $folderName . '/' . $codegen .'_'. $key . '.' . $fileExtension; // Create folder structure
+            $fileName = $folderName . '/' . $codegen . $date .'_'. $key . '.' . $fileExtension; // Create folder structure
             $fileNames[] = $fileName;
 
             try {
@@ -105,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fileNamesString = null;
     }
 
-    $Customer_No = $folderName ;
+    $Customer_No = $folderName;
     // เตรียมคำสั่ง SQL สำหรับการเพิ่มข้อมูล
     $sql = "INSERT INTO MDC_Visitor (Status_vs, Customer_name, Posting_datetime, Posting_date, User_name, Seat_total, Outlet_type, Spendingperhead, Outlet_Zone, Delivery, Promotion, Event_outlet, Situation, openingandclosingtimes, Range_Age, Gender, Latitude, Longitude, processwork, Customer_image, PD_good1, Contact_outlet, Status_outlet,Customer_No,branch_outlet) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $params = array($Status01, $OutletName, $postingdatetime, $postingdate, $user_name, $Seat_total, $Outlet_type, $Spendingperhead, $Outlet_Zone, $Delivery, $Promotionbeer, $Event, $Situation, $openingandclosingtimes, $RangeAge, $Gender, $lat, $lng, $processwork, $fileNamesString, $combinedString, $Contact_outlet, $Status_outlet,$Customer_No,$branch_outlet);
