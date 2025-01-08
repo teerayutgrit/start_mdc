@@ -219,6 +219,16 @@ require_once 'session_check.php';
                 <?php endif; ?>
             </li>
 
+            <div class="sidebar-heading">TSI Brewing</div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="https://bookingbrewingtsi24.azurewebsites.net/view_index.php" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-thermometer-empty"></i> <span>TSI Brewing</span>
+                </a>
+            </li>
+            
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 

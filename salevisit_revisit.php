@@ -567,7 +567,7 @@ function fetchBranches() {
                                                         required>
                                                     <div class="invalid-feedback"></div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <!-- <div class="col-md-3">
                                                     <label for="Event"
                                                         class="form-label">ประเภทสินค้าขายดีในร้าน</label>
                                                     <div class="dropdown">
@@ -603,8 +603,8 @@ function fetchBranches() {
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-3">
+                                                </div> -->
+                                                <div class="col-md-6">
                                                     <label for="Product_good" class="form-label">Brand</label>
                                                     <input type="text" step="any" name="Product_good"
                                                         class="form-control is-valid" maxlength="" id="PD_good1"
@@ -797,7 +797,7 @@ function fetchBranches() {
                 <div class="modal-body">successfully saved.</div>
                 <div class="modal-footer">
                     <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button> -->
-                    <a class="btn btn-primary" href="salevisit_new.php">Go to New Sale Visit</a>
+                    <a class="btn btn-primary" href="salevisit_revisit.php">OK</a>
                 </div>
             </div>
         </div>
