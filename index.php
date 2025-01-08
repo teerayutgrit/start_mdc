@@ -431,7 +431,18 @@ require_once 'session_check.php';
                        // Include query_visitmain_api.php to retrieve data
                          require_once 'query_visitmain_api.php';
                      ?>
+
                     <?php if ($Permission_user == 1 || $Permission_user == 5): ?>
+                        <div class="col-md-5">
+                    <form method="get" action="">
+                        <div class="form-group">
+                            <label for="filterMonth">เลือกเดือน:</label>
+                            <input type="month" id="filterMonth" name="filterMonth" class="form-control"
+                                value="<?php echo isset($_GET['filterMonth']) ? $_GET['filterMonth'] : date('Y-m'); ?>">
+                            <button type="submit" class="btn btn-primary mt-2">กรองข้อมูล</button>
+                        </div>
+                    </form>
+                </div>
                     <div class="row">
                          <!-- Content Column -->
                          <div class="col-xl-12 col-lg-100">
@@ -503,7 +514,7 @@ require_once 'session_check.php';
                                                                     role="progressbar"
                                                                     aria-valuenow="<?php echo htmlspecialchars($led01); ?>"
                                                                     aria-valuemin="0" aria-valuemax="100"
-                                                                    style="width:<?php echo htmlspecialchars($led01); ?>%">
+                                                                    style="width:100%">
                                                                     <?php echo htmlspecialchars($progressText ); ?>
                                                                 </div>
                                                             </div>
@@ -538,29 +549,62 @@ require_once 'session_check.php';
     <div class="row">
         <!-- Content Column -->
         <div class="col-xl-12 col-lg-100">
-            <div class="col-md-5 mb-4">
-                <form method="POST" action="">
-                    <select class="selectpicker form-control" name="User_Name" id="saleName01" data-live-search="true"  aria-label="select example">
-                        <option value="">All</option>
-                        <?php
-                        // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
-                        $sql_ex = "SELECT User_Name, department FROM User_MDC WHERE department = 'Sales'";
-                        $params = array($user_id);
-                        $stmt_ex = sqlsrv_query($conn, $sql_ex, $params);
-                        if ($stmt_ex !== false) {
-                            while ($result_ex = sqlsrv_fetch_array($stmt_ex, SQLSRV_FETCH_ASSOC)) {
-                                $User_Name = htmlspecialchars($result_ex["User_Name"]);
-                                echo '<option value="' . $User_Name . '">' . $User_Name . '</option>';
-                            }
-                            sqlsrv_free_stmt($stmt_ex);
-                        } else {
-                            echo "<option value=''>ไม่พบข้อมูล</option>";
+        <div class="row mb-3">
+    <div class="col-md-4">
+        <form method="POST" action="">
+            <div class="form-group">
+                <!-- <label for="saleName01">เลือกผู้ใช้:</label> -->
+                <select class="selectpicker form-control" name="User_Name" id="saleName01" data-live-search="true" aria-label="select example">
+                    <option value="">All</option>
+                    <?php
+                    // สร้างคำสั่ง SQL เพื่อดึงข้อมูลรูปแบบร้านจากฐานข้อมูล
+                    $sql_ex = "SELECT User_Name, department FROM User_MDC WHERE department = 'Sales'";
+                    $params = array($user_id);
+                    $stmt_ex = sqlsrv_query($conn, $sql_ex, $params);
+                    if ($stmt_ex !== false) {
+                        while ($result_ex = sqlsrv_fetch_array($stmt_ex, SQLSRV_FETCH_ASSOC)) {
+                            $User_Name = htmlspecialchars($result_ex["User_Name"]);
+                            echo '<option value="' . $User_Name . '">' . $User_Name . '</option>';
                         }
-                        ?>
-                    </select>
-                    <button type="submit" class="btn btn-primary mt-2">Filter</button>
-                </form>
+                        sqlsrv_free_stmt($stmt_ex);
+                    } else {
+                        echo "<option value=''>ไม่พบข้อมูล</option>";
+                    }
+                    ?>
+                </select>
             </div>
+            </div>
+            <div class="col-md-4">
+            <div class="form-group">
+                <!-- <label for="filterMonth2">เลือกเดือน:</label> -->
+                <input type="month" id="filterMonth2" name="filterMonth2" class="form-control"
+                    value="<?php echo isset($_POST['filterMonth2']) ? $_POST['filterMonth2'] : date('Y-m'); ?>">
+            </div>
+            </div>
+            
+            <div class="col-md-2">
+               <div class="form-group">
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
+               </div>
+            </div>
+            
+        </form>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const monthInput = document.getElementById("filterMonth2");
+        const currentDate = new Date();
+        const currentYearMonth = currentDate.toISOString().slice(0, 7); // รูปแบบ yyyy-mm
+        if (!monthInput.value) {
+            monthInput.value = currentYearMonth; // ตั้งค่าเริ่มต้น
+        }
+        // ส่งข้อมูลฟอร์มอัตโนมัติ
+        if (!<?php echo json_encode(isset($_POST['filterMonth2'])); ?>) {
+            document.querySelector("form").submit();
+        }
+    });
+</script>
+
 
             <!-- Project Card Example -->
             <div class="card shadow mb-4">
@@ -620,7 +664,7 @@ require_once 'session_check.php';
                                                         break;
                                                 }
                                                 ?>
-                                                <div id="myProgress1" class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>" role="progressbar" aria-valuenow="<?php echo htmlspecialchars($led01); ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo htmlspecialchars($led01); ?>%">
+                                                <div id="myProgress1" class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>" role="progressbar" aria-valuenow="<?php echo htmlspecialchars($led01); ?>" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                                                     <?php echo htmlspecialchars($progressText); ?>
                                                 </div>
                                             </div>

@@ -11,9 +11,26 @@ date_default_timezone_set('Asia/Bangkok');
 // Get the username from the session
 $user_name = $_SESSION["User_Name"];
 
-// SQL query to retrieve data
-$sql = "SELECT * FROM MDC_Visitor WHERE User_name = ? ORDER BY id DESC";
+// ตรวจสอบว่ามีการส่งค่า filterMonth มาหรือไม่
+$filterYear = null;
+$filterMonth = null;
+if (isset($_GET['filterMonth']) && !empty($_GET['filterMonth'])) {
+    list($filterYear, $filterMonth) = explode('-', $_GET['filterMonth']);
+}
+
+// สร้าง SQL Query พร้อมเงื่อนไข
+$sql = "SELECT * FROM MDC_Visitor WHERE User_name = ?";
 $params = array($user_name);
+
+if ($filterYear && $filterMonth) {
+    $sql .= " AND YEAR(Posting_date) = ? AND MONTH(Posting_date) = ?";
+    $params[] = $filterYear;
+    $params[] = $filterMonth;
+}
+
+$sql .= " ORDER BY id DESC";
+
+// Prepare the SQL statement
 $stmt = sqlsrv_prepare($conn, $sql, $params);
 
 // Check if the query was successful
@@ -40,5 +57,6 @@ sqlsrv_free_stmt($stmt);
 // Return the results
 return $results;
 ?>
+
 
 
