@@ -518,7 +518,7 @@ require_once 'session_check.php';
                                                         break;
                                                 }
                                                 ?>
-                                                <div id="myProgress1" class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>" role="progressbar" aria-valuenow="<?php echo htmlspecialchars($led01); ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo htmlspecialchars($led01); ?>%">
+                                                <div id="myProgress1" class="progress-bar progress-bar-striped progress-bar-animated <?php echo htmlspecialchars($progressClass); ?>" role="progressbar" aria-valuenow="<?php echo htmlspecialchars($led01); ?>" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                                                     <?php echo htmlspecialchars($progressText); ?>
                                                 </div>
                                             </div>
